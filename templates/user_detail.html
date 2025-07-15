@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Detail</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>User Detail</h2>
+        <div class="user-detail">
+            <img src="{{ user.profile_pic }}" alt="Profile Picture" class="dropdown-profile-pic">
+            <p>Username: {{ user.username }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>Premium Status: {{ "Yes" if user.premium else "No" }}</p>
+
+            <form method="post">
+                {% if user.premium %}
+                    <input type="submit" name="remove_premium" value="Remove Premium Access">
+                {% else %}
+                    <input type="submit" name="give_premium" value="Grant Premium Access">
+                {% endif %}
+                <input type="submit" name="delete_user" value="Delete User">
+            </form>
+        </div>
+        <a href="{{ url_for('admin_dashboard') }}" class="back-link">Back to Dashboard</a>
+    </div>
+</body>
+</html>

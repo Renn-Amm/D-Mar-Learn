@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/allpage.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode10.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode10_resp.css') }}"/>
+    <script src="{{ url_for('static', filename='js/episode10.js') }}"></script>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Crown icon -->
+    <title>Episode Ten</title>
+</head>
+<body>
+    <div class="overlay"></div>
+    <!-- Navigation -->
+    <header>
+        <div class="container-navigation">
+            <div class="logo-container">
+                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                &#9776; 
+            </button>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    <li>
+                        <div class="user-info">
+                            {% if session.get('user') %}
+                                <span id="user-name">
+                                    {% if session['user']['userinfo']['premium'] %}
+                                        <i class="fas fa-crown" aria-hidden="true"></i> <!-- Font Awesome crown icon -->
+                                    {% endif %}
+                                    {{ session['user']['userinfo']['name'][:15] }}{% if session['user']['userinfo']['name']|length > 15 %}...{% endif %}
+                                </span>
+                                <img id="profile-pic" src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" />
+                                <div id="user-dropdown" class="dropdown">
+                                    <img src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" class="dropdown-profile-pic">
+                                    <p>{{ session['user']['userinfo']['name'] }}</p>
+                                    <p>{{ session['user']['userinfo']['email'] }}</p>
+                                    <p>Status: {% if session['user']['userinfo']['premium'] %}Premium user{% else %}Regular user{% endif %}</p>
+                                    <a href="{{ url_for('logout') }}" id="logout-btn" class="logout-link">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ url_for('googleLogin') }}" class="login-button" id="login-btn">Login with Google</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Popup Content -->
+            <section class="popup-content" id="loginPopup">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <p>This is a sample popup content</p>
+            </section>
+
+            <script>
+                // JavaScript for dropdown and popup functionality
+
+                // User dropdown logic
+                const userName = document.getElementById('user-name');
+                const profilePic = document.getElementById('profile-pic');
+                const userDropdown = document.getElementById('user-dropdown');
+                const overlay = document.getElementById('overlay');
+
+                const toggleDropdown = (event) => {
+                    event.stopPropagation();
+                    if (userDropdown.style.display === 'none' || userDropdown.style.display === '') {
+                        userDropdown.style.display = 'block';
+                    } else {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                const closeDropdown = () => {
+                    if (userDropdown.style.display === 'block') {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                userName?.addEventListener('click', toggleDropdown);
+                profilePic?.addEventListener('click', toggleDropdown);
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', closeDropdown);
+                userDropdown.addEventListener('click', (event) => event.stopPropagation());
+
+                // Popup logic
+                const openPopupButton = document.getElementById('login-btn');
+                const closePopupButton = document.getElementById('closePopup');
+                const loginPopup = document.getElementById('loginPopup');
+
+                const openPopup = (e) => {
+                    e.preventDefault();
+                    loginPopup.classList.add('active');
+                    overlay.style.display = 'block';
+                };
+
+                const closePopup = () => {
+                    loginPopup.classList.remove('active');
+                    overlay.style.display = 'none';
+                };
+
+                openPopupButton.addEventListener('click', openPopup);
+                closePopupButton.addEventListener('click', closePopup);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closePopup();
+                    }
+                });
+
+                // Close popup when clicking outside of it
+                overlay.addEventListener('click', closePopup);
+            </script>
+
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var navigation = document.querySelector('.navigation');
+    
+            menuToggle.addEventListener('click', function () {
+                navigation.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!------------------------------------------------------------------------------------------->
+
+    <!---------------------------------- Episode Banner Start -------------------------------------->
+      <section class="episodeone-banner">
+        <div class="episode-banner">
+             <img src="{{ url_for('static', filename='img/episodeten.png') }}" alt="episodeten">
+        </div>
+    </section>
+    <!------------------------------------- Episode Banner End ----------------------------------->
+
+    <section class="Episodetwo-Lessons">
+        <div class="dropdownone">
+            <div class="dropdown-header" onclick="toggleDropdown('dropdownContent1', 'icon1')">
+                <h1>01. Drag and Drop Activity</h1>
+                <span class="dropdown-icon" id="icon1">▼</span>
+            </div>
+            <div class="dropdownone-content" id="dropdownContent1">
+                <div class="dropdownone-container">
+                    <div class="wordbox">
+                        <h3>Solar House - Activity</h3>
+                        <h4>Complete the following sentences by selecting the appropriate coordinating
+                            conjunction from the box below. Some conjunctions may be used more than
+                            once.
+                            <br><br>Drag and drop the correct word into the blank
+                        </h4>
+                        <div class="draggable-container">
+                            <span class="draggable" draggable="true">nor</span>
+                            <span class="draggable" draggable="true">for</span>
+                            <span class="draggable" draggable="true">and</span>
+                            <span class="draggable" draggable="true">so</span>
+                            <span class="draggable" draggable="true">yet</span>
+                            <span class="draggable" draggable="true">or</span>
+                            <span class="draggable" draggable="true">but</span>
+                        </div>
+                    </div>
+                    <div class="dragbox">
+                        <div class="definitions">
+                            <div class="definition">
+                                <p>(1) The Chileans grew a lot of coffee beans 
+                                    <input type="text" class="dropzone" readonly disabled>. 
+                                    they did not export them.
+                                </p>
+                            </div>
+                            
+                            <div class="definition">
+                                <p>(2) The delegates arrived at the airport, 
+                                    <input type="text" class="dropzone" readonly disabled>. 
+                                    were greeted by the executive.
+                                </p>
+                            </div>
+                            
+                            <div class="definition">
+                                <p>(3) The herbal products cannot be sold in Europe 
+                                    <input type="text" class="dropzone" readonly disabled>. 
+                                    can they be advertised.
+                                </p>
+                            </div>
+                            
+                            <div class="definition">
+                                <p>(4) The gifts were delivered late afternoon, 
+                                    <input type="text" class="dropzone" readonly disabled>. 
+                                    the presentation could not be made.
+                                </p>
+                            </div>
+                            
+                            <div class="definition">
+                                <p>(5) The director requested the publisher deliver the books on time, 
+                                    <input type="text" class="dropzone" readonly disabled>. 
+                                    he would have to cancel the order.
+                                </p>
+                            </div>
+                            
+                            <div class="definition">
+                                <p>(6) The IELTS students achieved success, 
+                                    <input type="text" class="dropzone" readonly disabled>. 
+                                    they worked consistently hard and practised every day.
+                                </p>
+                            </div>
+                            
+                            <div class="definition">
+                                <p>(7) The weekend was clear, still and sunny, 
+                                    <input type="text" class="dropzone" readonly disabled>. 
+                                    it was cool.
+                                </p>
+                            </div>
+                            
+                            <div class="definition">
+                                <p>(8) The students were born in Vietnam, 
+                                    <input type="text" class="dropzone" readonly disabled>. 
+                                    they are fluent Vietnamese speakers.
+                                </p>
+                            </div>
+                            
+                            <div class="definition">
+                                <p>(9) James was good at accounting, 
+                                    <input type="text" class="dropzone" readonly disabled>. 
+                                    he disliked financial planning.
+                                </p>
+                            </div>
+                            
+                            <div class="definition">
+                                <p>(10) The players will be selected for the final match today, 
+                                    <input type="text" class="dropzone" readonly disabled>. 
+                                    they will need to start training immediately.
+                                </p>
+                            </div>                            
+                            
+                        </div>
+                        <button onclick="checkAnswers()">
+                            <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                        </button>
+                        <button onclick="resetActivity()">
+                            <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+                        </button>
+                        <button id="showAnswerButton" style="display: none;" onclick="showAnswers()">
+                            <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+                        </button>
+                        <button id="showFeedback" style="display: none;" onclick="showFeedback()">
+                            <img src="{{ url_for('static', filename='img/review.png') }}" alt="review" class="button-icon">Show Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="scoreModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Feedback!</h3>
+                    <p id="scoreText"></p>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+   <!-- --------------------------------------Dropdowntwo Start------------------------------------->
+        <div class="dropdowntwo">
+            <div class="dropdowntwo-header" onclick="toggleDropdown('dropdownContent2', 'icon2')">
+                <h2>02. Watch the video</h2>
+                <span class="dropdown-icon" id="icon2">▼</span>
+            </div>
+            <div class="dropdowntwo-content" id="dropdownContent2">
+                <div class="episodeone-video">
+                    <video width="900" height="400" controls>
+                        <source src="{{ url_for('static', filename='video/S1E10 - Solar House.mp4') }}" type="video/mp4">
+                    </video>
+                </div>
+                <div class="dropdowntwo-container">
+                    <h3>Transcript</h3>
+                    <h4>Episode 10: Solar House</h4>
+                    <p>Hello. I’m Margot Politis. Welcome to Study English, IELTS preparation. </p>
+                    <p>Today we’re going to look at ways of connecting ideas. There are many ways of
+                        doing this using ‘conjunctions’, words that join. </p>
+                    <p>First, let’s listen to Paul Gibson, an architect, while he takes us on a tour of his new,
+                        environmentally friendly solar house. </p>
+                    <p><em>Well we completed it about 2 years ago, and I guess one of the interesting things
+                        about it is that it’s a fibro house and most houses I guess these days are brick
+                        veneer, whereas this is fibro on the outside, timber on the outside, but there’s bricks
+                        on the inside. </em></p>
+                    <p><em>Well I guess the very high windows along the north
+                        side going down to the lower ceiling height on the
+                        south basically allows you to get a lot of sun in
+                        through these windows in winter, and the louvres,
+                        which go out, actually go to a point where the sun
+                        can be shaded completely in summer, but they can
+                        be opened to let the sun right back into the house
+                        though winter. </em></p>
+                    <p><em>This house actually has 2 north faces. There’s the
+                        north face of all the living rooms, 3 actually, and then the master bedroom has a
+                        north face and the other bedrooms also have a north face. So it’s trying to maximise
+                        what we call the aperture of the house, which is how much sun you actually get in
+                        winter</em></p>
+                    <p>OK, now we’ve listened to Paul, let’s look at the way he connected his ideas. 
+                    </p>
+                    <p>Good communication, especially in an academic setting, is all about expressing and
+                        connecting both simple and complex ideas. 
+                        </p>
+                    <p>There are many ways to do this. </p>
+                    <p>Simple sentences express a single, simple idea. </p>
+                    <p>The most simple sentence consists of just a
+                        ‘subject’ and a ‘verb’. </p>
+                    <p>‘The door opens.’<br>‘The woman enters.’ </p>
+                    <p>The easiest way of connecting ideas is using
+                        ‘coordination’. </p>
+                    <p>That’s taking 2 simple sentences, and linking them
+                        with a ‘conjunction’ or joining word. </p>
+                    <p>The most common conjunctions are ‘and’ and ‘but’. </p>
+                    <p>Other common ones are ‘yet’, ‘or’, ‘for’, and ‘so’. 
+                    </p>
+                    <p>We use the most simple conjunctions in place of a ‘full stop’. </p>
+                    <p>‘The door opens.’ ‘The woman enters.’ </p>
+                    <p>‘The door opens and the woman enters.’ </p>
+                    <p>‘The door opens.’ ‘The woman doesn’t enter.’ 
+                    </p>
+                    <p>‘The door opens but the woman doesn’t enter.’ </p>
+                    <p>Listen to an example here. </p>
+                    <p><em>Well we completed it about 2 years ago, and I guess one of the interesting things
+                        about it is that it’s a fibro house and most houses I guess these days are brick
+                        veneer. </em></p>
+                    <p>It’s a fibro house and most houses are brick veneer</p>
+                    <p>‘It is a fibro house.’</p>
+                    <p>‘Most houses are brick veneer.’ </p>
+                    <p>These are 2 simple sentences. </p>
+                    <p>They can be linked together to form a longer sentence called a ‘compound sentence’</p>
+                    <p>‘It is a fibro house and most houses are brick veneer.’ </p>
+                    <p>Compound sentences have 2 ‘independent clauses’, 2 clauses that can be separate
+                        sentences. </p>
+                    <p>Here’s another one. 
+                    </p>
+                    <p><em>The ceiling height on the south basically allows you to get a lot of sun in through
+                        these windows in winter, and the louvres, which go out, actually go to a point where
+                        the sun can be shaded completely in summer, but they can be opened to let the sun
+                        right back into the house though winter. </em></p>
+                    <p>He’s talking about the louvres. 
+                    </p>
+                    <p>He joins together two sentences. </p>
+                    <p>‘The louvres go to a point where the sun can be shaded completely in summer.’ </p>
+                    <p>‘They can be opened to let the sun back in through winter.’ </p>
+                    <p>He joins these sentences together using ‘but’. Notice we use a ‘comma’ as well</p>
+                    <p>‘The louvres go to a point where the sun can be
+                        shaded completely in summer, but they can be
+                        opened to let the sun back in through winter.’ </p>
+                    <p>The conjunctions ‘and’ and ‘but’ can also be used to
+                        join words and phrases in lists. 
+                        </p>
+                    <p>We separate words with ‘commas’, and then use a
+                        final ‘and’. </p>
+                    <p>‘The house is made of fibro.’ </p>
+                    <p>‘The house is made of fibro and timber.’ </p>
+                    <p>‘The house is made of fibro, timber and bricks.’ </p>
+                    <p>Listen to this example. </p>
+                    <p><em>Most houses I guess these days are brick veneer, whereas this is fibro on the
+                        outside, timber on the outside, but there’s bricks on the inside. </em></p>
+                    <p>He forms one compound sentence from simple sentences. 
+                    </p>
+                    <p>‘The house is fibro on the outside.’ ‘It is timber on the outside.’ ‘It is bricks on the
+                        inside.’ </p>
+                    <p>Notice that ‘and’ is used to list similar things, ‘but’ is used to contrast different items in
+                        a list. </p>
+                    <p>So we could also say: </p>
+                    <p>‘The house is fibro and timber on the outside, but bricks on the inside.’</p>
+                    <p>OK, so that’s an introduction to ‘coordination’, </p>
+                    <p>Remember ‘coordination’ is ‘linking independent clauses with conjunctions’. This
+                        forms ‘compound sentences’. </p>
+                    <p>Another way to join ideas is using ‘subordination’. </p>
+                    <p>‘Subordination’ is linking an independent clause with a dependent clause to make a
+                        complex sentence. </p>
+                    <p>‘Dependent clauses’ are clauses that cannot exist separately, in separate sentences.
+                        They need or depend on each other. </p>
+                    <p>We can form ‘complex sentences’ in two ways</p>
+                    <p>We can use ‘relative pronouns’: who, whose, which, where; </p>
+                    <p>or we can use ‘conjunctions’: because or whereas. </p>
+                    <p>When writing or speaking, it’s important for you to
+                        practise using a variety of sentences. You’ll need to
+                        use simple, compound and complex sentences. 
+                        </p>
+                    <p>Here’s another example. </p>
+                    <p><em>Trying to maximise what we call the aperture of the
+                        house, which is how much sun you actually get in
+                        winter. </em></p>
+                    <p>He uses an independent and a dependent clause here.</p>
+                    <p>Look at these 2 sentences. </p>
+                    <p>‘They are trying to maximise the aperture of the house.’ </p>
+                    <p>‘The aperture of the house is how much sun you get.’</p>
+                    <p>He joins these 2 sentences together with a relative pronoun. </p>
+                    <p>‘They are trying to maximise the aperture of the house, which is how much sun you
+                        get.’ </p>
+                    <p>Now let’s practice that. 
+                    </p>
+                    <p>Join these simple sentences to make compound sentences using ‘coordination’.
+                        Here, try to use ‘and’ and ‘but’. </p>
+                    <p>‘The master bedroom has a north face.’ ‘The other bedrooms have a north face.’ </p>
+                    <p>‘The master bedroom and the other bedrooms have a north face.’ </p>
+                    <p>And here’s another one. </p>
+                    <p>‘The house is warm in winter.’ ‘The house is cool in summer.’ </p>
+                    <p>‘The house is warm in winter, but it’s cool in summer.’ </p>
+                    <p>Now let’s practice ‘subordination’. That’s making 2 sentences into one complex
+                        sentence. </p>
+                    <p>Try using ‘whereas’. 
+                    </p>
+                    <p>‘The house is warm in winter.’ ‘Most houses are cold in winter.’ </p>
+                    <p>This can become:</p>
+                    <p>‘The house is warm in winter, whereas most houses are cold in winter.’ </p>
+                    <p>And here’s another one. Here, try to link the sentences using ‘which’. </p>
+                    <p>‘The house is made of fibro.’ ‘Fibro is a cheap, building material.’ </p>
+                    <p>‘The house is made of fibro, which is a cheap building material.’ </p>
+                    <p>You’ll need to practise forming simple, compound and complex sentences. There
+                        are many ways to do it, and many different ways of punctuating. This is very
+                        important for your written work. </p>
+                    <p>And that’s all for today. 
+                    </p>
+                    <p>I’ll see you next time on Study English. Bye bye.</p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdowntwo End --------------------------------------------->
+
+        <div class="dropdownthree">
+            <div class="dropdownthree-header" onclick="toggleDropdown('dropdownContent3', 'icon3')">
+                <h2>03. Study Notes</h2>
+                <span class="dropdown-icon" id="icon3">▼</span>
+            </div>
+            <div class="dropdownthree-content" id="dropdownContent3">
+                <h2>Episode 10: Solar House</h2>
+                <div class="dropdownthree-container">
+                    <div class="notes">
+                        <div class="modal-verbs">
+                            <h4>Connecting	Ideas</h4>
+                            <p style="line-height: 0.8cm;">An	important	aspect	of	formal	writing	is	the	
+                                appropriate	use	of	sentence	structures	to	
+                                convey	your	ideas	clearly	and	effectively.	It	is	
+                                necessary	to	have	a	variety	of	sentence	
+                                structures,	drawing	on	the	use	of	coordinate	
+                                and	subordinate	conjunctions	to	form	both	
+                                compound	and	complex	sentences.</p>
+                            <p style="line-height: 0.8cm;">Sentences can	express	both	simple	and	
+                                complex ideas.	Connecting	ideas	in	sentences	
+                                correctly	is	important	because	this	makes	the	
+                                relationship	between	ideas	clear	and	
+                                meaningful.	A	sentence must	have	a	subject	
+                                and	a	verb,	and	is	also	referred	to	as	an	independent	clause.	A	dependent	clause
+                                also	contains	a	subject	and	verb,	but	is	not	regarded	as	a	sentence	because	its	
+                                meaning is	incomplete.		
+                                </p>
+                        </div>
+                        <div class="study-tips">
+                            <h3>Study Tips</h3>
+                            <p style="line-height: normal;">In both IELTS writing tasks,
+                                it is important to use a
+                                variety of sentence types,
+                                including simple, compound
+                                and complex. </p>
+                            <p style="line-height: 0.8cm;">This makes your writing
+                                formal, more mature and
+                                interesting.</p>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <h2>Coordination and Subordination</h2>
+                        <p>Ideas	can	be	connected	in	a	number	of	different	ways.</p>
+                        <p>Coordination is	used	to	connect	ideas	that	are	of	equal	importance,	joining	
+                            independent	clauses,	which	express	ideas	of	equal	content.	An	independent	clause	
+                            is,	in	fact,	a	simple	sentence.</p>
+                        <p>Subordination is	used	to	connect	main	ideas	with	supporting	ones.	Sentences	of	this	
+                            type	join	independent	clauses	with	dependent	clauses	or	phrases.</p>
+                        <p>Conjunctions are	used	to	join	ideas	together.		There	are	two	types of	conjunctions	–
+                            coordinating and	subordinating.</p>
+                        <p>Coordinating	conjunctions join	independent	clauses	(simple	sentences)	to	form	
+                            compound	sentences.</p>
+                        <p>There	are	seven coordinating	conjunctions:	and,	but,	or,	so,	for,	yet,	nor.	Each	
+                            expresses	a	different	relationship	between	the	clauses.</p>
+                    </div>
+
+                    <div class="box">
+                        <table>
+                            <tr>
+                                <th>COORDINATING	
+                                    <br>CONJUNCTION</th>
+                                <th>RELATIONSHIP</th>
+                                <th>EXAMPLE</th>
+                            </tr>
+                            <tr>
+                                <td>and</td>
+                                <td>used	to	add	another	or	
+                                    similar	idea</td>
+                                <td>Ginger	is	a	popular	ingredient	in	Asian	
+                                    cuisine,	<b>and</b>	it	is	used	in	medicinal	
+                                    preparations.</td>
+                            </tr>
+                            <tr>
+                                <td>but</td>
+                                <td>used	to	add	an	opposite	idea	
+                                    or	show contrast</td>
+                                <td>Ginger	is	widely	used	in	Asian	cuisine,	
+                                    <b>but</b>	it	is	becoming	more	popular	in	
+                                    continental	cuisine.</td>
+                            </tr>
+                            <tr>
+                                <td>or</td>
+                                <td>used	to	express	a	choice	or	
+                                    an	alternative</td>
+                                <td>Ginger	can	be	used	for	treating	a	cold,	
+                                    <b>or</b>	it	can	aid	in	the digestive	process.</td>
+                            </tr>
+                            <tr>
+                                <td>so</td>
+                                <td>used	to	give	an	effect	or	a	
+                                    result</td>
+                                <td>The	herbalist	was	successful	in	
+                                    treating	his	patient	with	ginger,	<b>so</b> he	
+                                    decided	to	try	this	remedy	out	with	
+                                    other	patients.</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Note:	A	comma	is	inserted	before	these	four	conjunctions.	In	short	clauses	the	comma	
+                                    can	be	omitted.</td>
+                            </tr>
+                            <tr>
+                                <td>for</td>
+                                <td>used	to	introduce	a	reason	or	
+                                    a	cause</td>
+                                <td>Ginger	is	healthy,	<b>for</b> it	carries	
+                                    medicinal	properties.</td>
+                            </tr>
+                            <tr>
+                                <td>yet</td>
+                                <td>used	to	express	surprise	or	
+                                    something	unexpected	</td>
+                                <td>Ginger	is	an	imported	product,	<b>yet</b>	it	
+                                    is	easy	to	grow	in	subtropical	regions</td>
+                            </tr>
+                            <tr>
+                                <td>nor</td>
+                                <td>used	to	join	two	negative	
+                                    sentences;</td>
+                                <td>Ginger	cannot	cure	a	cold,	<b>nor</b> can	it	
+                                    remedy	the	flu.</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="box">
+                        <p>Subordinating	conjunctions connect	a	dependent	clause	to	an	independent	clause	to	form	a	
+                            complete	sentence,	which	is	called	a	complex	sentence.	</p>
+                        <p>There	are	a	number	of	different	dependent	clauses,	for	example	dependent	adjective	clauses	
+                            and	dependent	adverb	clauses.	The	subordinating	conjunctions	used	in	the	various	clauses	
+                            express	a	variety	of	different	relationships	with	the	dependent	clauses.</p>
+                    </div>
+
+                    <div class="box">
+                        <h2>Complex	sentences	with	dependent	adjective	clauses</h2>
+                        <p>Adjective	clauses	provide	information	about	a	noun	or	pronoun.	They	are	sometimes	referred	to	
+                            as	relative	clauses	because	they	begin	with	a	relative	pronoun,	such	as	who,	whom,	which,	that or	
+                            a	relative	adverb,	such	as	when,	where.</p>
+                        <table>
+                            <tr>
+                                <td colspan="2"><b>Relative	pronouns</b></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">used	with	humans</td>
+                            </tr>
+                            <tr>
+                                <td>who<br><br><br>whom<br></td>
+                                <td>Students	<b>who</b> complete	the	three-year	program	successfully	will	
+                                    <br>be	accepted	onto	the	course.<br><br>
+                                    The	student	<b>whom</b>	the	counsellor	advised	was	offered	a	place	on	
+                                    <br>the	Diploma	program.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">used	with	nonhumans	and	things</td>
+                            </tr>
+                            <tr>
+                                <td>which</td>
+                                <td>First-year	university	students	enjoyed	the	classes,	<b>which</b> were	
+                                    quite	challenging.</td>
+                            </tr>
+                            <tr>
+                                <td>that</td>
+                                <td>The	course	material	<b>that</b> the	student	received	was	helpful.</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><b>Relative	adverbs</b></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">used	to	refer	to	a	place	or	time</td>
+                            </tr>
+                            <tr>
+                                <td>where</td>
+                                <td>It	was	the	place	<b>where</b> the	classes	were	held</td>
+                            </tr>
+                            <tr>
+                                <td>when</td>
+                                <td>February	is	the	month	<b>when</b> the	academic	year	begins.</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="box">
+                        <h2>Complex	sentences	with	dependent	adverb	clauses</h2>
+                        <p>Adverb	clauses	provide	the	following	kind	of	information:	when,	where,	why,	for	what	purpose,	
+                            and	so	on.</p>
+                        <table>
+                            <tr>
+                                <th>SUBORDINATING	
+                                    CONJUNCTION</th>
+                                <th>RELATIONSHIP </th>
+                                <th>EXAMPLE</th>
+                            </tr>
+                            <tr>
+                                <td>when,	whenever</td>
+                                <td>used	to	express	
+                                    time	(when?)</td>
+                                <td><b>When	students	complete	the	two	
+                                    prerequisites,</b>	they	will	be	eligible	for	the	
+                                    business	course.</td>
+                            </tr>
+                            <tr>
+                                <td>where,	wherever</td>
+                                <td>used	to	express	
+                                    place	(where?)</td>
+                                <td>The	students	need	to	go	<b>where	the	training	
+                                    sessions	will	be	held.</b></td>
+                            </tr>
+                            <tr>
+                                <td>because, since,	
+                                    as</td>
+                                <td>used	to	express	
+                                    reason	(why?)</td>
+                                <td>The	student	deferred	her	studies	<b>because	
+                                    she	arrived	after	the	semester	began.</b></td>
+                            </tr>
+                            <tr>
+                                <td>although,	
+                                    though,	even	
+                                    though</td>
+                                <td>used	to	express	
+                                    contrast
+                                    </td>
+                                <td><b>Although	the	semester	already	commenced,</b>	
+                                    the	university	was	accepting	late	
+                                    enrolments.</td>
+                            </tr>
+                            <tr>
+                                <td>while,	whereas</td>
+                                <td>used	to	express	
+                                    opposition</td>
+                                <td>Second	year	diploma	students	focus	on	
+                                    marketing	and	accounting,	<b>while	first	year	
+                                    study	business.</b></td>
+                            </tr>
+                            <tr>
+                                <td>so	that,	in	order	
+                                    that</td>
+                                <td>used	to	express	
+                                    purpose	(for	what	
+                                    purpose?)</td>
+                                <td>The	parents	requested	student	visas	<b>so	that	
+                                    their	children	could	pursue	studies	in	
+                                    Australia.</b></td>
+                            </tr>
+                        </table>
+                        <p>The	<b>punctuation</b>	of	a	complex	sentence	with	a	dependent	adverb	clause	is	contingent	on	the	
+                            order	of	the	clause	in	the	sentence.	A	comma	separates	the	clauses	only	when	the	dependent	
+                            clause	comes	first.</p>
+                    </div>
+
+                </div>    
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdownthree End --------------------------------------------->
+
+        <div class="dropdownfour">
+            <div class="dropdownfour-header" onclick="toggleDropdown('dropdownContent4', 'icon4')">
+                <h2>04. Activity Sheet</h2>
+                <span class="dropdown-icon" id="icon4">▼</span>
+            </div>
+            <div class="dropdownfour-content" id="dropdownContent4">
+                <div class="dropdownfour-container">
+                    <h3>Solar House - Activity</h3>
+                    <h4>Match with the words with the definitions.</h4>
+                    <p>Complete the following sentences by choosing the correct coordinating conjunction
+                        from the choices provided.</p>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(1) My house does not have a separate dining room 
+                            <input type="text" id="answer1" class="answer-input" readonly disabled> 
+                            does it have a spare bedroom. However, while I am a student it suits me.
+                        </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(1, 'and')">a. and</button>
+                            <button onclick="selectAnswer(1, 'but')">b. but</button>
+                            <button onclick="selectAnswer(1, 'nor')">c. nor</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(2) Insearch graduates mostly continue their studies at the University of Technology,
+                            Sydney <input type="text" id="answer2" class="answer-input" readonly disabled> some pursue other study options.
+                        </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(2, 'so')">a. so</button>
+                            <button onclick="selectAnswer(2, 'but')">b. but</button>
+                            <button onclick="selectAnswer(2, 'or')">c. or</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(3) His teacher told him he had to come to class 
+                            <input type="text" id="answer3" class="answer-input" readonly disabled> he would fail the course.
+                        </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(3, 'and')">a. and</button>
+                            <button onclick="selectAnswer(3, 'but')">b. but</button>
+                            <button onclick="selectAnswer(3, 'or')">c. or</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(4) She met her first boyfriend at True Love Disco 
+                            <input type="text" id="answer4" class="answer-input" readonly disabled> she met her second boyfriend at
+                            Rojam.
+                        </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(4, 'and')">a. and</button>
+                            <button onclick="selectAnswer(4, 'so')">b. so</button>
+                            <button onclick="selectAnswer(4, 'or')">c. or</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(5) John hadn't studied for his test 
+                            <input type="text" id="answer5" class="answer-input" readonly disabled> of course he didn't do well in the subject and
+                            barely passed.
+                        </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(5, 'yet')">a. yet</button>
+                            <button onclick="selectAnswer(5, 'but')">b. but</button>
+                            <button onclick="selectAnswer(5, 'so')">c. so</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(6) When I left home I didn’t have much money 
+                            <input type="text" id="answer6" class="answer-input" readonly disabled> I managed to travel around Europe
+                            for three months before I had to find a job and make some money.
+                        </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(6, 'yet')">a. yet</button>
+                            <button onclick="selectAnswer(6, 'and')">b. and</button>
+                            <button onclick="selectAnswer(6, 'so')">c. so</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(7) Neither Medicine 
+                            <input type="text" id="answer7" class="answer-input" readonly disabled> Law are easy faculties to enter – they both require an incredibly
+                            high mark on the university entrance examination.
+                        </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(7, 'or')">a. or</button>
+                            <button onclick="selectAnswer(7, 'nor')">b. nor</button>
+                            <button onclick="selectAnswer(7, 'and')">c. and</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(8) Either you will have to study harder 
+                            <input type="text" id="answer8" class="answer-input" readonly disabled> stop working part-time if you want to pass
+                            first year.
+                        </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(8, 'or')">a. or</button>
+                            <button onclick="selectAnswer(8, 'but')">b. but</button>
+                            <button onclick="selectAnswer(8, 'yet')">c. yet</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(9) The student searched on the internet for days 
+                            <input type="text" id="answer9" class="answer-input" readonly disabled> he wanted to make sure he had all
+                            the information on university options in England.
+                        </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(9, 'for')">a. for</button>
+                            <button onclick="selectAnswer(9, 'so')">b. so</button>
+                            <button onclick="selectAnswer(9, 'but')">c. but</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(10) An MBA from a good university in America is a good qualification to have, 
+                            <input type="text" id="answer10" class="answer-input" readonly disabled> you
+                            have to pay for it. Education in the States is extremely expensive.
+                        </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(10, 'and')">a. and</button>
+                            <button onclick="selectAnswer(10, 'yet')">b. yet</button>
+                            <button onclick="selectAnswer(10, 'but')">c. but</button>
+                        </div>
+                    </div>                      
+                    
+                    <div class="buttons">
+                        <button id="finishButton2" onclick="checkAnswers2()">
+                            <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                        </button>
+                        <button onclick="resetActivity2()">
+                            <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+                        </button>
+                        <button id="showAnswerButton2" style="display: none;" onclick="showAnswers2()">
+                            <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+                        </button>
+                        <button id="showFeedbackButton2" style="display: none;" onclick="showFeedback2()">
+                            <img src="{{ url_for('static', filename='img/review.png') }}" alt="review" class="button-icon">Show Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="scoreModal2" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal2()">&times;</span>
+                    <h3>Feedback!</h3>
+                    <p id="scoreText2"></p>
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdownfour End --------------------------------------------->
+        
+</section>
+
+
+    <div class="nextepisode">
+        <a href="{{ url_for('courses') }}#target-section2"><button>Next Episode</button></a>
+    </div>
+
+ <!----Footer -------------------------------------------------------------> 
+
+ <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column1">
+            <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="logo">
+        </div>
+        <div class="footer-column2">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="footer-column3">
+            <p>d.mar.learn.net@gmail.com</p>
+            <p>09 941487000</p>
+            <div class="contact-box">
+                <a href="https://www.facebook.com/dmarlearn/" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/facebook_2.png') }}" alt="Facebook Color" class="social-icon-color">
+                </a>
+                <a href="https://www.t.me/dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/telegram.png') }}" alt="Telegram" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/telegram_2.png') }}" alt="Telegram Color" class="social-icon-color">
+                </a>
+                <a href="https://www.tiktok.com/@dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/tiktok.png') }}" alt="TikTok" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/tiktok_2.png') }}" alt="TikTok Color" class="social-icon-color">
+                </a>
+                <a href="https://www.youtube.com/@DMarLearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/you tube.png') }}" alt="YouTube" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/you tube_2.png') }}" alt="YouTube Color" class="social-icon-color">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright 2024</p>
+    </div>
+</footer>
+
+<!--------------------------------------------------------------------------------------------------------------->
+    
+</body>
+</html>

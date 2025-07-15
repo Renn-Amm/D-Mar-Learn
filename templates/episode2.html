@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/allpage.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode2.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode2_resp.css') }}"/>
+    <script src="{{ url_for('static', filename='js/episode2.js') }}"></script>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Crown icon -->
+    <title>Episode Two</title>
+</head>
+<body>
+    <div class="overlay"></div>
+    <!-- Navigation -->
+    <header>
+        <div class="container-navigation">
+            <div class="logo-container">
+                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                &#9776; 
+            </button>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    <li>
+                        <div class="user-info">
+                            {% if session.get('user') %}
+                                <span id="user-name">
+                                    {% if session['user']['userinfo']['premium'] %}
+                                        <i class="fas fa-crown" aria-hidden="true"></i> <!-- Font Awesome crown icon -->
+                                    {% endif %}
+                                    {{ session['user']['userinfo']['name'][:15] }}{% if session['user']['userinfo']['name']|length > 15 %}...{% endif %}
+                                </span>
+                                <img id="profile-pic" src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" />
+                                <div id="user-dropdown" class="dropdown">
+                                    <img src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" class="dropdown-profile-pic">
+                                    <p>{{ session['user']['userinfo']['name'] }}</p>
+                                    <p>{{ session['user']['userinfo']['email'] }}</p>
+                                    <p>Status: {% if session['user']['userinfo']['premium'] %}Premium user{% else %}Regular user{% endif %}</p>
+                                    <a href="{{ url_for('logout') }}" id="logout-btn" class="logout-link">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ url_for('googleLogin') }}" class="login-button" id="login-btn">Login with Google</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Popup Content -->
+            <section class="popup-content" id="loginPopup">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <p>This is a sample popup content</p>
+            </section>
+
+            <script>
+                // JavaScript for dropdown and popup functionality
+
+                // User dropdown logic
+                const userName = document.getElementById('user-name');
+                const profilePic = document.getElementById('profile-pic');
+                const userDropdown = document.getElementById('user-dropdown');
+                const overlay = document.getElementById('overlay');
+
+                const toggleDropdown = (event) => {
+                    event.stopPropagation();
+                    if (userDropdown.style.display === 'none' || userDropdown.style.display === '') {
+                        userDropdown.style.display = 'block';
+                    } else {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                const closeDropdown = () => {
+                    if (userDropdown.style.display === 'block') {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                userName?.addEventListener('click', toggleDropdown);
+                profilePic?.addEventListener('click', toggleDropdown);
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', closeDropdown);
+                userDropdown.addEventListener('click', (event) => event.stopPropagation());
+
+                // Popup logic
+                const openPopupButton = document.getElementById('login-btn');
+                const closePopupButton = document.getElementById('closePopup');
+                const loginPopup = document.getElementById('loginPopup');
+
+                const openPopup = (e) => {
+                    e.preventDefault();
+                    loginPopup.classList.add('active');
+                    overlay.style.display = 'block';
+                };
+
+                const closePopup = () => {
+                    loginPopup.classList.remove('active');
+                    overlay.style.display = 'none';
+                };
+
+                openPopupButton.addEventListener('click', openPopup);
+                closePopupButton.addEventListener('click', closePopup);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closePopup();
+                    }
+                });
+
+                // Close popup when clicking outside of it
+                overlay.addEventListener('click', closePopup);
+            </script>
+
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var navigation = document.querySelector('.navigation');
+    
+            menuToggle.addEventListener('click', function () {
+                navigation.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!------------------------------------------------------------------------------------------->
+
+
+    <!---------------------------------- Episode Banner Start -------------------------------------->
+      <section class="episodeone-banner">
+        <div class="episode-banner">
+             <img src="{{ url_for('static', filename='img/episodetwo.png') }}" alt="episodetwo">
+        </div>
+    </section>
+    <!------------------------------------- Episode Banner End ----------------------------------->
+
+    <section class="Episodetwo-Lessons">
+        <div class="dropdownone">
+            <div class="dropdown-header" onclick="toggleDropdown('dropdownContent1', 'icon1')">
+                <h1>01. Drag and Drop Activity</h1>
+                <span class="dropdown-icon" id="icon1">▼</span>
+            </div>
+            <div class="dropdownone-content" id="dropdownContent1">
+                <div class="dropdownone-container">
+                    <div class="wordbox">
+                        <h3>Vitamin D - Activity</h3>
+                        <h4>Match with the words with the definitions.</h4>
+                        <div class="draggable-container">
+                            <span class="draggable" draggable="true">Risk</span>
+                            <span class="draggable" draggable="true">Avert</span>
+                            <span class="draggable" draggable="true">Deficiency</span>
+                            <span class="draggable" draggable="true">Tremendous</span>
+                            <span class="draggable" draggable="true">Exposure</span>
+                        </div>
+                    </div>
+                    <div class="dragbox">
+                        <div class="definitions">
+                            <div class="definition">
+                                <p>The posibility of something harmful happening</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>Contact or experience with something</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>A condition where the body does not have <br>enough of a certain nutrient</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>To Prevent something undesirable from happening</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>Extremely large or significant</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                        </div>
+                        <button onclick="checkAnswers()">
+                            <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                        </button>
+                        <button onclick="resetActivity()">
+                            <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+                        </button>
+                        <button id="showAnswerButton" style="display: none;" onclick="showAnswers()">
+                            <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+                        </button>
+                        <button id="showFeedback" style="display: none;" onclick="showFeedback()">
+                            <img src="{{ url_for('static', filename='img/review.png') }}" alt="review" class="button-icon">Show Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="scoreModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Feedback!</h3>
+                    <p id="scoreText"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <!-- --------------------------------------Dropdowntwo Start------------------------------------->
+        <div class="dropdowntwo">
+            <div class="dropdowntwo-header" onclick="toggleDropdown('dropdownContent2', 'icon2')">
+                <h2>02. Watch the video</h2>
+                <span class="dropdown-icon" id="icon2">▼</span>
+            </div>
+            <div class="dropdowntwo-content" id="dropdownContent2">
+                <div class="episodeone-video">
+                    <video width="900" height="400" controls>
+                        <source src="{{ url_for('static', filename='video/S1E02 - Vitamin D.mp4') }}" type="video/mp4">
+                    </video>
+                </div>
+                <div class="dropdowntwo-container">
+                    <h3>Transcript</h3>
+                    <h4>Episode 2: Vitamin D</h4>
+                    <p>Hello. I'm Margot Politis. Welcome to Study English, IELTS preparation.</p>
+                    <p style="line-height: 0.8cm">Today, we're going to look at ways of discussing a topic. When you're writing or speaking, you can present facts, or you can use your opinion - but how can you tell the difference? Today we'll find out.</p>
+                    <p>We're going to listen to a scientist talking about Vitamin D and cancer.</p>
+                    <p>In the clip, see if you can hear both facts and opinions being used.</p>
+                    <p style="line-height: 0.8cm;"><em>I believe that the public health problem for vitamin D deficiency is quite significant. I would estimate minimum 25% of adults in the United States, Europe and probably even in Australia are vitamin D deficient.</em></p>
+                    <p style="line-height: 0.8cm;"><em>I mean if you think about it, over 250,000 women in the United States will develop breast cancer this year. Something like 50,000 will die. If 25% of those breast cancers could have been averted, prevented in some way, just by exposure to sunlight, would have been really tremendous. auditing NETWOR a little</em></p>
+                    <p>So he was talking about the links between vitamin D and cancer.</p>
+                    <p style="line-height: 0.8cm;">Many Australians these days are avoiding the sun, because they know it can cause skin cancer. But by avoiding the sun, they're missing out on vitamin D - the vitamin that you get from sunshine, and this is leading to other health problem.</p>
+                    <p>When you're reading, writing or listening to an argument like this, it's important to be able to tell the difference between statements of fact, and statements of opinion.</p>
+                    <p>But how can you tell the difference?</p>
+                    <p>Well, there are a number of ways you can express your opinion.</p>
+                    <p style="line-height: 0.8cm;">Today we're going to look at two of these: using phrases that express an opinion; and using modal verbs.</p>
+                    <p>First, let's look at some phrases.</p>
+                    <p style="line-height: 0.8cm;">The key words to listen for when you're trying to decide whether someone is talking about facts or opinions are words like believe, think, argue, feel, opinion, or view.
+                    <p>These vary from formal to informal.</p>
+                    <p>If I was talking with my friends I might say "I think" or "I believe".</p>
+                    <p>If I was in a class or tutorial, I might say "In my opinion", or "in my view".</p>
+                    <p style="line-height: 0.8cm;">But if I was writing an essay, or giving a very formal talk, I'd probably choose "it is believed", or "it is thought".</p>
+                    <p style="line-height: 0.8cm;">In formal writing, many people think you should avoid using the word 'I', even if you are giving an opinion.</p>
+                    <p>Here's the clip again. Listen for some of those phrases.</p>
+                    <p><em>I believe that the public health problem for vitamin D deficiency is quite significant.</em></p>
+                    <p style="line-height: 0.8cm;"><em>I mean if you think about it, over 250,000 women in the United States will develop breast cancer this year. </em></p>
+                    <p>Another way we can express opinions is by using modal verbs.</p>
+                    <p style="line-height: 0.8cm;">Model verbs express opinions and attitudes. They make statements less certain or less definite.</p>
+                    <p>They can also be used for recommending and advising.</p>
+                    <p style="line-height: 0.8cm;">Here are the modal verbs used for opinions: <br>would <br>should <br>could <br>might</p>             
+                    <p>These words signal that the speaker is giving an opinion.</p>
+                    <p>Look at these examples. Can you tell which ones are facts, and which ones are opinions?</p>
+                    <p style="line-height: 0.8cm;">Fifty thousand will die. <br> Fifty thousand might die. </p>
+                    <p>The second statement  might it is an opinion.</p>
+                    <p>Here's another one...</p>
+                    <p><em>I do not think small amounts of sunlight increase the risk of cancer.</em></p>
+                    <p><em>Small amounts of sunlight do not increase the risk of cancer.</em></p>
+                    <p>In the first statement, you can see 'I do not think ...'. This is an opinion.</p>
+                    <p>Now look at these 2 sentences:</p>
+                    <p style="line-height: 0.8cm;">'I believe that vitamin D deficiency might become common among adults'. <br> 'Vitamin D deficiency will affect 25% of adults'.</p>
+                    <p>The first is an opinion - 'I believe', 'might become'.</p>
+                    <p>The second is a fact - 'will affect' 25% of adults.</p>
+                    <p>Now let's watch the clip again - listen for the phrases and modal verbs of opinions.</p>
+                    <p style="line-height: 0.8cm;"><em>I believe that the public health problem for vitamin D deficiency is quite significant. I would estimate minimum 25% of adults in the United States, Europe and probably even in Australia are vitamin D deficient.</em></p>
+                    <p style="line-height: 0.8cm;"><em>I mean if you think about it, over 250,000 women in the United States will develop breast cancer this year.
+                     Something like 50,000 will die. If 25% of those breast cancers could have been averted, prevented in some way, just by having a little exposure to sunlight, would have been really tremendous.
+                    </em></p>
+                    <p  style="line-height: 0.8cm;">OK, so you can see that Professor Holick is expressing an opinion, using a combination of phrases and modal verbs.</p>
+                    <p>But now we're going to look at some pronunciation tips.</p>
+                    <p style="line-height: 0.8cm;">When you're learning English, there are 3 very important parts of pronunciation. 
+                     <br>They are: word stress, sentence rhythm and intonation.</p>
+                    <p  style="line-height: 0.8cm;">Today we're going to look at the first 2 - how you can practice word sentence rhythm together, to improve your spoken English.</p>
+                    <p>Listen to this sentence closely for word and sentence stress...</p>
+                    <p style="line-height: 0.8cm;"><em>I don't think we should blame moderate, intelligent exposure to sunlight throughout our lives as the culprit for markedly increasing our r risk of developing skin cancer.</em></p>
+                    <p  style="line-height: 0.8cm;">Notice that the speaker uses many words with more than one syllable. That is common in formal academic language.</p>
+                    <p>But when you come across longer words, you have to learn which syllable to stress.</p>
+                    <p>For example we say:intelligent , increasing and markedly</p>
+                    <p>Notice that when you stress one syllable, the vowels in other syllalbes are shortened.</p>
+                    <p  style="line-height: 0.8cm;">Sometimes these short syllables become a schwa - an 'uh' sound - or an 'i'. They're short, relaxed sounds.</p>
+                    <p>Listen to: 'moderate', 'intelligent', 'exposure', 'culprit', 'markedly', 'developing', 'cancer'.</p> 
+                    <p>This shortening of syllables preserves the overall sentence rhythm. Listen to the clip again...</p> 
+                    <p style="line-height: 0.8cm;"><em>I don't think we should blame moderate, intelligent exposure to sunlight throughout our lives as the culprit for markedly increasing our risk of developing skin cancer.</em></p> 
+                    <p style="line-height: 0.8cm;">So when you're learning to speak English, you need to learn the pronunication of individual words. 
+                       But you also need to practice sentence rhythm - putting the words together into sentences. 
+                       This is much easier when you get used to shortening the non-stressed vowels.</p>  
+                    <p>OK. Listen again to the clip, and then we'll practice some more...</p>   
+                    <p style="line-height: 0.8cm;"><em>I mean if you think about it, over 250,000 women in the United States will develop breast cancer this year. Something like 50,0000 will die. </em></p>  
+                    <p style="line-height: 0.8cm;"><em>If 25% of those breast cancers could have been averted, prevented in some way, just by having a little exposure to sunlight, would have been really tremendous.</em></p>  
+                    <p>OK, now you can try it. Listen to this sentence:</p>  
+                    <p>It would have been tremendous to have averted or prevented significant vitamin D deficiency.</p>  
+                    <p style="line-height: 0.8cm;">Let's look at each of those words - we'll highlight which syllable is stressed. See if you can work out how to pronounce each word.</p>  
+                    <p style="line-height: 0.8cm;">tremendous <br> averted <br> prevented <br>   significant <br> australia <br> vitamin <br> deficiency</p> 
+                    <p>Now let's see what happens when we put these words back into a sentence.</p> 
+                    <p>It would have been tremendous averted or prevented significant vitamin D deficiency</p> 
+                    <p>Making your spoken English sound natural takes a lot of practice.</p>
+                    <p style="line-height: 0.8cm;">Don't forget to listen closely to vowel sounds and sentence stress, and remember to practice reading and
+                       and writing in English every day.</p>
+                    <p>And that's all from me today.</p>
+                    <p>I'll see you next time on Study English. Bye.</p>
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdowntwo End --------------------------------------------->
+
+        <div class="dropdownthree">
+            <div class="dropdownthree-header" onclick="toggleDropdown('dropdownContent3', 'icon3')">
+                <h2>03. Study Notes</h2>
+                <span class="dropdown-icon" id="icon3">▼</span>
+            </div>
+            <div class="dropdownthree-content" id="dropdownContent3">
+                <h2>Episode 2: Vitamin D</h2>
+                <div class="dropdownthree-container">
+                    <div class="notes">
+                        <div class="modal-verbs">
+                            <h4>Modal Verbs</h4>
+                            <p style="line-height: 0.8cm;">When expressing politeness, opinions, making recommendations and suggestions, or simply giving advice, Modal Verbs are very useful. In fact, Modal Verbs are essential in formal situations.</p>
+                            <p style="line-height: 0.8cm;">The following group of verbs are called Modal Verbs – can/could, may/might, shall/should, will/would.</p>
+                            <p style="line-height: 0.8cm;">Modal Verbs can be part of a Verb Group and express particular meanings, such as ability, possibility, permission, advice, recommendations, necessity, obligation. Will/shall and would/should are also used to form future tenses.</p>
+                        </div>
+                        <div class="study-tips">
+                            <h3>Study Tips</h3>
+                            <p style="line-height: normal;">Modal Verbs are very useful in texts requiring opinions such as IELTS Writing Task 2, and the Speaking test.</p>
+                                <p style="line-height: 0.8cm;">When making <strong>suggestions</strong>, and <strong>giving advice</strong> use <strong>should</strong>.</p>
+                                <p style="line-height: 0.8cm;">When describing future <strong>possibility</strong> and <strong>probability</strong>, use <strong>may</strong> or <strong>might</strong>.</p>
+                                <p style="line-height: 0.8cm;">When giving <strong>opinions</strong>, use <strong>Modal Verbs</strong>.</p>
+                        
+                            <p style="line-height: 0.8cm;" >Remember too, that Modality is a register of politeness.</p>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <p><strong>Modal Verbs</strong> are followed by the <strong>infinitive</strong> form of the main verb:</p>
+                        <p><span>Eg. I would like a weekly bus ticket please. You should have a rest – you have been studying all weekend. May I borrow two books at a time from the library? You must be home and in bed by midnight. At the end of the semester I will return to my country.</span></p>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="2">Model verb</th>
+                                <th rowspan="2">Meaning</th>
+                                <th rowspan="2">Example</th>
+                            </tr>
+                            <tr>
+                                <td>Present</td>
+                                <td>Past</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>can</td>
+                                <td>could</td>
+                                <td>ability, possibility</td>
+                                <td style="line-height: 0.8cm;">Of course I can swim! I'm an Australian! Yes, I can come tonight. <br>I have nothing else to do. I could do that when I was young.</td>
+                            </tr>
+                            <tr>
+                                <td>may</td>
+                                <td></td>
+                                <td>permission</td>
+                                <td style="line-height: 0.8cm;">May I start now? Yes, you may. (I permit you.) May I come in? <br>Yes, you may. (I give you permission)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="2">Model verb</th>
+                                <th rowspan="2">Meaning</th>
+                                <th rowspan="2">Example</th>
+                            </tr>
+                            <tr>
+                                <td>Present</td>
+                                <td>Past</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>may</td>
+                                <td>might</td>
+                                <td>possibility</td>
+                                <td style="line-height: 0.8cm;">I may go to the concert tonight.I am not sure. <br> I might go to the concert tonight. I am really not sure.</td>
+                            </tr>
+                            <tr>
+                                <td>should</td>
+                                <td></td>
+                                <td>advice, <br> recommendation, <br> suggestion</td>
+                                <td style="line-height: 0.8cm;">You look unwell. You should see a doctor. <br> You look tired. You ought to go to bed.</td>
+                            </tr>
+                            <tr>
+                                <td>must</td>
+                                <td></td>
+                                <td>necessity <br> obligation</td>
+                                <td style="line-height: 0.8cm;">Drivers must obey the road rules. <br> I must go now. I am late for the meeting.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="box">
+                        <p>Future Tenses</p>
+                        <p><strong>Will / shall</strong> and <strong>would / should </strong> are also used to form future tenses.</p>
+                    </div>
+
+                    <table>
+                        <tr>
+                            <td>will<br>shall</td>
+                            <td>would <br> should </td>
+                            <td>future</td>
+                            <td style="line-height: 0.8cm;">I promise. I will return the book when I get to the library. <br> He told me he would not go out he was studying.</td>
+                        </tr>
+                    </table>
+
+                    <div class="box">
+                        <p><strong>Politeness</strong></p>
+                        <p>Some Modal Verbs are used to express politeness, to be more courteous.</p>
+                    </div>
+                    <table class="tabletypetwo">
+                        <tr>
+                            <td><strong>Will / Would;Can / Could</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Can/ Will you help me please.</td>
+                            <td>This is a simple request</td>
+                        </tr>
+                        <tr>
+                            <td>Could/ Would you help me please.</td>
+                            <td>This is more polite.</td>
+                        </tr>
+                    </table>
+
+                    <div class="box">
+                        <p ><strong>Past Form of <i>must</i></strong> <br> The Past Tense form of <i>must</i> is <i>had to</i></p>
+                        <p>Late night I could not go out because I had to finish my final assignment. <br> My supervisor said I had to finish the report by today.</p>
+                    </div>
+                    <div class="box">
+                        <p><strong>Semi-Modals </strong> <br>Some other verbs have a similar meaning to Modals but are followed by "to" and the Infinitive form of the main verb.</p>
+                    </div>
+
+                    <table class="tabletypetwo">
+                        <tr>
+                            <td>Advice / recommendation / suggestion</td>
+                            <td>Necessity / obligation</td>
+                        </tr>
+                        <tr>
+                            <td>ought to</td>
+                            <td>have to / had to</td>
+                        </tr>
+                        <tr>
+                            <td>Necessity</td>
+                            <td>need to</td>
+                        </tr>
+                    </table>    
+                </div>    
+            </div>
+        </div>
+
+        <!-- DropdownFour Activity Start -->
+
+        <div class="dropdownfour">
+            <div class="dropdownfour-header" onclick="toggleDropdown('dropdownContent4', 'icon4')">
+                <h2>04. Activity Sheet</h2>
+                <span class="dropdown-icon" id="icon4">▼</span>
+            </div>
+            <div class="dropdownfour-content" id="dropdownContent4">
+                <div class="dropdownfour-container questions-container">
+                    <h3>Vitamin D - Activity</h3>
+                    <h4>Match with the words with the definitions.</h4>
+                    <p>Practise and consolidate your learning by completing our activities. In this one you need to choose the correct modal verb to complete the sentences below.</p>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(1) In most countries of the world students <input type="text" id="answer1" class="answer-input" readonly disabled> pay university fees. There is simply no choice.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(1, 'must')">a. must</button>
+                            <button onclick="selectAnswer(1, 'need')">b. need</button>
+                            <button onclick="selectAnswer(1, 'can')">c. can</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(2) However, in Britain and some other countries, including even China, students <input type="text" id="answer2" class="answer-input" readonly disabled> borrow money from banks to cover compulsory fees. Banks are now making it possible in Australia for students to borrow money to cover fees.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(2, 'can')">a. can</button>
+                            <button onclick="selectAnswer(2, 'may')">b. may</button>
+                            <button onclick="selectAnswer(2, 'shall')">c. shall</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(3) When I was going to university, <input type="text" id="answer3" class="answer-input" readonly disabled> find a part-time job to earn some pocket money, because my family was not rich.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(3, 'had to')">a. had to</button>
+                            <button onclick="selectAnswer(3, 'must')">b. must</button>
+                            <button onclick="selectAnswer(3, 'should')">c. should</button>
+                        </div>
+                    </div>
+        
+                    <div class="dropdownfour-question">
+                        <p class="question">(4) There are not many jobs as a student <input type="text" id="answer4" class="answer-input" readonly disabled> do part time. Most students find job as waiters, serving in restaurants, or working in kitchens and so on.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(4, 'can')">a. can</button>
+                            <button onclick="selectAnswer(4, 'may')">b. may</button>
+                            <button onclick="selectAnswer(4, 'should')">c. should</button>
+                        </div>
+                    </div>
+        
+                    <div class="dropdownfour-question">
+                        <p class="question">(5) I really believe that all students <input type="text" id="answer5" class="answer-input" readonly disabled> get a casual job, chiefly because it is good experience. This was the advice my father gave me and it helped me enormously.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(5, 'would')">a. would</button>
+                            <button onclick="selectAnswer(5, 'should')">b. should</button>
+                            <button onclick="selectAnswer(5, 'must')">c. must</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(6) I told you I <input type="text" id="answer6" class="answer-input" readonly disabled> get a Distinction, and I did!</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(6, 'will')">a. will</button>
+                            <button onclick="selectAnswer(6, 'would')">b. would</button>
+                            <button onclick="selectAnswer(6, 'shall')">c. shall</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(7) For post-graduate study in the United States of America it <input type="text" id="answer7" class="answer-input" readonly disabled> be possible to get a scholarship, to cover the tuition costs of the degree. </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(7, 'will')">a. will</button>
+                            <button onclick="selectAnswer(7, 'can')">b. can</button>
+                            <button onclick="selectAnswer(7, 'might')">c. might</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(8) However, I'm not sure - you <input type="text" id="answer8" class="answer-input" readonly disabled> have to check. </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(8, 'can')">a. can</button>
+                            <button onclick="selectAnswer(8, 'will')">b. will</button>
+                            <button onclick="selectAnswer(8, 'should')">c. should</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(9) Australians love the beach. It is important to remember that exposure to the Australian sun, especially in summer is dangerous. So you <input type="text" id="answer9" class="answer-input" readonly disabled> wear a hat. </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(9, 'can')">a. can</button> 
+                            <button onclick="selectAnswer(9, 'may')">b. may</button>
+                            <button onclick="selectAnswer(9, 'should')">c. should</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(10) Of course you really <input type="text" id="answer10" class="answer-input" readonly disabled> to apply lots of sunscreen on exposed screen. </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(10, 'ought')">a. ought</button> 
+                            <button onclick="selectAnswer(10, 'can')">b. can</button>
+                            <button onclick="selectAnswer(10, 'should')">c. should</button>
+                        </div>
+                    </div>
+                    
+                    <div class="buttons">
+                        <button id="finishButton2" onclick="checkAnswers2()">
+                            <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                        </button>
+                        <button onclick="resetActivity2()">
+                            <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+                        </button>
+                        <button id="showAnswerButton2" style="display: none;" onclick="showAnswers2()">
+                            <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+                        </button>
+                        <button id="showFeedbackButton2" style="display: none;" onclick="showFeedback2()">
+                            <img src="{{ url_for('static', filename='img/review.png') }}" alt="review" class="button-icon">Show Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="scoreModal2" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal2()">&times;</span>
+                    <h3>Feedback!</h3>
+                    <p id="scoreText2"></p>
+                </div>
+            </div>
+        </div>
+        
+</section>
+
+
+    <div class="nextepisode">
+        <a href="{{ url_for('episode3') }}"><button>Next Episode</button></a>
+    </div>
+
+ <!----Footer -------------------------------------------------------------> 
+
+ <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column1">
+            <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="logo">
+        </div>
+        <div class="footer-column2">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="footer-column3">
+            <p>d.mar.learn.net@gmail.com</p>
+            <p>09 941487000</p>
+            <div class="contact-box">
+                <a href="https://www.facebook.com/dmarlearn/" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/facebook_2.png') }}" alt="Facebook Color" class="social-icon-color">
+                </a>
+                <a href="https://www.t.me/dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/telegram.png') }}" alt="Telegram" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/telegram_2.png') }}" alt="Telegram Color" class="social-icon-color">
+                </a>
+                <a href="https://www.tiktok.com/@dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/tiktok.png') }}" alt="TikTok" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/tiktok_2.png') }}" alt="TikTok Color" class="social-icon-color">
+                </a>
+                <a href="https://www.youtube.com/@DMarLearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/you tube.png') }}" alt="YouTube" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/you tube_2.png') }}" alt="YouTube Color" class="social-icon-color">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright 2024</p>
+    </div>
+</footer>
+
+<!--------------------------------------------------------------------------------------------------------------->
+    
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Vocabulary With Hangman Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='game1/game1.css') }}"/>
+    <script src="{{ url_for('static', filename='game1/game1_list.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='game1/game1.js') }}" defer></script>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+</head>
+<body>
+    <script>
+        const staticBaseUrl = "{{ url_for('static', filename='game1/images/') }}";
+    </script>
+    
+    <div class="game-modal">
+        <div class="content">
+            <img src="#" alt="gif">
+            <h4>Game Over!</h4>x
+            <p>The correct word was: <b>rainbow</b></p>
+            <button class="play-again">Play Again</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="hangman-box">
+            <img src="#" draggable="false" alt="hangman-img">
+            <h1>Hangman Game</h1>
+        </div>
+        <div class="game-box">
+            <ul class="word-display"></ul>
+            <h4 class="hint-text">Hint: <b></b></h4>
+            <h4 class="guesses-text">Incorrect guesses: <b></b></h4>
+            <div class="keyboard"></div><br>
+            <button class="return-main"><a href="{{ url_for('courses') }}">Exit</a></button>
+        </div>
+    </div>
+</body>
+</html>

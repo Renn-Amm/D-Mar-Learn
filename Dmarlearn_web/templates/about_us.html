@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/allpage.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about_us.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about_us_resp.css') }}"/>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Crown icon -->
+    <title>About_us</title>
+</head>
+<body>
+    <div class="overlay"></div>
+    <!-- Navigation -->
+    <header>
+        <div class="container-navigation">
+            <div class="logo-container">
+                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                &#9776; 
+            </button>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}"><cc1 style="color: #7CB7FF;"><u>About us</u></cc1></a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    <li>
+                        <div class="user-info">
+                            {% if session.get('user') %}
+                                <span id="user-name">
+                                    {% if session['user']['userinfo']['premium'] %}
+                                        <i class="fas fa-crown" aria-hidden="true"></i> <!-- Font Awesome crown icon -->
+                                    {% endif %}
+                                    {{ session['user']['userinfo']['name'][:15] }}{% if session['user']['userinfo']['name']|length > 15 %}...{% endif %}
+                                </span>
+                                <img id="profile-pic" src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" />
+                                <div id="user-dropdown" class="dropdown">
+                                    <img src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" class="dropdown-profile-pic">
+                                    <p>{{ session['user']['userinfo']['name'] }}</p>
+                                    <p>{{ session['user']['userinfo']['email'] }}</p>
+                                    <p>Status: {% if session['user']['userinfo']['premium'] %}Premium user{% else %}Regular user{% endif %}</p>
+                                    <a href="{{ url_for('logout') }}" id="logout-btn" class="logout-link">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ url_for('googleLogin') }}" class="login-button" id="login-btn">Login with Google</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Popup Content -->
+            <section class="popup-content" id="loginPopup">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <p>This is a sample popup content</p>
+            </section>
+
+            <script>
+                // JavaScript for dropdown and popup functionality
+
+                // User dropdown logic
+                const userName = document.getElementById('user-name');
+                const profilePic = document.getElementById('profile-pic');
+                const userDropdown = document.getElementById('user-dropdown');
+                const overlay = document.getElementById('overlay');
+
+                const toggleDropdown = (event) => {
+                    event.stopPropagation();
+                    if (userDropdown.style.display === 'none' || userDropdown.style.display === '') {
+                        userDropdown.style.display = 'block';
+                    } else {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                const closeDropdown = () => {
+                    if (userDropdown.style.display === 'block') {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                userName?.addEventListener('click', toggleDropdown);
+                profilePic?.addEventListener('click', toggleDropdown);
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', closeDropdown);
+                userDropdown.addEventListener('click', (event) => event.stopPropagation());
+
+                // Popup logic
+                const openPopupButton = document.getElementById('login-btn');
+                const closePopupButton = document.getElementById('closePopup');
+                const loginPopup = document.getElementById('loginPopup');
+
+                const openPopup = (e) => {
+                    e.preventDefault();
+                    loginPopup.classList.add('active');
+                    overlay.style.display = 'block';
+                };
+
+                const closePopup = () => {
+                    loginPopup.classList.remove('active');
+                    overlay.style.display = 'none';
+                };
+
+                openPopupButton.addEventListener('click', openPopup);
+                closePopupButton.addEventListener('click', closePopup);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closePopup();
+                    }
+                });
+
+                // Close popup when clicking outside of it
+                overlay.addEventListener('click', closePopup);
+            </script>
+
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var navigation = document.querySelector('.navigation');
+    
+            menuToggle.addEventListener('click', function () {
+                navigation.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!------------------------------------------------------------------------------------------->
+
+    <section id="about" class="about">
+        <h2>ABOUT US</h2>
+        <p class="aboutp1">Welcome to D-Mar-Learn!</p>
+        <p class="aboutp2">At D-Mar-Learn, we're dedicated to empowering English self-study students through an innovative and interactive learning platform. We understand that learning a new language can be challenging, especially when you're doing it on your own. That's why we've created a space where you can engage with the material in a way that suits your unique learning style.</p>
+    </section>
+    
+    <section class="mission">
+        <h2>OUR MISSION</h2>
+        <div class="mission-card">
+            <p class="mission-text">Our mission is simple: to make English learning accessible, engaging, and effective for everyone. We believe that self-study doesn't have to be a solitary experience. With our diverse range of resources—videos, exams, and game-based activities—learning English is not only educational but also fun and interactive.</p>
+            <img src="{{ url_for('static', filename='img/mission.png') }}" alt="Mission Image">
+        </div>
+    </section>
+    
+    <section class="developers">
+        <h2>MEET OUR DEVELOPERS</h2>
+        <div class="developer-cards">
+            <div class="developer-card">
+                <img src="{{ url_for('static', filename='img/developer1.png') }}" alt="Developer 1">
+                <h3>Khin Linn Htet (BCS)</h3>
+                <p>UI/UX Designer <br>
+                    Front-end Developer</p>
+            </div>
+            <div class="developer-card">
+                <img src="{{ url_for('static', filename='img/developer2.png') }}" alt="Developer 2">
+                <h3>Sunny (Khin Pyae Sone Lin) (BCS)</h3>
+                <p> Front-end Developer, Mini Game Developer, Content Writer</p>
+            </div>
+            <div class="developer-card">
+                <img src="{{ url_for('static', filename='img/developer3.png') }}" alt="Developer 3">
+                <h3>Khin Phyu Phyu Linn(BCS)</h3>
+                <p>Front-end Developer</p>
+            </div>
+            <div class="developer-card">
+                <img src="{{ url_for('static', filename='img/developer4.png') }}" alt="Developer 4">
+                <h3>Aung Min Myat(BCS)</h3>
+                <p>Front end Developer</p>
+            </div>
+            <div class="developer-card">
+                <img src="{{ url_for('static', filename='img/developer5.png') }}" alt="Developer 5">
+                <h3>Kyi Phyu Shin Thant (BCS) </h3>
+                <p>UI/UX Designer, Brand/Graphic Designer</p>
+            </div>
+            <div class="developer-card">
+                <img src="{{ url_for('static', filename='img/developer6.png') }}" alt="Developer 6">
+                <h3>Aung Wai Yan Mhue(BCS)</h3>
+                <p>Back-end Developer</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="thank-you">
+        <div class="thank-you-content">
+            <div class="left-image">
+                <img src="{{ url_for('static', filename='img/one.png') }}" alt="Thank You Image Left">
+            </div>
+            <div class="thank-you-text">
+                <h2>THANK YOU FOR CHOOSING </h2>
+                <h1>"D-MAR-LEARN"</h1>
+                <p>We're excited to be a part of your learning journey and look forward to helping you reach your full potential. Happy learning!</p>
+            </div>
+            <div class="right-image">
+                <img src="{{ url_for('static', filename='img/two.png') }}" alt="Thank You Image Right">
+            </div>
+        </div>
+    </section>
+    
+
+
+     <!----Footer -------------------------------------------------------------> 
+
+     <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column1">
+                <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="logo">
+            </div>
+            <div class="footer-column2">
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                        <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                        <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="footer-column3">
+                <p>d.mar.learn.net@gmail.com</p>
+                <p>09 941487000</p>
+                <div class="contact-box">
+                    <a href="https://www.facebook.com/dmarlearn/" class="social-link" target="_blank">
+                        <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" class="social-icon">
+                        <img src="{{ url_for('static', filename='img/facebook_2.png') }}" alt="Facebook Color" class="social-icon-color">
+                    </a>
+                    <a href="https://www.t.me/dmarlearn" class="social-link" target="_blank">
+                        <img src="{{ url_for('static', filename='img/telegram.png') }}" alt="Telegram" class="social-icon">
+                        <img src="{{ url_for('static', filename='img/telegram_2.png') }}" alt="Telegram Color" class="social-icon-color">
+                    </a>
+                    <a href="https://www.tiktok.com/@dmarlearn" class="social-link" target="_blank">
+                        <img src="{{ url_for('static', filename='img/tiktok.png') }}" alt="TikTok" class="social-icon">
+                        <img src="{{ url_for('static', filename='img/tiktok_2.png') }}" alt="TikTok Color" class="social-icon-color">
+                    </a>
+                    <a href="https://www.youtube.com/@DMarLearn" class="social-link" target="_blank">
+                        <img src="{{ url_for('static', filename='img/you tube.png') }}" alt="YouTube" class="social-icon">
+                        <img src="{{ url_for('static', filename='img/you tube_2.png') }}" alt="YouTube Color" class="social-icon-color">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright 2024</p>
+        </div>
+    </footer>
+
+<!--------------------------------------------------------------------------------------------------------------->
+        
+    </body>
+    </html>

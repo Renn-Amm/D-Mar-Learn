@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Admin Dashboard</h2>
+        <p>Total Users: {{ total_users }}</p>
+        <p>Total Premium Users: {{ total_premium_users }}</p>
+        
+        <!-- Search Form -->
+        <form action="{{ url_for('search_user') }}" method="get" class="search-form">
+            <input type="text" name="email" placeholder="Search by email" required>
+            <input type="submit" value="Search">
+        </form>
+
+        <!-- Flash Message -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Users Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>Email Address</th>
+                    <th>Premium Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users.items %}
+                <tr>
+                    <td><a href="{{ url_for('user_detail', user_id=user.id) }}">{{ user.username }}</a></td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ "Yes" if user.premium else "No" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <a href="{{ url_for('admin_dashboard', page=users.prev_num) }}" {% if not users.has_prev %}class="disabled"{% endif %}>Previous Page</a>
+            <span>Page {{ users.page }} of {{ users.pages }}</span>
+            <a href="{{ url_for('admin_dashboard', page=users.next_num) }}" {% if not users.has_next %}class="disabled"{% endif %}>Next Page</a>
+        </div>
+        <a href="{{ url_for('admin_logout') }}" class="logout-link">Logout</a>
+    </div>
+</body>
+</html>

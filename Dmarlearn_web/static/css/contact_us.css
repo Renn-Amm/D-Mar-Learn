@@ -1,0 +1,368 @@
+
+/* Episode One Bar Start */
+.episodeone-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1440px;
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 10px auto;
+}
+
+.episode-banner {
+    position: relative;
+    width: 100%;
+    max-width: 1440px;
+}
+
+.episode-banner img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.banner-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-90%, -90%);
+    text-align: center;
+    color: white;
+    border-radius: 8px;
+}
+
+.banner-content h1 {
+    font-size: 72px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 20px;
+}
+
+.banner-content .cta {
+    font-size: 24px;
+    color: white;
+    background-color: #7CB7FF;
+    padding: 20px 50px;
+    border-radius: 40px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 20px 0px 0px -260px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.banner-content .cta:hover {
+    background-color: #F3D24F;
+}
+
+
+/* Episode One Bar End  */
+
+/* explore our courses start */
+
+.offers-section {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.offers-section h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+.offers-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 39px;
+}
+
+.offer-card {
+    border-radius: 15px;
+    padding: 20px;
+    width: 400px;
+    height: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background-image: url("/static/img/squarebg.png");
+    background-size: cover;
+    background-position: center;
+    color: #363636;
+}
+
+.offer-card h2, .offer-card p {
+    position: relative; 
+    z-index: 1;
+    text-align: center;
+}
+
+.offer-card h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #363636;
+    text-align: center;
+    padding-top: 80px;
+}
+
+.offer-card p {
+    font-size: 24px;
+    color: #363636;
+    padding-top: 20px;
+    width: 300px;
+    text-align: center;
+    margin-left: 30px;
+    line-height: 150%;
+}
+
+.offer-card:hover {
+    transform: translateY(-5px);
+}
+
+
+/* explore our courses end */
+
+
+
+/* payment start */
+
+.payment-section {
+    margin-top: 60px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #F2F8FF;
+    border-radius: 8px;
+    margin-bottom: 100px;
+}
+
+.price-info {
+    margin-bottom: 20px;
+    display: flex;
+    font-size: 24px;
+    font-weight: bold;
+    max-width: 1280px;
+    margin-left: 120px;
+    padding-top: 100px;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #343434;
+}
+
+.price-detail{
+    text-align: left;
+    padding-left: 150px;
+}
+
+.price-5000ks{
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 12px;
+    color: #343434;
+}
+
+.episodes {
+    font-size: 16px;
+    color: #5D5D5D;
+}
+
+/* end */
+
+.payment-options {
+    text-align: left;
+    margin-bottom: 60px;
+}
+
+.payment-options h2 {
+    font-size: 32px;
+    margin-bottom: 28px;
+    text-emphasis: left;
+}
+
+.kbz-pay {
+    display: flex;
+    max-width: 1200px;
+    background-color: #0056b3;
+    text-align: left;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.kbz-pay img {
+    width: 150px;
+    max-width: 150px;
+    height: 150px;
+    border-radius: 8px;
+}
+
+.kpay-info{
+    font-size: 24px;
+    max-width: 900px;
+    color: white;
+    margin-top: 35px;
+    margin-left: 20px;
+    line-height: 140%;
+}
+
+.purchase-info {
+    margin-bottom: 28px;
+}
+
+.purchase-info h3 {
+    font-size: 32px;
+    margin-bottom: 14px;
+    text-emphasis: left;
+}
+
+.text1 {
+    font-size: 24px;
+    color: #666;
+    padding-bottom: 12px;
+}
+
+.text2 {
+    font-size: 24px;
+    color: #666;
+    max-width: 1100px;
+    line-height: 130%;
+    padding-bottom: 36px;
+}
+
+.platform-options {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 41px;
+    padding-bottom: 60px;
+}
+
+.platform {
+    background-color: #fff;
+    border-radius: 12px;
+    text-align: center;
+    width: 370px;
+    height: 327px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.platform img {
+    margin-top: 40px;
+    width: 93px;
+    height: 93px;
+    margin-bottom: 16px;
+}
+
+.platform p {
+    font-size: 36px;
+    font-weight: bold;
+    color: #5D5D5D;
+    margin-bottom: 24px;
+}
+
+.platform a {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 40px;
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.platform a:hover{
+    text-decoration: none;
+}
+
+.check{
+    display: flex;
+}
+
+.check img{
+    margin-left: 20px;
+    width: 25px;
+    height: 17px;
+    margin-top: 12px;
+}
+
+.telegram a {
+    background-color: #34ACE2;
+}
+
+.telegram a:hover {
+    background-color: #2e99cb;
+}
+
+.viber a {
+    color: #7B519D;
+}
+
+/* .viber a:hover {
+    background-color: #754b98;
+} */
+
+.facebook a {
+    background-color: #0866FF;
+}
+
+.facebook a:hover {
+    background-color: #0844a4;
+}
+
+/* payment end */
+
+
+
+/* thank you start */
+
+
+.thank-you-container {
+    margin-top: 60px;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-radius: 8px;
+    margin-bottom: 100px;
+    display: flex;
+}
+
+.thank-you-container img {
+    border-radius: 15px;
+    width: 420px; 
+    height: auto;
+}
+
+
+.text-container {
+    margin-top: 100px;
+    margin-left: 80px;
+}
+
+.text-container h1 {
+    font-size: 64px;
+    color: #333333;
+    margin: 0;
+    font-weight: bold;
+}
+
+.text-container h1 span {
+    color: #F3D24F;
+}
+
+.text-container p {
+    width: 640px;
+    font-size: 36px;
+    color: #777777;
+    margin-top: 40px;
+}
+
+
+/* thank you end */

@@ -1,0 +1,667 @@
+/* navication start */
+
+/* Tablets and Smaller Devices */
+@media (max-width: 1024px) {
+    .container-navigation {
+        padding: 10px 0;
+        height: 80px;
+    }
+
+    .logo-container {
+        margin-left: 40px;
+    }
+
+    .navigation {
+        margin-right: 40px;
+    }
+
+    .menu-toggle {
+        display: block;
+        font-size: 28px;
+    }
+
+    .navigation {
+        display: none;
+        position: absolute; 
+        top: 80px; 
+        left: 0;
+        width: 100%;
+        background-color: white; 
+    }
+
+    .navigation.active {
+        display: block;
+    }
+
+    .navigation ul {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .navigation ul li {
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 15px 20px; 
+        border-top: 1px solid #444; 
+        text-align: left; 
+    }
+
+    .navigation ul li a {
+        display: block;
+        color: #555;
+        text-decoration: none;
+        width: 100%;
+    }
+
+    .login-button {
+        width: 100%;
+        margin: 15px 0;
+        box-shadow: none;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 768px) {
+    .container-navigation {
+        padding: 8px 0;
+        height: 70px;
+    }
+
+    .logo-container {
+        margin-left: 20px;
+    }
+
+    .mission-text {
+        padding-top: 20px;
+    }
+
+    .menu-toggle {
+        margin-left: auto;
+        margin-right: 20px;
+    }
+
+    .navigation ul li {
+        padding: 12px 15px; 
+    }
+
+    .login-button {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+}
+
+/* Small Mobile Phones */
+@media (max-width: 480px) {
+    .container-navigation {
+        padding: 6px 0;
+        height: 60px;
+    }
+
+    .logo-container {
+        margin-left: 10px;
+    }
+
+    .menu-toggle {
+        margin-right: 10px;
+    }
+
+    .navigation ul li {
+        padding: 10px 12px;
+    }
+
+    .login-button {
+        padding: 8px 16px;
+        font-size: 16px;
+    }
+}
+/* Navigation Bar end */
+
+
+/* Activities  */
+
+@media (max-width: 768px) {
+    .episodeone-banner {
+        flex-direction: column; 
+        margin: 60px auto; 
+        padding: 10px; 
+    }
+
+    .episode-banner img {
+        max-width: 100%; 
+        width: 100%;
+    }
+}
+
+/* Banner End */
+
+/* Dropdown Bar Start */
+
+@media (max-width: 1024px) {
+    .dropdownone, .dropdowntwo, .dropdownthree, .dropdownfour, .dropdownfive {
+        width: 90%; 
+    }
+    
+    .dropdown-header, .dropdowntwo-header, .dropdownthree-header, .dropdownfour-header, .dropdownfive-header {
+        padding: 25px 15px;
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dropdownone, .dropdowntwo, .dropdownthree, .dropdownfour, .dropdownfive {
+        max-width: 90%;
+        padding: 15px; 
+    }
+    
+    .dropdown-header, .dropdowntwo-header, .dropdownthree-header, .dropdownfour-header, .dropdownfive-header {
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 20px 10px;
+        font-size: 15px;
+    }
+
+    .playgame {
+        font-size: 17px;
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dropdownone, .dropdowntwo, .dropdownthree, .dropdownfour, .dropdownfive {
+        width: 100%; 
+    }
+    
+    .dropdown-header, .dropdowntwo-header, .dropdownthree-header, .dropdownfour-header, .dropdownfive-header {
+        padding: 15px 10px;
+        font-size: 14px;
+    }
+
+    .playgame {
+        font-size: 18px;
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .dropdowntwo-content {
+        padding: 35px;
+        max-height: 600px;
+    }
+    
+    .dropdowntwo-container {
+        padding: 15px;
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .dropdowntwo-content {
+        padding: 25px;
+        max-height: 700px;
+    }
+    
+    .dropdowntwo-container {
+        padding: 15px;
+        max-width: 100%;
+        font-size: 14px;
+        margin: 20px auto 40px auto; 
+    }
+
+    .dropdowntwo-container h3 {
+        font-size: 24px;
+    }
+
+    .dropdowntwo-container h4 {
+        font-size: 20px;
+    }
+
+    .dropdowntwo-container p {
+        font-size: 16px;
+    }
+    
+    .dropdowntwo-content video {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .dropdowntwo-content {
+        padding: 15px;
+        max-height: 400px;
+    }
+    
+    .dropdowntwo-container {
+        padding: 10px;
+        max-width: 100%;
+        font-size: 12px;
+        margin: 10px auto; 
+    }
+
+    .dropdowntwo-container h3 {
+        font-size: 20px;
+    }
+
+    .dropdowntwo-container h4 {
+        font-size: 18px;
+    }
+
+    .dropdowntwo-container p {
+        font-size: 14px;
+        margin-left: 10px;
+    }
+}
+
+/* Dropdowntwo Content End */
+
+/* Dropdownthree Content Start */
+
+@media (max-width: 1024px) {
+    .dropdownthree-container .wordbox,
+    .dropdownthree-container .dragbox {
+        max-width: 80%;
+        padding: 15px;
+    }
+
+    .draggable-container {
+        max-width: 700px;
+        padding: 15px;
+        margin: 20px auto;
+    }
+
+    .dropdownthree-container h3 {
+        font-size: 24px;
+    }
+
+    .dropdownthree-container h4 {
+        font-size: 22px;
+    }
+
+    .dropdownthree-container .dragbox p {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dropdownthree-container .wordbox,
+    .dropdownthree-container .dragbox {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .draggable-container {
+        max-width: 600px;
+        padding: 15px;
+        margin: 20px auto;
+        gap: 8px;
+    }
+
+    .dropdownthree-container h3 {
+        font-size: 20px;
+    }
+
+    .dropdownthree-container h4 {
+        font-size: 18px;
+    }
+
+    .dropdownthree-container .dragbox p {
+        font-size: 15px;
+    }
+
+    .draggable {
+        font-size: 15px;
+    }
+
+    .dropzone {
+        width: 80%;
+        height: 35px;
+    }
+
+    button {
+        font-size: 15px;
+        width: 90%;
+    }
+
+    img {
+        width: 80%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .dropdownthree-container .wordbox,
+    .dropdownthree-container .dragbox {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .draggable-container {
+        max-width: 100%;
+        padding: 10px;
+        margin: 10px auto;
+    }
+
+    .dropdownthree-container h3 {
+        font-size: 18px;
+    }
+
+    .dropdownthree-container h4 {
+        font-size: 16px;
+    }
+
+    .dropdownthree-container .dragbox p {
+        font-size: 16px;
+    }
+
+    .draggable {
+        font-size: 16px;
+    }
+
+    .dropzone {
+        width: 100%;
+        height: 30px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 8px 15px;
+        margin: 20px 0px 0px 10px;
+    }
+
+    button img {
+        width: 30px;
+        height: auto;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+
+    .modal-content h3 {
+        font-size: 20px;
+    }
+}
+
+/* Dropdownthree Content End */
+
+/* Dropdownfour Content Start */
+
+@media (max-width: 1024px) {
+    .dropdownfour-container .wordbox,
+    .dropdownfour-container .dragbox {
+        max-width: 80%;
+        padding: 15px;
+    }
+
+    .draggable-container {
+        max-width: 700px;
+        padding: 15px;
+        margin: 20px auto;
+    }
+
+    .dropdownfour-container h3 {
+        font-size: 24px;
+    }
+
+    .dropdownfour-container h4 {
+        font-size: 22px;
+    }
+
+    .dropdownfourcontainer .dragbox p {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dropdownfour-container .wordbox,
+    .dropdownfour-container .dragbox {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .draggable-container {
+        max-width: 600px;
+        padding: 15px;
+        margin: 20px auto;
+        gap: 8px;
+    }
+
+    .dropdownfour-container h3 {
+        font-size: 20px;
+    }
+
+    .dropdownfour-container h4 {
+        font-size: 18px;
+    }
+
+    .dropdownfour-container .dragbox p {
+        font-size: 15px;
+    }
+
+    .draggable {
+        font-size: 15px;
+    }
+
+    .dropzone {
+        width: 80%;
+        height: 35px;
+    }
+
+    button {
+        font-size: 15px;
+        width: 90%;
+    }
+
+    img {
+        width: 80%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .dropdownfour-container .wordbox,
+    .dropdownfour-container .dragbox {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .draggable-container {
+        max-width: 100%;
+        padding: 10px;
+        margin: 10px auto;
+    }
+
+    .dropdownfour-container h3 {
+        font-size: 18px;
+    }
+
+    .dropdownfour-container h4 {
+        font-size: 16px;
+    }
+
+    .dropdownfour-container .dragbox p {
+        font-size: 16px;
+    }
+
+    .draggable {
+        font-size: 16px;
+    }
+
+    .dropzone {
+        width: 100%;
+        height: 30px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 8px 15px;
+        margin: 20px 0px 0px 10px;
+    }
+
+    button img {
+        width: 30px;
+        height: auto;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+
+    .modal-content h3 {
+        font-size: 20px;
+    }
+}
+
+/* Dropdownfour Content End */
+
+/* Dropdownfive Content Start */
+@media (max-width: 1024px) {
+    .dropdownfive-content {
+        padding: 35px;
+        max-height: 600px;
+    }
+    
+    .dropdownfive-container {
+        padding: 15px;
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .dropdownfive-content {
+        padding: 25px;
+        max-height: 600px;
+    }
+
+    .dropdownfive-content h3{
+        font-size: 18px;
+        margin-left: 5px;
+        margin-top: 5px;
+    }
+    
+    .dropdownfive-container {
+        padding: 15px;
+        max-width: 100%;
+        font-size: 14px;
+        margin: 20px auto 40px auto; 
+    }
+
+    .dropdownfive-container h2 {
+        font-size: 24px;
+    }
+
+    .dropdownfive-container h3 {
+        font-size: 20px;
+    }
+
+    .dropdownfive-container p {
+        font-size: 16px;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .dropdownfive-content {
+        padding: 15px;
+        max-height: 400px;
+    }
+    
+    .dropdownfive-container {
+        padding: 10px;
+        max-width: 100%;
+        font-size: 12px;
+        margin: 10px auto; 
+    }
+
+    .dropdownfive-container h2 {
+        font-size: 20px;
+    }
+
+    .dropdownfive-container h3 {
+        font-size: 18px;
+    }
+
+    .dropdownfive-container p {
+        font-size: 14px;
+        margin-left: 10px;
+    }
+}
+
+/* Dropdownfive Content End */
+
+/* Next Episode */
+@media (max-width: 1024px) {
+    .nextepisode {
+        margin-left: auto;
+        margin-right: auto;
+        justify-content: center;
+    }
+
+    .nextepisode button {
+        width: 200px;
+        font-size: 20px;
+        padding: 10px 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nextepisode {
+        margin-left: 50%;
+        margin-right: auto;
+        justify-content: center;
+    }
+
+    .nextepisode button {
+        width: 180px;
+        font-size: 18px;
+        padding: 10px 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nextepisode {
+        margin-left: auto;
+        margin-right: auto;
+        justify-content: center;
+    }
+
+    .nextepisode button {
+        width: 150px;
+        font-size: 16px;
+        padding: 10px 30px;
+    }
+}
+
+/* Footer */
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-column1, .footer-column2, .footer-column3, .footer-column4 {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .footer-column2 nav ul {
+        text-align: center;
+    }
+
+    .footer-column3 p {
+        text-align: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+        margin-left: 70px;
+    }
+
+    .footer-column4 .text {
+        justify-content: center;
+    }
+}

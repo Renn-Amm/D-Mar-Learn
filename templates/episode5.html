@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/allpage.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode5.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode5_resp.css') }}"/>
+    <script src="{{ url_for('static', filename='js/episode5.js') }}"></script>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Crown icon -->
+    <title>Episode Five</title>
+</head>
+<body>
+    <div class="overlay"></div>
+    <!-- Navigation -->
+    <header>
+        <div class="container-navigation">
+            <div class="logo-container">
+                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                &#9776; 
+            </button>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    <li>
+                        <div class="user-info">
+                            {% if session.get('user') %}
+                                <span id="user-name">
+                                    {% if session['user']['userinfo']['premium'] %}
+                                        <i class="fas fa-crown" aria-hidden="true"></i> <!-- Font Awesome crown icon -->
+                                    {% endif %}
+                                    {{ session['user']['userinfo']['name'][:15] }}{% if session['user']['userinfo']['name']|length > 15 %}...{% endif %}
+                                </span>
+                                <img id="profile-pic" src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" />
+                                <div id="user-dropdown" class="dropdown">
+                                    <img src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" class="dropdown-profile-pic">
+                                    <p>{{ session['user']['userinfo']['name'] }}</p>
+                                    <p>{{ session['user']['userinfo']['email'] }}</p>
+                                    <p>Status: {% if session['user']['userinfo']['premium'] %}Premium user{% else %}Regular user{% endif %}</p>
+                                    <a href="{{ url_for('logout') }}" id="logout-btn" class="logout-link">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ url_for('googleLogin') }}" class="login-button" id="login-btn">Login with Google</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Popup Content -->
+            <section class="popup-content" id="loginPopup">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <p>This is a sample popup content</p>
+            </section>
+
+            <script>
+                // JavaScript for dropdown and popup functionality
+
+                // User dropdown logic
+                const userName = document.getElementById('user-name');
+                const profilePic = document.getElementById('profile-pic');
+                const userDropdown = document.getElementById('user-dropdown');
+                const overlay = document.getElementById('overlay');
+
+                const toggleDropdown = (event) => {
+                    event.stopPropagation();
+                    if (userDropdown.style.display === 'none' || userDropdown.style.display === '') {
+                        userDropdown.style.display = 'block';
+                    } else {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                const closeDropdown = () => {
+                    if (userDropdown.style.display === 'block') {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                userName?.addEventListener('click', toggleDropdown);
+                profilePic?.addEventListener('click', toggleDropdown);
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', closeDropdown);
+                userDropdown.addEventListener('click', (event) => event.stopPropagation());
+
+                // Popup logic
+                const openPopupButton = document.getElementById('login-btn');
+                const closePopupButton = document.getElementById('closePopup');
+                const loginPopup = document.getElementById('loginPopup');
+
+                const openPopup = (e) => {
+                    e.preventDefault();
+                    loginPopup.classList.add('active');
+                    overlay.style.display = 'block';
+                };
+
+                const closePopup = () => {
+                    loginPopup.classList.remove('active');
+                    overlay.style.display = 'none';
+                };
+
+                openPopupButton.addEventListener('click', openPopup);
+                closePopupButton.addEventListener('click', closePopup);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closePopup();
+                    }
+                });
+
+                // Close popup when clicking outside of it
+                overlay.addEventListener('click', closePopup);
+            </script>
+
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var navigation = document.querySelector('.navigation');
+    
+            menuToggle.addEventListener('click', function () {
+                navigation.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!------------------------------------------------------------------------------------------->
+
+    <!---------------------------------- Episode Banner Start -------------------------------------->
+      <section class="episodeone-banner">
+        <div class="episode-banner">
+             <img src="{{ url_for('static', filename='img/episodefive.jpg') }}" alt="boy.jpg">
+        </div>
+    </section>
+    <!------------------------------------- Episode Banner End ----------------------------------->
+
+    <section class="Episodetwo-Lessons">
+        <div class="dropdownone">
+            <div class="dropdown-header" onclick="toggleDropdown('dropdownContent1', 'icon1')">
+                <h1>01. Match The Following</h1>
+                <span class="dropdown-icon" id="icon1">▼</span>
+            </div>
+            <div class="dropdownone-content" id="dropdownContent1">
+                <div class="dropdownone-container">
+                    <div class="wordbox">
+                        <h3>Global Warming - Activity</h3>
+                        <h4>Match the causes and effects</h4>
+                        <div class="draggable-container">
+                            <span class="draggable" draggable="true">Sea levels rise</span>
+                            <span class="draggable" draggable="true">Global temperatures increase</span>
+                            <span class="draggable" draggable="true">Extreme weather events become more frequent</span>
+                        </div>
+                    </div>
+                    <div class="dragbox">
+                        <div class="definitions">
+                            <table>
+                                <thead>
+                                    <tr style="border-color: transparent; background-color: transparent;">
+                                        <th style="border-color: transparent; background-color: transparent;"><h4>Causes</h4></th>
+                                        <th style="border-color: transparent; background-color: transparent;"><h4>Effects</h4></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class="definition">
+                                <p>Burning fossil fuels releases carbon dioxide</p>
+                                <input type="text" class="dropzone" readonly>
+                            </div>
+                            <div class="definition">
+                                <p>Deforestation reduces the number of trees that can absorb carbon dioxide</p>
+                                <input type="text" class="dropzone" readonly>
+                            </div>
+                            <div class="definition">
+                                <p>Use of renewable energy reduces greenhouse gas emissions.</p>
+                                <input type="text" class="dropzone" readonly>
+                            </div>
+                        </div>
+                        <button onclick="checkAnswers()">
+                            <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                        </button>
+                        <button onclick="resetActivity()">
+                            <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+                        </button>
+                        <button id="showAnswerButton" style="display: none;" onclick="showAnswers()">
+                            <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+                        </button>
+                        <button id="showFeedback" style="display: none;" onclick="showFeedback()">
+                            <img src="{{ url_for('static', filename='img/review.png') }}" alt="review" class="button-icon">Show Feedback
+                        </button>
+                        <button id="showAnswerButton" style="display: none;" onclick="showAnswers()">
+                            <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+                        </button>
+                        <button id="showFeedback" style="display: none;" onclick="showFeedback()">
+                            <img src="{{ url_for('static', filename='img/review.png') }}" alt="review" class="button-icon">Show Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="scoreModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Feedback!</h3>
+                    <p id="scoreText"></p>
+                </div>
+            </div>
+        </div>
+
+        
+
+   <!-- --------------------------------------Dropdowntwo Start------------------------------------->
+        <div class="dropdowntwo">
+            <div class="dropdowntwo-header" onclick="toggleDropdown('dropdownContent2', 'icon2')">
+                <h2>02. Watch the video</h2>
+                <span class="dropdown-icon" id="icon2">▼</span>
+            </div>
+            <div class="dropdowntwo-content" id="dropdownContent2">
+                <div class="episodeone-video">
+                    <video width="900" height="400" controls>
+                        <source src="{{ url_for('static', filename='video/S1E05 - Global Warming.mp4') }}" type="video/mp4">
+                    </video>
+                </div>
+                <div class="dropdowntwo-container">
+                    <h3>Transcript</h3>
+                    <h4>Episode 5: Global Warming</h4>
+                    <p>Hello. I'm Margot Politis. Welcome to Study English, IELTS preparation.</p>
+                    <p style="line-height: 0.8cm">Today, we're going to look at a topic you've probably heard a lot about - global warming and the enviroment.</p>
+                    <p>First we're going to look at ways of brainstorming, taking notes and developing ideas</p>
+                    <p>Watch while we play some vision that contains ideas about casues and effects of global warming...</p>
+                    <p>While you watch, try to note down some of your ideas about what global warming is.</p>
+                     <p style="line-height: 0.8cm;"><em>visiual clip</em>(you can play this from the website.)</p>
+                    <p style="line-height: 0.8cm;">OK, so you saw some ideas, and perhaps took some notes, during that clip. What were some of the ideas you saw?</p>
+                    <p>What has caused global warming</p>
+                    <p style="line-height: 0.8cm;"><em>visiual clip</em>(you can play this from the website.)</p>
+                    <p>We saw gases in the air, cars, factory waste, and people cutting tress down.</p>
+                    <p>So if you made those notes, you'd get an idea that these were the things casuing global warming.</p>
+                    <p>Now lets's listen to someone talk about causes...</p>
+                    <p style="line-height: 0.8cm;"><em>Heat-trapping gases are building up in the atmosphere.</em></p>
+                    <p>Heat-trapping gases are building up in the atmosphere. What else?</p>
+                    <p style="line-height: 0.8cm;"><em>So what is global warming? It's the result of billions of decisions. It's caused by decisions made by individuals - like driving big cars rather than small cars. And it's caused by decisions made by corporations and nations, like dumping waste into the atmosphere.</em></p>
+                    <p style="line-height: 0.8cm;">Global warming is caused by about people using big cars, and people dumping waste into the atmosphere...</p>
+                    <p style="line-height: 0.8cm;">OK, so you've looked at the vision, and listened to the speaker, and you've made notes about some of the causes of global warming.</p>
+                    <p>Now let's look for some of the effects...</p>
+                    <p style="line-height: 0.8cm;"><em>visiual clip</em>(you can play this from the website.)</p>
+                    <p>So after watching that, you might be thinking that global warming is having an effect on weather patterns, and on nature.</p>
+                    <p>Listen to the speaker...</p>
+                    <p style="line-height: 0.8cm;"><em>Nature is already responding to global warming. There have been changes in global weather patterns.</em></p>
+                    <p style="line-height: 0.8cm;"><em>Trees are flowering earlier. Birds are laying eggs earlier. Butterflies are moving up hills.</em></p>
+                    <p>So there's been weather changes, and changes to ways of trees, birds and butterflies behave.</p>
+                    <p style="line-height: 0.8cm;">So we have a list  of cuases, and list of effects. You might have identified those things from a text you've read, or from listening to someone speak. This is how you can take notes.</p>
+                    <p>Once you've got your notes, you need to be able to link those causes and effects in sentences.</p>
+                    <p>Let's look at couple of different ways.</p>
+                    <p style="line-height: 0.8cm;">The first and most basic way is just making a sequence of statements. This can sometimes be a powerful way of making a connection between things. Listen.</p>
+                    <p style="line-height: 0.8cm;"><em>Heat-trapping gases are building up in the atmosphere. Tress are flowering earlier. Birds are laying eggs earlier, and butterflies are moving up hills.</em></p>
+                    <p style="line-height: 0.8cm;">From the sequence of information, we realize that birds are laying their eggs earlier because gases are making the earth warmer.</p>
+                    <p>So a simple list of statements can show a casue and effect relationship.</p>
+                    <p>But there are other ways too.</p>
+                    <p>You can use the language of cause and effect. We can say:</p>
+                    <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;X&#160;<u>causes</u>&#160;Y.</p>
+                    <p>Driving cars &#160;<u>causes</u>&#160; air pollution.</p>
+                    <p>There are many other word choices as well.</p>
+                    <p>Driving cars leads to air pollution.</p>
+                    <p>Driving cars results in air pollution.</p>
+                    <p>Notice you can also trun the sentence around...</p>
+                    <p>'Air pollution is &#160;<u>caused by</u>&#160; driving cars.'</p>
+                    <p>'Air pollution is the &#160;<u>result of</u>&#160; driving cars.'</p>
+                    <p>'Air pollution is &#160;<u>due to</u>&#160; driving cars.'</p>
+                    <p>Listen to an example here...</p>
+                    <p style="line-height: 0.8cm;"><em>There have been changes in global weather patterns.</em></p>
+                    <p style="line-height: 0.8cm;"><em>Trees are flowering earlier. Birds are laying eggs earlier. Butterflies are moving up hills.</em></p>
+                    <p style="line-height: 0.8cm;"><em>So what is global warming? It is the result of billions of individual decisions.</em></p>
+                    <p>He's talking about global warming.</p>
+                    <p>Global warming is &#160;<u>the result of</u>&#160; billions of decisions.</p>
+                    <p>Global warming is &#160;<u>due to</u>&#160; billions of decisions.</p>
+                    <p>And remember we can turn the sentence around, and chnage the phrase:</p>
+                    <p>Billions of decisions &#160;<u>cause</u>&#160; global warming.</p>
+                    <p>Billions of decisions &#160;<u>result in</u>&#160; global warming.</p>
+                    <p>Billions of decisions &#160;<u>lead to</u>&#160; global warming.</p>
+                    <p style="line-height: 0.8cm;">When you're writing about causes and effects, make sure you use a variety of these kinds of phrases. There are many to choose from. You should make lists of case and effect language, and kinds of vocabulary you can use to describe cause and effect relationships.</p>
+                    <p>Now listen to another clip.</p>
+                    <p style="line-height: 0.8cm;"><em>Trees are flowering earlier. Birds are laying egges earlier. Butterflies are moving up hills.</em></p>
+                    <p style="line-height: 0.8cm;"><em>So what is global warming? It is the result of billions of individual decisions.</em></p>
+                    <p style="line-height: 0.8cm;">When you're writing up your notes using cause and effect language, you'll need to be able to follow or track the subject of the text.</p>
+                    <p>Let's look at that now.</p>
+                    <p>" What is global warming?&#160;<u>It</u>&#160;is the result of billions of individual decisions."</p>
+                    <p style="line-height: 0.8cm;">The word 'it' here is called a referent. We use referents to identify and track subjects through a conversation or a piece of writing.</p>
+                    <p>If you repeat the subject too many times, your work will sound boring.</p>
+                    <p>Listen to this:</p>
+                    <p>The woman came into the room. The woman sat down. The woman drank her tea.</p>
+                    <p>Look at how we use referents:</p>
+                    <p>The woman came into the room. She sat down. She drank her tea.</p>
+                    <p style="line-height: 0.8cm;">When you are reading, you'll need to be able to understand referents, and follow the subject through the text.</p>
+                    <p>Other referents are this, that, these, those.</p>
+                    <p>Here's the clip again. Listen to the way the referents are used.</p>
+                    <p style="line-height: 0.8cm;"><em>What is global warming? It is the result of billions of individual decisions.</em></p>
+                    <p>The word &#160;<u>it</u>&#160;here refers to global warming.</p>
+                    <p>What is global warming? It is the result of billions of individual decisions.</p>
+                    <p>And here's another referent.</p>
+                    <p style="line-height: 0.8cm;"><em>What is global warming? It is the result of billions of individual decisions.</em></p>
+                    <p style="line-height: 0.8cm;"><em>You can't manage that at the scale of the individual.</em></p>
+                    <p style="line-height: 0.8cm;">He says: <br> You can't mange&#160;<u>that</u>&#160;at the scale of the individual.</p>
+                    <p style="line-height: 0.8cm;">He means: <br> You can't mange&#160;<u>global warming</u>&#160;at the scale of the individual.</p>
+                    <p>But notice how the subjects changes here.</p>
+                    <p style="line-height: 0.8cm;"><em>What is global warming? It is the result of billions of individual decisions.You can't manage that at the scale of the individual.</em></p>
+                    <p style="line-height: 0.8cm;"><em>Managing the atmosphere has to take place at a global level. That's why it needs international agreements.</em></p>
+                    <p>Managing the atmosphere has to take place at a global level.</p>
+                    <p>The subject of this sentence is 'managing the atmosphere.'</p>
+                    <p>That's why &#160;<u>it</u>&#160; needs international agreement.</p>
+                    <p>So the'it' here no longer refers to global warming. Now 'it' is referring to 'managing the atmosphere.'</p>
+                    <p>That's why &#160;<u>managing the atmosphere</u>&#160; need international agreement.</p>
+                    <p style="line-height: 0.8cm;">When reading and writing, you must be very careful to notice when subjects change, and to be clear about which subject is being referred to. This can be quiet tricky sometime.</p>
+                    <p>next time you see a paragraph,try to highlight all the referents like:</p>
+                    <p>it, this, that, these, those, he, she, they.</p>
+                    <p>Then try to work out what subject they are all referring back to.</p>
+                    <p>It's a great exercise, and it will help your reading, writing and speaking skills.</p>
+                    <p style="line-height: 0.8cm;">And that's all for today. hope you keep enjoying your English studies and Study English! I'll see you next time.</p>
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdownthree Start --------------------------------------------->
+
+        <div class="dropdownthree">
+            <div class="dropdownthree-header" onclick="toggleDropdown('dropdownContent3', 'icon3')">
+                <h2>03. Study Notes</h2>
+                <span class="dropdown-icon" id="icon3">▼</span>
+            </div>
+            <div class="dropdownthree-content" id="dropdownContent3">
+                <h2>Episode 5: Global Warming</h2>
+                <div class="dropdownthree-container">
+                    <div class="notes">
+                        <div class="referents">
+                            <h4>Using Referents</h4>
+                            <p style="line-height: 0.8cm;">Referents are words, which refer back to something that has been mentioned before. They not only add variety to your writing and speaking, but also provide cohesion to what you write to say.</p>
+                            <p style="line-height: 0.8cm;">Using referents means you can avoid repetition, and make your writing more interesting, easier to read and understand.</p>
+                            <p style="line-height: 0.8cm;">Remeber, when using pronouns as referents, it is important to identify clearly to what the pronoun refers in your sentence, paragraph or essay. This is to avoid ambiguity.</p>
+                        </div>
+                        <div class="study-tips">
+                            <h3>Study Tips</h3>
+                            <p style="line-height: normal;">You can make your writing style more interesting by using referents and, thereby, avoiding repetition of nouns, which would make your writing monotonous.</p>
+                            <p style="line-height: normal;">Remember using referents is an essential writing skill for IELTS Writing Task 2.</p> 
+                        </div>
+                    </div>
+                    <div class="box">
+                        <p><strong>Referents - Pronoun Reference</strong></p>
+                        <p style="line-height: 0.8cm;"><span>Referents are words, which refer back to something that has been mentioned before. They not only add variety to your writing and spekaing, but also provide cohesion.</span></p>
+                        <p style="line-height: 0.8cm;"><span>When your writing or communication is coghesive, your sentences flow smoothly, making your writing easier to read and understand. Using cohesive devices, i.e. referents, is essential as a writing skill for IELTS Writing Task 2.</span></p>
+                        <p><span>A number of different<b>referents</b>can be identified:</span></p>
+                    </div>
+                    <div class="box">
+                        <p><strong>Pronouns</strong></p>
+                        <p><span>Pronouns agree in gender (male, female, neuter) and number ( singular, plural) with the noun phrase is refers to.</span></p>
+                    </div>
+                    <div class="box">
+                        <p><strong>Personal Pronouns</strong></p>
+                        <p><span>&#x2022; I, you, he/she, it, we, they, one etc.</span></p>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="2">Singular</th>
+                                <th>Plural</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="2">I<br>You</td>
+                                <td rowspan="5">We<br>You<br><br>They<br>Them</td>
+                            </tr>
+                            <tr>
+                                <td><b>Male</b></td>
+                                <td>He,One</td>  
+                            </tr>
+                            <tr>
+                                <td><b>Female</b></td>
+                                <td>She,One</td> 
+                            </tr><tr>
+                                <td><b>Neuter</b></td>
+                                <td>It</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="box">
+                        <p><strong>Demonstrative Pronouns</strong></p>
+                        <p><span>&#x2022; this, that, these, those.</span></p>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>singular</td>
+                                <td>plural</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>this</td>
+                                <td>that</td>
+                            </tr>
+                            <tr>
+                                <td>these</td>
+                                <td>those</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="box">
+                        <p ><strong>Possessive Adjectives</strong></p>
+                        <p><span>&#x2022; my, your, his, her, their, one's, its, our</span></p>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>noun phrase</th>
+                                <th colspan="3">Possessive Adjectives</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>male</td>
+                                <td>female</td>
+                                <td>neuter</td>
+                            </tr>
+                            <tr>
+                                <td>countable(sg)</td>
+                                <td>his</td>
+                                <td>her</td>
+                                <td>its</td>
+                            </tr>
+                            <tr>
+                                <td>uncountable</td>
+                                <td></td>
+                                <td></td>
+                                <td>its</td>
+                            </tr>
+                            <tr>
+                                <td>countable</td>
+                                <td colspan="3">their</td>
+                            </tr>
+                        </tbody>
+                    </table>    
+                    <div class="box">
+                        <p ><strong>Examples</strong></p>
+                        <p style="line-height: 0.8cm;"><span>The artist deposited <b>the painting</b> at the National Gallery. <b>It</b> became part of the gallery's contemporary collection.</span></p>
+                        <p style="line-height: 0.8cm;"><span>The scientists investigated the <b>living organisms</b> in the previous study. <b>They*</b> were found to be unstable in the solution.</span></p>
+                        <p style="line-height: 0.8cm;"><span>The historian wrote about <b>two of the six presidents.</b> <b>These</b> were remarkable and courgeous people.</span></p>
+                        <p style="line-height: 0.8cm;"><span>The <b>brother</b> of that science student passed <b>his</b> IELTS test.</span></p>
+                        <p style="line-height: 0.8cm;"><span>The <b>girl</b> who witnessed the accident, returned to <b>her</b> vehicle.</span></p>
+                        <p style="line-height: 0.8cm;"><span>The <b>dog</b> chased <b>its</b> tail around the garden.</span></p>
+                        <p style="line-height: 0.8cm;"><span>*The pronoun (referent) usually refers back to the closet noun.</span></p>
+                    </div>
+                    <div class="box">
+                        <p><strong>Avoiding repetition in your writing</strong></p>
+                        <p style="line-height: 0.8cm;"><span>It is important not to repeat subjects too many times because this would make your writing monotonous.</span></p>
+                        <p><span>Compare these two styles of writng.</span></p>
+                    </div>
+
+                        <table>
+                            <tr>
+                                <td><p><strong>Poor Style</strong></p>
+                                    <p style="line-height: 0.8cm;"><b>Enviromental pllution</b> is a serious problem facing our world today. <b>Enviromental pollution</b> is caused by many different factors, for example factories  discharging dangerous gases into the air, huge amounts of pesticides seeping into the soil. Though government departments have put measures in place to address the problem, the effects from <b>environmental pollution</b> are too far-reaching.</p>
+                                </td>
+                                <td><p><strong>Good Style</strong></p>
+                                    <p style="line-height: 0.8cm;"><b>Environmental pollution **</b> is a serious problem facing our world today. <b>It</b> is caused by many different factors, for example factories discharging dangerous gases into the air, huge amounts of pesticides seeping into the soil. Though government departments have put measures in place to address the problem, effects from <b>it</b> are too far-reaching.</p>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <p style="line-height: 0.8cm;"><span>**At the beginning of a new paragraph, it is important to re-introduce the subject and not begin with a pronoun. </span></p>
+                        <p style="line-height: 0.8cm;"><span>Also, nouns should <b>not</b> be followed by pronouns. For example: My teacher, <i><u>he</u></i> returned our assignments.</span></p>
+                        <p style="line-height: 0.8cm;"><span>The use of the pronoun <i><u>he</u></i> in this sentence is incorrect. This is an example of duplication (repetition), and is grammatically incorrect. </span></p>   
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdownfour Start --------------------------------------------->
+
+
+        <div class="dropdownfour">
+            <div class="dropdownfour-header" onclick="toggleDropdown('dropdownContent4', 'icon4')">
+                <h2>04. Activity Sheet 1</h2>
+                <span class="dropdown-icon" id="icon4">▼</span>
+            </div>
+            <div class="dropdownfour-content" id="dropdownContent4">
+                <h2>Global warming - Activity 1</h2>
+                    <div class="dropdownfour-container">
+                        <p><b>Practise identifying referents and the noun phrases to which they refer in the following paragraph about sharks.</b></p>
+                        <p>
+                            The shark is a carnivorous (meat-eating) sea mammal.
+                            <span class="answer1" onclick="selectAnswer1(this, 1)">It</span> is one of the most feared fish in the ocean, having the reputation of attacking humans.
+                            There are many species 
+                            <span class="answer1" onclick="selectAnswer1(this, 6)">that</span> roam the great oceans of the world.
+                            They vary in size and habit. 
+                            <span class="answer1" onclick="selectAnswer1(this, 7)">Though</span> the whale shark is considered the largest, 
+                            <span class="answer1" onclick="selectAnswer1(this, 3)">it</span> is relatively harmless, and mainly eats small fish and plankton. 
+                            Other sharks include the hammerhead, mako, and bull.
+                            <span class="answer1" onclick="selectAnswer1(this, 4)">These</span> are fast, powerful sea animals that feed on larger fish such as mackerel, tuna, and herring.
+                            The white shark, on the other hand, is the most frightening and dangerous.
+                            <span class="answer1" onclick="selectAnswer1(this, 5)">It</span> gets 
+                            this reputation because of its size and keen sense, 
+                            <span class="answer1" onclick="selectAnswer1(this, 8)">which</span> enables 
+                            it to prey successfully. Since the early 1960’s, scientists have been studying sharks because of 
+                            <span class="answer1" onclick="selectAnswer1(this, 9)">all</span> their potential to provide the medical world with defenses against diseases such as cancer and arthritis.
+                        </p>
+                    </div>
+                    <div class="buttons">
+                        <button onclick="checkAnswers1()">
+                            <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                        </button>
+                        <button onclick="resetActivity1()">
+                            <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+                        </button>
+                    </div>
+                </div>
+                <div id="scoreModal1" class="modal1">
+                    <div class="modal-content">
+                        <span class="close1" onclick="closeModal1()">&times;</span>
+                        <h3>Feedback!</h3>
+                        <p id="scoreText1"></p>
+                    </div>
+               </div>
+        </div>
+
+                                                        <!-- Dropdownfive Start -->
+
+        <div class="dropdownfive">
+            <div class="dropdownfive-header" onclick="toggleDropdown('dropdownContent5', 'icon5')">
+                <h2>05. Activity Sheet 2</h2>
+                <span class="dropdown-icon" id="icon5">▼</span>
+            </div>
+            <div class="dropdownfive-content" id="dropdownContent5">
+                <h2>Global warming - Activity 2</h2>
+                <div class="dropdownfive-container">
+                    <p><b>Read the passage on planets. Choose the correct referent and identify to which noun phrase the pronoun refers. Check your punctuation.</b></p>
+                    <p>A planet is a large, round object that travels around the sun. There are nine planets, which together comprise a part of the solar system.</p>
+                    <p>(1)(
+                        <span class="answer-group">
+                            <span class="answer" onclick="selectAnswer(this, 1)">this</span>,
+                            <span class="answer correct" onclick="selectAnswer(this, 1)">these</span>,
+                            <span class="answer" onclick="selectAnswer(this, 1)">that</span>
+                        </span>
+                        <span id="blank1" class="blank">) _____</span> include Mercury, Venus, Earth*, Mars, Jupiter, Saturn, Uranus, Neptune, and Pluto. Much like stars in appearance, planets differ from (2)( 
+                        <span class="answer-group">
+                            <span class="answer" onclick="selectAnswer(this, 2)">they</span>,
+                            <span class="answer correct" onclick="selectAnswer(this, 2)">them</span>,
+                            <span class="answer" onclick="selectAnswer(this, 2)">their</span>
+                        </span>
+                        <span id="blank2" class="blank">) _____</span> in that (3)( 
+                            <span class="answer-group">
+                                <span class="answer correct" onclick="selectAnswer(this, 3)">they</span>,
+                                <span class="answer" onclick="selectAnswer(this, 3)">them</span>,
+                                <span class="answer" onclick="selectAnswer(this, 3)">their</span>
+                            </span>
+                        <span id="blank3" class="blank">) _____</span> shine steadily, while stars twinkle. (4)(
+                            <span class="answer-group">
+                            <span class="answer" onclick="selectAnswer(this, 4)">this</span>,
+                            <span class="answer" onclick="selectAnswer(this, 4)">these</span>,
+                            <span class="answer correct" onclick="selectAnswer(this, 4)">those</span>
+                        </span>
+                        <span id="blank4" class="blank">) _____</span> may be the result of the light and heat that stars produce on (5)(
+                            <span class="answer-group">
+                            <span class="answer correct" onclick="selectAnswer(this, 5)">its</span>,
+                            <span class="answer" onclick="selectAnswer(this, 5)">they</span>,
+                            <span class="answer" onclick="selectAnswer(this, 5)">their</span>
+                        </span>
+                        <span id="blank5" class="blank">) _____</span> own, whereas (6)( 
+                            <span class="answer-group">
+                                <span class="answer correct" onclick="selectAnswer(this, 6)">this</span>,
+                                <span class="answer" onclick="selectAnswer(this, 6)">these</span>,
+                                <span class="answer" onclick="selectAnswer(this, 6)">that</span>
+                            </span>
+                        <span id="blank6" class="blank">) _____</span> which the planets emit is reflected light from the sun. Though the planets differ substantially in size and vary widely in terms of (7)(
+                            <span class="answer-group">
+                            <span class="answer" onclick="selectAnswer(this, 7)">their</span>,
+                            <span class="answer correct" onclick="selectAnswer(this, 7)">its</span>,
+                            <span class="answer" onclick="selectAnswer(this, 7)">they</span>
+                        </span>
+                        <span id="blank7" class="blank">) _____</span> surface conditions, (8)( 
+                            <span class="answer-group">
+                            <span class="answer" onclick="selectAnswer(this, 8)">them</span>,
+                            <span class="answer" onclick="selectAnswer(this, 8)">they</span>,
+                            <span class="answer correct" onclick="selectAnswer(this, 8)">these</span>
+                        </span>
+                        <span id="blank8" class="blank">) _____</span> are similar insofar as orbital movement is concerned. All of (9)(
+                            <span class="answer-group">
+                                <span class="answer correct" onclick="selectAnswer(this, 9)">them</span>,
+                                <span class="answer" onclick="selectAnswer(this, 9)">they</span>,
+                                <span class="answer" onclick="selectAnswer(this, 9)">these</span>
+                            </span>
+                        <span id="blank9" class="blank">) _____</span> move in a westward direction across the sky. Astronomers have been fascinated by planets for thousands of years, but more recently have become interested in the feasibility of sustainable life on planets. Answers to (10)(
+                            <span class="answer-group">
+                                <span class="answer" onclick="selectAnswer(this, 10)">these</span>,
+                                <span class="answer" onclick="selectAnswer(this, 10)">that</span>,
+                                <span class="answer correct" onclick="selectAnswer(this, 10)">they</span>
+                            </span>
+                        <span id="blank10" class="blank">) _____</span> may give scientists an insight into our long-term future.</p>
+                         <p>Tip: *Earth should always be capitalized.</p>
+                    </div>
+                    <div class="buttons">
+                        <button class="finish-button" onclick="checkAnswers2()">
+                            <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                        </button>
+                        <button class="reset-button" onclick="resetActivity2()">
+                            <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+                        </button>
+                        <button id="showFeedback" style="display: none;" onclick="showFeedback()">
+                            <img src="{{ url_for('static', filename='img/review.png') }}" alt="review" class="button-icon">Show Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="scoreModal2" class="modal2">
+                <div class="modal-content">
+                    <span class="close2" onclick="closeModal2()">&times;</span>
+                    <h3>Feedback!</h3>
+                    <p id="scoreText2"></p>
+                </div>
+            </div>
+        </div>     
+    </section>
+
+    <div class="nextepisode">
+        <a href="{{ url_for('episode6') }}"><button>Next Episode</button></a>
+    </div>
+
+ <!----Footer -------------------------------------------------------------> 
+
+ <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column1">
+            <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="logo">
+        </div>
+        <div class="footer-column2">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="footer-column3">
+            <p>d.mar.learn.net@gmail.com</p>
+            <p>09 941487000</p>
+            <div class="contact-box">
+                <a href="https://www.facebook.com/dmarlearn/" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/facebook_2.png') }}" alt="Facebook Color" class="social-icon-color">
+                </a>
+                <a href="https://www.t.me/dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/telegram.png') }}" alt="Telegram" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/telegram_2.png') }}" alt="Telegram Color" class="social-icon-color">
+                </a>
+                <a href="https://www.tiktok.com/@dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/tiktok.png') }}" alt="TikTok" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/tiktok_2.png') }}" alt="TikTok Color" class="social-icon-color">
+                </a>
+                <a href="https://www.youtube.com/@DMarLearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/you tube.png') }}" alt="YouTube" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/you tube_2.png') }}" alt="YouTube Color" class="social-icon-color">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright 2024</p>
+    </div>
+</footer>
+
+<!--------------------------------------------------------------------------------------------------------------->
+    
+</body>
+</html>

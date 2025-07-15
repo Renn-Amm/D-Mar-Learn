@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/allpage.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode3.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode3_resp.css') }}"/>
+    <script src="{{ url_for('static', filename='js/episode3_1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/episode3_2.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/episode3_3.js') }}"></script>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Crown icon -->
+    <title>Episode Three</title>
+</head>
+<body>
+    <div class="overlay"></div>
+    <!-- Navigation -->
+    <header>
+        <div class="container-navigation">
+            <div class="logo-container">
+                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                &#9776; 
+            </button>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    <li>
+                        <div class="user-info">
+                            {% if session.get('user') %}
+                                <span id="user-name">
+                                    {% if session['user']['userinfo']['premium'] %}
+                                        <i class="fas fa-crown" aria-hidden="true"></i> <!-- Font Awesome crown icon -->
+                                    {% endif %}
+                                    {{ session['user']['userinfo']['name'][:15] }}{% if session['user']['userinfo']['name']|length > 15 %}...{% endif %}
+                                </span>
+                                <img id="profile-pic" src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" />
+                                <div id="user-dropdown" class="dropdown">
+                                    <img src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" class="dropdown-profile-pic">
+                                    <p>{{ session['user']['userinfo']['name'] }}</p>
+                                    <p>{{ session['user']['userinfo']['email'] }}</p>
+                                    <p>Status: {% if session['user']['userinfo']['premium'] %}Premium user{% else %}Regular user{% endif %}</p>
+                                    <a href="{{ url_for('logout') }}" id="logout-btn" class="logout-link">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ url_for('googleLogin') }}" class="login-button" id="login-btn">Login with Google</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Popup Content -->
+            <section class="popup-content" id="loginPopup">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <p>This is a sample popup content</p>
+            </section>
+
+            <script>
+                // JavaScript for dropdown and popup functionality
+
+                // User dropdown logic
+                const userName = document.getElementById('user-name');
+                const profilePic = document.getElementById('profile-pic');
+                const userDropdown = document.getElementById('user-dropdown');
+                const overlay = document.getElementById('overlay');
+
+                const toggleDropdown = (event) => {
+                    event.stopPropagation();
+                    if (userDropdown.style.display === 'none' || userDropdown.style.display === '') {
+                        userDropdown.style.display = 'block';
+                    } else {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                const closeDropdown = () => {
+                    if (userDropdown.style.display === 'block') {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                userName?.addEventListener('click', toggleDropdown);
+                profilePic?.addEventListener('click', toggleDropdown);
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', closeDropdown);
+                userDropdown.addEventListener('click', (event) => event.stopPropagation());
+
+                // Popup logic
+                const openPopupButton = document.getElementById('login-btn');
+                const closePopupButton = document.getElementById('closePopup');
+                const loginPopup = document.getElementById('loginPopup');
+
+                const openPopup = (e) => {
+                    e.preventDefault();
+                    loginPopup.classList.add('active');
+                    overlay.style.display = 'block';
+                };
+
+                const closePopup = () => {
+                    loginPopup.classList.remove('active');
+                    overlay.style.display = 'none';
+                };
+
+                openPopupButton.addEventListener('click', openPopup);
+                closePopupButton.addEventListener('click', closePopup);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closePopup();
+                    }
+                });
+
+                // Close popup when clicking outside of it
+                overlay.addEventListener('click', closePopup);
+            </script>
+
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var navigation = document.querySelector('.navigation');
+    
+            menuToggle.addEventListener('click', function () {
+                navigation.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!------------------------------------------------------------------------------------------->
+
+    
+    <!---------------------------------- Episode Banner Start -------------------------------------->
+      <section class="episodeone-banner">
+        <div class="episode-banner">
+             <img src="{{ url_for('static', filename='img/episodethree.png') }}" alt="episodeone">
+        </div>
+    </section>
+    <section class="Episodetwo-Lessons">
+        <div class="dropdownone">
+            <div class="dropdown-header" onclick="toggleDropdown('dropdownContent1', 'icon1')">
+                <h1>01. Drag and Drop Activity</h1>
+                <span class="dropdown-icon" id="icon1">▼</span>
+            </div>
+            <div class="dropdownone-content" id="dropdownContent1">
+                <div class="dropdownone-container">
+                    <div class="wordbox">
+                        <h3>Vitamin D - Activity</h3>
+                        <h4>Match with the words with the definitions.</h4>
+                        <div class="draggable-container">
+                            <form id="quiz-form">
+                                <!-- Question 1 -->
+                                <div class="question">
+                                    <p>1. Sales rose last year from 50,000 to 100,000 units. This represents an _________ of 100%.</p><br>
+                                    <input type="radio" id="q1a" name="q1" value="a">
+                                    <label for="q1a" style="font-size: 18px;">a. increased</label><br><br>
+                                    <input type="radio" id="q1b" name="q1" value="b">
+                                    <label for="q1b" style="font-size: 18px;">b. increase</label><br><br>
+                                    <input type="radio" id="q1c" name="q1" value="c">
+                                    <label for="q1c" style="font-size: 18px;">c. go up</label><br><br>
+                                    <div class="correct-answer" id="answer-q1"></div>
+                                </div>
+                                <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                <!-- Question 2 -->
+                                <div class="question">
+                                    <p>2. This was a __________ development – the first time targets were reached.</p><br>
+                                    <input type="radio" id="q2a" name="q2" value="a">
+                                    <label for="q2a" style="font-size: 18px;">a. significantly</label><br><br>
+                                    <input type="radio" id="q2b" name="q2" value="b">
+                                    <label for="q2b" style="font-size: 18px;">b. significant</label><br><br>
+                                    <input type="radio" id="q2c" name="q2" value="c">
+                                    <label for="q2c" style="font-size: 18px;">c. insignificant</label><br><br>
+                                    <div class="correct-answer" id="answer-q2"></div>
+                                </div>
+                                <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                <!-- Question 3 -->
+                                <div class="question">
+                                    <p>3. The Grade Point Average (GPA) of the group fell _________ the more part-time work the students did.</p><br>
+                                    <input type="radio" id="q3a" name="q3" value="a">
+                                    <label for="q3a" style="font-size: 18px;">a. dramatical</label><br><br>
+                                    <input type="radio" id="q3b" name="q3" value="b">
+                                    <label for="q3b" style="font-size: 18px;">b. dramatically</label><br><br>
+                                    <input type="radio" id="q3c" name="q3" value="c">
+                                    <label for="q3c" style="font-size: 18px;">c. down</label><br><br>
+                                    <div class="correct-answer" id="answer-q3"></div>
+                                </div>
+                                <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                <!-- Question 4 -->
+                                <div class="question">
+                                    <p>4. The numbers of students enrolling in university degree programs ________ at the beginning of 2002.</p><br>
+                                    <input type="radio" id="q4a" name="q4" value="a">
+                                    <label for="q4a" style="font-size: 18px;">a. rise</label><br><br>
+                                    <input type="radio" id="q4b" name="q4" value="b">
+                                    <label for="q4b" style="font-size: 18px;">b. rose</label><br><br>
+                                    <input type="radio" id="q4c" name="q4" value="c">
+                                    <label for="q4c" style="font-size: 18px;">c. rose up</label><br><br>
+                                    <div class="correct-answer" id="answer-q4"></div>
+                                </div>
+                                <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                <!-- Question 5 -->
+                                <div class="question">
+                                    <p>5. The hospitality sector was shaken and experienced a __________ decline with the introduction of the new tax on services.</p><br>
+                                    <input type="radio" id="q5a" name="q5" value="a">
+                                    <label for="q5a" style="font-size: 18px;">a. suddenly</label><br><br>
+                                    <input type="radio" id="q5b" name="q5" value="b">
+                                    <label for="q5b" style="font-size: 18px;">b. sudden</label><br><br>
+                                    <input type="radio" id="q5c" name="q5" value="c">
+                                    <label for="q5c" style="font-size: 18px;">c. modest</label><br><br>
+                                    <div class="correct-answer" id="answer-q5"></div>
+
+                                </div>
+                                <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                <!-- Question 6 -->
+                                <div class="question">
+                                    <p>6. As the diet of the aborigines changed and they ate less traditional food, so various diseases such as diabetes __________.</p><br>
+                                    <input type="radio" id="q6a" name="q6" value="a">
+                                    <label for="q6a" style="font-size: 18px;">a. increase</label><br><br>
+                                    <input type="radio" id="q6b" name="q6" value="b">
+                                    <label for="q6b" style="font-size: 18px;">b. increased</label><br><br>
+                                    <input type="radio" id="q6c" name="q6" value="c">
+                                    <label for="q6c" style="font-size: 18px;">c. increasing</label><br><br>
+                                    <div class="correct-answer" id="answer-q6"></div>
+
+                                </div>
+                                <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                <!-- Question 7 -->
+                                <div class="question">
+                                    <p>7. The gap between rich and poor _______ steadily from the beginning of the century.</p><br>
+                                    <input type="radio" id="q7a" name="q7" value="a">
+                                    <label for="q7a" style="font-size: 18px;">a. grow</label><br><br>
+                                    <input type="radio" id="q7b" name="q7" value="b">
+                                    <label for="q7b" style="font-size: 18px;">b. growth</label><br><br>
+                                    <input type="radio" id="q7c" name="q7" value="c">
+                                    <label for="q7c" style="font-size: 18px;">c. grew</label><br><br>
+                                    <div class="correct-answer" id="answer-q7"></div>
+
+                                </div>
+                                <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                <!-- Question 8 -->
+                                <div class="question">
+                                    <p>8. As inflation continued to soar the _____________ poor and desperate people thought more and more of revolution.</p><br>
+                                    <input type="radio" id="q8a" name="q8" value="a">
+                                    <label for="q8a" style="font-size: 18px;">a. increasing</label><br><br>
+                                    <input type="radio" id="q8b" name="q8" value="b">
+                                    <label for="q8b" style="font-size: 18px;">b. increasingly</label><br><br>
+                                    <input type="radio" id="q8c" name="q8" value="c">
+                                    <label for="q8c" style="font-size: 18px;">c. increased</label><br><br>
+                                    <div class="correct-answer" id="answer-q8"></div>
+                                </div>
+                                <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                <!-- Question 9 -->
+                                <div class="question">
+                                    <p>9. The margin of 7% looks ________ , but it represents a tremendous improvement.</p><br>
+                                    <input type="radio" id="q9a" name="q9" value="a">
+                                    <label for="q9a" style="font-size: 18px;">a. slight</label><br><br>
+                                    <input type="radio" id="q9b" name="q9" value="b">
+                                    <label for="q9b" style="font-size: 18px;">b. slightly</label><br><br>
+                                    <input type="radio" id="q9c" name="q9" value="c">
+                                    <label for="q9c" style="font-size: 18px;">c. dramatically</label><br><br>
+                                    <div class="correct-answer" id="answer-q9"></div>
+                                </div>
+                                <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                <!-- Question 10 -->
+                                <div class="question">
+                                    <p>10. The increase was a _________ improvement and had little bearing on final profits.</p><br>
+                                    <input type="radio" id="q10a" name="q10" value="a">
+                                    <label for="q10a" style="font-size: 18px;">a. major</label><br><br>
+                                    <input type="radio" id="q10b" name="q10" value="b">
+                                    <label for="q10b" style="font-size: 18px;">b. minor</label><br><br>
+                                    <input type="radio" id="q10c" name="q10" value="c">
+                                    <label for="q10c" style="font-size: 18px;">c. insignificant</label><br><br>
+                                    <div class="correct-answer" id="answer-q10"></div>
+                                </div>
+                                <hr style="border: 1px solid #71a7eb; margin-top: 20px;">
+                                <br>
+                                <button type="button" onclick="submitQuiz()">Submit</button><br>
+                                <!-- <button type="button" onclick="retakeQuiz()">Retake Quiz</button> -->
+                            </form>
+                        </div>
+                    </div>
+                    <div id="result"></div>
+                    <button id="retake-btn" onclick="retakeQuiz()" style="display:none;">Retake Quiz</button>
+                </div>
+            </div>
+        </div>
+
+        </div>
+        <!-- --------------------------------------Dropdowntwo Start------------------------------------->
+        <div class="dropdowntwo">
+            <div class="dropdowntwo-header" onclick="toggleDropdown('dropdownContent2', 'icon2')">
+                <h2>02. Watch the video</h2>
+                <span class="dropdown-icon" id="icon2">▼</span>
+            </div>
+            <div class="dropdowntwo-content" id="dropdownContent2">
+                <div class="episodeone-video">
+                    <video width="900" height="400" controls>
+                        <source src="{{ url_for('static', filename='video/S1E03 - Company Growth.mp4') }}" type="video/mp4">
+                    </video>
+                </div>
+                <div class="dropdowntwo-container">
+                <h3>Transcript</h3>
+                <h4>Episode 3: Company Growth</h4>
+                <p>Hello. I’m Margot Politis. Welcome to Study English, IELTS preparation.</p>
+                <p style="line-height: 0.8cm">Today we’re going to talk about businesses, and different ways to discuss economic information. 
+                </p>
+                <p>We’re going to listen to an interview with the head of a large clothing company.</p>
+                <p>Then we’re going to look at how he describes the success of his company. Here’s Derek O’Neill.</p>
+                <p style="line-height: 0.8cm;"><em>Well, we've said before that we've had consistent growth over the last four to five 
+                years. We've delivered EPS growth in excess of 20% over the last three years.</em></p>
+                <p style="line-height: 0.8cm;"><em>You know, growing earnings at 25, 30, 35% forever becomes impossible. I think we end up owning US GDP in about 2023 with 25% growth. </em></p>
+                <p>We've registered that 15 per cent is our plan and we think that's a good target. </p>
+                <p style="line-height: 0.8cm;">We're very happy with our level of sales. We grew sales in the US in girls’ wear at 50 per cent and we think that's a fantastic performance, so we'll stand by those numbers. </p>
+                <p>We've had solid momentum in that market for four or five years and we expect that momentum’s going to continue. </p>
+                <p>OK. So today we’re going look at the language of description, particularly describing economic information. In formal academic writing, it’s important to use impersonal, objective language when describing things. Notice that in the interview, Derek O’Neill often begins his sentences with ‘We’ve’, short for we have.</p>
+                <p>Using phrases like I’ve or we’ve is very common in spoken English.</p>
+                <p style="line-height: 0.8cm;">Well, we've said before that we've had consistent growth over the last four to five years. We've delivered EPS growth in excess of 20% over the last three years.</p>
+                <p><em>He says: <br>
+                            ‘We’ve had consistent growth’.<br> 
+                            ‘We’ve delivered growth in excess of 20 per cent’. <br>
+                            ‘We’ve had solid momentum in that market’. </em></p>
+                <p style="line-height: 0.8cm;">How would you turn these sentences into more formal descriptions? Take the first sentence: we’ve had consistent growth. 
+                <p>Generally the first person forms of ‘I’ and ‘we’ are not used in more formal writing, or when describing economic data.</p>
+                <p>We’d use an objective form: there is, there are, there has been, or there will be. So ‘We’ve had consistent growth’ becomes ‘There has been consistent growth’. Look at this one: We’ve delivered growth of 20%. That becomes: There has been growth of 20%.</p>
+                <p>Now listen to him again …</p>
+                <p style="line-height: 0.8cm;">We've had solid momentum in that market for four or five years and we expect that momentum’s going to continue. </p>
+                <p style="line-height: 0.8cm;"><em>He said: " We've had solid momentum. We expect that momentum is going to continue."</p>
+                <p>Here's the clip again. Listen for some of those phrases.</em></p>
+                <p><em>I believe that the public health problem for vitamin D deficiency is quite significant.</em></p>
+                <p style="line-height: 0.8cm;"><em>I mean if you think about it, over 250,000 women in the United States will develop breast cancer this year. </em></p>
+                <p>Another way we can express opinions is by using modal verbs.</p>
+                <p style="line-height: 0.8cm;">Model verbs express opinions and attitudes. They make statements less certain or less definite.</p>
+                <p>They can also be used for recommending and advising.</p>
+                <p style="line-height: 0.8cm;">Here are the modal verbs used for opinions: <em><br>would <br>should <br>could <br>might</em></p>             
+                <p>These words signal that the speaker is giving an opinion.</p>
+                <p>Look at these examples. Can you tell which ones are facts, and which ones are opinions?</p>
+                <p style="line-height: 0.8cm;">Fifty thousand will die. <br> Fifty thousand might die. </p>
+                <p>The second statement  might it is an opinion.</p>
+                <p>Here's another one...</p>
+                <p><em>I do not think small amounts of sunlight increase the risk of cancer.</em></p>
+                <p><em>Small amounts of sunlight do not increase the risk of cancer.</em></p>
+                <p>In the first statement, you can see 'I do not think ...'. This is an opinion.</p>
+                <p>Now look at these 2 sentences:</p>
+                <p style="line-height: 0.8cm;">'I believe that vitamin D deficiency might become common among adults'. <br> 'Vitamin D deficiency will affect 25% of adults'.</p>
+                <p><em>The first is an opinion - 'I believe', 'might become'.</em></p>
+                <p><em>The second is a fact - 'will affect' 25% of adults.</em></p>
+                <p>Now let's watch the clip again - listen for the phrases and modal verbs of opinions.</p>
+                <p style="line-height: 0.8cm;"><em>I believe that the public health problem for vitamin D deficiency is quite significant. I would estimate minimum 25% of adults in the United States, Europe and probably even in Australia are vitamin D deficient.</em></p>
+                <p style="line-height: 0.8cm;"><em>I mean if you think about it, over 250,000 women in the United States will develop breast cancer this year.
+                 Something like 50,000 will die. If 25% of those breast cancers could have been averted, prevented in some way, just by having a little exposure to sunlight, would have been really tremendous.
+                </em></p>
+                <p  style="line-height: 0.8cm;">OK, so you can see that Professor Holick is expressing an opinion, using a combination of phrases and modal verbs.</p>
+                <p>But now we're going to look at some pronunciation tips.</p>
+                <p style="line-height: 0.8cm;">When you're learning English, there are 3 very important parts of pronunciation. 
+                 <br>They are: word stress, sentence rhythm and intonation.</p>
+                <p  style="line-height: 0.8cm;">Today we're going to look at the first 2 - how you can practice word sentence rhythm together, to improve your spoken English.</p>
+                <p>Listen to this sentence closely for word and sentence stress...</p>
+                <p style="line-height: 0.8cm;"><em>I don't think we should blame moderate, intelligent exposure to sunlight throughout our lives as the culprit for markedly increasing our risk of developing skin cancer.</em></p>
+                <p  style="line-height: 0.8cm;">Notice that the speaker uses many words with more than one syllable. That is common in formal academic language.</p>
+                <p>But when you come across longer words, you have to learn which syllable to stress.</p>
+                <p>For example we say:intelligent , increasing and markedly</p>
+                <p>Notice that when you stress one syllable, the vowels in other syllables are shortened.</p>
+                <p  style="line-height: 0.8cm;">Sometimes these short syllables become a schwa - an 'uh' sound - or an 'i'. They're short, relaxed sounds.</p>
+                <p>Listen to: 'moderate', 'intelligent', 'exposure', 'culprit', 'markedly', 'developing', 'cancer'.</p> 
+                <p>This shortening of syllables preserves the overall sentence rhythm. Listen to the clip again...</p> 
+                <p style="line-height: 0.8cm;"><em>I don't think we should blame moderate, intelligent exposure to sunlight throughout our lives as the culprit for markedly increasing our risk of developing skin cancer.</em></p> 
+                <p style="line-height: 0.8cm;">So when you're learning to speak English, you need to learn the pronunication of individual words. 
+                   But you also need to practice sentence rhythm - putting the words together into sentences. 
+                   This is much easier when you get used to shortening the non-stressed vowels.</p>  
+                <p>OK. Listen again to the clip, and then we'll practice some more...</p>   
+                <p style="line-height: 0.8cm;"><em>I mean if you think about it, over 250,000 women in the United States will develop breast cancer this year.</em></p>
+                <p style="line-height: 0.8cm;"><em>Something like 50,000 will die. If 25% of those breast cancers could have been averted, prevented in some way, just by having a little exposure to sunlight, would have been really tremendous.</em></p>
+                <p>And we'll leave you there, for this episode.</p>
+                <p style="line-height: 0.8cm;">Don't forget to keep reading, writing, speaking and listening to English as much as you can. </p>
+                <p style="line-height: 0.8cm;">And why not try to rewrite some conversational English into more formal academic styles.</p>
+                <p>I'll see you next time for more IELTS preparation. Bye.</p>
+            </div>
+            </div>
+        </div>
+        <!------------------------------------- Dropdowntwo End --------------------------------------------->
+            <div class="dropdownthree">
+    <div class="dropdownthree-header" onclick="toggleDropdown('dropdownContent3', 'icon3')">
+        <h2>03. Study Notes</h2>
+        <span class="dropdown-icon" id="icon3">▼</span>
+    </div>
+    <div class="dropdownthree-content" id="dropdownContent3">
+        <h2>Episode 3: Describing Company Growth</h2>
+        <div class="dropdownthree-container">
+            <div class="notes">
+                <div class="description-data" style="margin-bottom: 15px;">
+                    <h4 style="color: #333; font-size: 1.2em; font-weight: bold; background-color: #e7f4e3; padding: 5px; border-left: 5px solid #4CAF50;">Describing Data and Trends</h4>
+                    <p style="line-height: 1.6; color: #555;">Describing data accurately is essential for conveying a clear understanding of trends, patterns, and significant changes over time. In the context of company growth, being able to articulate these changes using precise language is crucial.</p>
+                </div>
+                <div class="structuring-description" style="margin-bottom: 15px;">
+                    <h3 style="color: #333; font-size: 1.2em; font-weight: bold; background-color: #e7f4e3; padding: 5px; border-left: 5px solid #4CAF50;">Structuring Your Description</h3>
+                    <p style="line-height: 1.6; color: #555;">A well-structured description of data should include three key components:</p>
+                    <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Statement:</strong> Clearly state the main point or trend you are discussing. <br><em>Example:</em> <strong>"DVD sales increased dramatically."</strong></p>
+                    <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Supporting Data:</strong> Provide specific numerical or factual details that back up your statement. <br><em>Example:</em> <strong>"Between 2001 and 2004, sales rose from 2 to 3 million units."</strong></p>
+                    <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Comment/Analysis:</strong> Add context or interpret the significance of the data. <br><em>Example:</em> <strong>"This represents a 50% increase, indicating strong consumer demand during this period."</strong></p>
+                </div>
+                <div class="using-appropriate-language" style="margin-bottom: 15px;">
+                    <h4 style="color: #333; font-size: 1.2em; font-weight: bold; background-color: #e7f4e3; padding: 5px; border-left: 5px solid #4CAF50;">Using Appropriate Language</h4>
+                    <p style="line-height: 1.6; color: #555;">To describe data effectively, you should vary your language to maintain interest and precision. Here are some useful constructions:</p>
+                    <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Adjective + Noun:</strong> "There was a steady increase in revenue over the past decade."</p>
+                    <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Verb + Adverb:</strong> "Revenue grew steadily over the past decade."</p>
+                </div>
+                <div class="vocabulary" style="margin-bottom: 15px;">
+                    <h4 style="color: #333; font-size: 1.2em; font-weight: bold; background-color: #e7f4e3; padding: 5px; border-left: 5px solid #4CAF50;">Expanding Your Vocabulary</h4>
+                    <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">When describing increases:</strong></p>
+                    <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Verbs:</strong> Increase, rise, climb, grow, surge</p>
+                    <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Adverbs:</strong> Dramatically, significantly, steadily, sharply, gradually</p>
+                    <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">When describing decreases:</strong></p>
+                    <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Verbs:</strong> Decrease, decline, fall, drop, plummet</p>
+                    <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Adverbs:</strong> Slowly, rapidly, noticeably, sharply, slightly</p>
+                </div>
+            </div>
+            <div class="register" style="margin-bottom: 15px;">
+                <h4 style="color: #333; font-size: 1.2em; font-weight: bold; background-color: #e7f4e3; padding: 5px; border-left: 5px solid #4CAF50;">Choosing the Right Register</h4>
+                <p style="line-height: 1.6; color: #555;">The level of formality in your language can vary depending on the context:</p>
+                <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Formal Register:</strong> Use for reports, presentations, and formal discussions.</p>
+                <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Verbs:</strong> Increase, decrease, expand, contract</p>
+                <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Nouns:</strong> Growth, reduction, expansion, contraction</p>
+                <p style="line-height: 1.6; color: #555;"><em>Example:</em> <strong>"The company experienced a substantial growth in its market share."</strong></p>
+                <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Informal Register:</strong> Use in casual conversations or less formal settings.</p>
+                <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Verbs:</strong> Go up, go down, pick up, slow down</p>
+                <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">Nouns:</strong> Rise, fall, boost, drop</p>
+                <p style="line-height: 1.6; color: #555;"><em>Example:</em> <strong>"Sales went up by 20% last year."</strong></p>
+            </div>
+            <div class="prepositions" style="margin-bottom: 15px;">
+                <h4 style="color: #333; font-size: 1.2em; font-weight: bold; background-color: #e7f4e3; padding: 5px; border-left: 5px solid #4CAF50;">Mastering Prepositions of Time</h4>
+                <p style="line-height: 1.6; color: #555;">When describing data over time, it’s important to use prepositions correctly to avoid confusion:</p>
+                <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">At:</strong> A specific point in time (e.g., at 5 PM, at the end of the year)</p>
+                <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">In:</strong> A longer, non-specific time period (e.g., in 2023, in the last decade)</p>
+                <p style="line-height: 1.6; color: #555;"><strong style="color: #4CAF50;">On:</strong> A specific day or date (e.g., on Monday, on January 1st)</p>
+            </div>
+            <div class="examples" style="margin-bottom: 15px;">
+                <h4 style="color: #333; font-size: 1.2em; font-weight: bold; background-color: #e7f4e3; padding: 5px; border-left: 5px solid #4CAF50;">Providing Examples</h4>
+                <p style="line-height: 1.6; color: #555;">Using examples can make your data more relatable and understandable.</p>
+                <p style="line-height: 1.6; color: #555;"><em>Example:</em> <strong>"The 50% growth in DVD sales from 2001 to 2004 suggests a significant shift in consumer preferences towards home entertainment, likely driven by advancements in technology and increasing availability of DVD players."</strong></p>
+            </div>
+            <div class="comparisons" style="margin-bottom: 15px;">
+                <h4 style="color: #333; font-size: 1.2em; font-weight: bold; background-color: #e7f4e3; padding: 5px; border-left: 5px solid #4CAF50;">Providing Comparisons</h4>
+                <p style="line-height: 1.6; color: #555;">Comparing data points can highlight the significance of changes.</p>
+                <p style="line-height: 1.6; color: #555;"><em>Example:</em> <strong>"While the company’s revenue grew by 20% in 2023, its competitor only saw a 5% increase, indicating a stronger market position for the company."</strong></p>
+            </div>
+            <div class="visuals" style="margin-bottom: 15px;">
+                <h4 style="color: #333; font-size: 1.2em; font-weight: bold; background-color: #e7f4e3; padding: 5px; border-left: 5px solid #4CAF50;">Visual Representation</h4>
+                <p style="line-height: 1.6; color: #555;">Whenever possible, accompany your descriptions with visual aids such as graphs, charts, or tables. This helps to illustrate the data more clearly and makes it easier for the audience to grasp the trends.</p>
+            </div>
+        </div> 
+        </div>    
+    </div>
+</div>
+</div> 
+
+    <div class="dropdownfour">
+                <div class="dropdown-header" onclick="toggleDropdown('dropdownContent4', 'icon4')">
+                    <h1>04. Select The Correct Prepositions of Time</h1>
+                    <span class="dropdown-icon" id="icon4">▼</span>
+                </div>
+                <div class="dropdownfour-content" id="dropdownContent4">
+                    <div class="dropdownfour-container">
+                        <div class="wordbox">
+                            <h3>Prepositions of Time</h3>
+                            <h4>Complete the following phrases, selecting the correct preposition of time from the choices offered.</h4>
+                            <div class="draggable-container">
+                                <form id="quiz-form2">
+                                    <!-- Question 1 -->
+                                    <div class="question2">
+                                        <p>1. ________ March till June</p><br>
+                                        <input type="radio" id="q1a" name="q1.2" value="a">
+                                        <label for="q1a" style="font-size: 18px;">a. between</label><br><br>
+                                        <input type="radio" id="q1b" name="q1.2" value="b">
+                                        <label for="q1b" style="font-size: 18px;">b. from</label><br><br>
+                                        <input type="radio" id="q1c" name="q1.2" value="c">
+                                        <label for="q1c" style="font-size: 18px;">c. for</label><br><br>
+                                        <div class="correct-answer2" id="answer-q1.2"></div>
+                                    </div>
+                                    <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                    <!-- Question 2 -->
+                                    <div class="question2">
+                                        <p>2. Sales picked up _____________ March and June.</p><br>
+                                        <input type="radio" id="q2a" name="q2.2" value="a">
+                                        <label for="q2a" style="font-size: 18px;">a. between</label><br><br>
+                                        <input type="radio" id="q2b" name="q2.2" value="b">
+                                        <label for="q2b" style="font-size: 18px;">b. for</label><br><br>
+                                        <input type="radio" id="q2c" name="q2.2" value="c">
+                                        <label for="q2c" style="font-size: 18px;">c. from</label><br><br>
+                                        <div class="correct-answer2" id="answer-q2.2"></div>
+                                    </div>
+                                    <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                    <!-- Question 3 -->
+                                    <div class="question2">
+                                        <p>3. Production fell __________ 30%.</p><br>
+                                        <input type="radio" id="q3a" name="q3.2" value="a">
+                                        <label for="q3a" style="font-size: 18px;">a. from</label><br><br>
+                                        <input type="radio" id="q3b" name="q3.2" value="b">
+                                        <label for="q3b" style="font-size: 18px;">b. for</label><br><br>
+                                        <input type="radio" id="q3c" name="q3.2" value="c">
+                                        <label for="q3c" style="font-size: 18px;">c. by</label><br><br>
+                                        <div class="correct-answer2" id="answer-q3.2"></div>
+                                    </div>
+                                    <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                    <!-- Question 4 -->
+                                    <div class="question2">
+                                        <p>4. Production fell _________ the first quarter.</p><br>
+                                        <input type="radio" id="q4a" name="q4.2" value="a">
+                                        <label for="q4a" style="font-size: 18px;">a. in</label><br><br>
+                                        <input type="radio" id="q4b" name="q4.2" value="b">
+                                        <label for="q4b" style="font-size: 18px;">b. by</label><br><br>
+                                        <input type="radio" id="q4c" name="q4.2" value="c">
+                                        <label for="q4c" style="font-size: 18px;">c. at</label><br><br>
+                                        <div class="correct-answer2" id="answer-q4.2"></div>
+                                    </div>
+                                    <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                    <!-- Question 5 -->
+                                    <div class="question2">
+                                        <p>5. The sun is at its hottest _________ 2.00 in the afternoon.</p><br>
+                                        <input type="radio" id="q5a" name="q5.2" value="a">
+                                        <label for="q5a" style="font-size: 18px;">a. on</label><br><br>
+                                        <input type="radio" id="q5b" name="q5.2" value="b">
+                                        <label for="q5b" style="font-size: 18px;">b. in</label><br><br>
+                                        <input type="radio" id="q5c" name="q5.2" value="c">
+                                        <label for="q5c" style="font-size: 18px;">c. at</label><br><br>
+                                        <div class="correct-answer2" id="answer-q5.2"></div>
+                                    </div>
+                                    <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                    <!-- Question 6 -->
+                                    <div class="question2">
+                                        <p>6. Production increased all year __________ targets were reached.</p><br>
+                                        <input type="radio" id="q6a" name="q6.2" value="a">
+                                        <label for="q6a" style="font-size: 18px;">a. till</label><br><br>
+                                        <input type="radio" id="q6b" name="q6.2" value="b">
+                                        <label for="q6b" style="font-size: 18px;">b. to</label><br><br>
+                                        <input type="radio" id="q6c" name="q6.2" value="c">
+                                        <label for="q6c" style="font-size: 18px;">c. by</label><br><br>
+                                        <div class="correct-answer2" id="answer-q6.2"></div>
+                                    </div>
+                                    <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                    <!-- Question 7 -->
+                                    <div class="question2">
+                                        <p>7. Pollution levels rose steadily ________ the three months of summer.</p><br>
+                                        <input type="radio" id="q7a" name="q7.2" value="a">
+                                        <label for ="q7a"  style="font-size: 18px;">a. on</label><br><br>
+                                        <input type="radio" id="q7b" name="q7.2" value="b">
+                                        <label for="q7b" style="font-size: 18px;">b. for</label><br><br>
+                                        <input type="radio" id="q7c" name="q7.2" value="c">
+                                        <label for="q7c" style="font-size: 18px;">c. between</label><br><br>
+                                        <div class="correct-answer2" id="answer-q7.2"></div>
+                                    </div>
+                                    <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                    <!-- Question 8 -->
+                                    <div class="question2">
+                                        <p>8. Bank interest rates will rise ______ the 1st of July, according to the Treasurer.</p><br>
+                                        <input type="radio" id="q8a" name="q8.2" value="a">
+                                        <label for="q8a" style="font-size: 18px;">a. on</label><br><br>
+                                        <input type="radio" id="q8b" name="q8.2" value="b">
+                                        <label for="q8b" style="font-size: 18px;">b. for</label><br><br>
+                                        <input type="radio" id="q8c" name="q8.2" value="c">
+                                        <label for="q8c" style="font-size: 18px;">c. at</label><br><br>
+                                        <div class="correct-answer2" id="answer-q8.2"></div>
+                                    </div>
+                                    <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                    <!-- Question 9 -->
+                                    <div class="question2">
+                                        <p>9. Oil prices plateaued and remained steady _________ the end of the financial year.</p><br>
+                                        <input type="radio" id="q9a" name="q9.2" value="a">
+                                        <label for="q9a" style="font-size: 18px;">a. to</label><br><br>
+                                        <input type="radio" id="q9b" name="q9.2" value="b">
+                                        <label for="q9b" style="font-size: 18px;">b. at</label><br><br>
+                                        <input type="radio" id="q9c" name="q9.2" value="c">
+                                        <label for="q9c" style="font-size: 18px;">c. until</label><br><br>
+                                        <div class="correct-answer2" id="answer-q9.2"></div>
+                                    </div>
+                                    <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                    <!-- Question 10 -->
+                                    <div class="question2">
+                                        <p>10. The value of the AUS $ fell ________ 70¢ against the Greenback (US $).</p><br>
+                                        <input type="radio" id="q10a" name="q10.2" value="a">
+                                        <label for="q10a" style="font-size: 18px;">a. to</label><br><br>
+                                        <input type="radio" id="q10b" name="q10.2" value="b">
+                                        <label for="q10b" style="font-size: 18px;">b. till</label><br><br>
+                                        <input type="radio" id="q10c" name="q10.2" value="c">
+                                        <label for="q10c" style="font-size: 18px;">c. by</label><br><br>
+                                        <div class="correct-answer2" id="answer-q10.2"></div>
+                                    </div>
+                                    <hr style="border: 1px solid #71a7eb; margin-top: 20px;"><br>
+
+                                    <br>
+                                    <button type="button" onclick="submitQuiz2()">Submit</button><br>
+                                    <!-- <button type="button" onclick="retakeQuiz()">Retake Quiz</button> -->
+                                </form>
+                            </div>
+                        </div>
+                        <div id="result2"></div>
+                        <button id="retake-btn2" onclick="retakeQuiz2()" style="display:none;">Retake Quiz</button>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+
+</section>
+    <div class="nextepisode">
+        <a href="{{ url_for('episode4') }}"><button>Next Episode</button></a>
+    </div>
+
+ <!----Footer -------------------------------------------------------------> 
+
+ <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column1">
+            <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="logo">
+        </div>
+        <div class="footer-column2">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="footer-column3">
+            <p>d.mar.learn.net@gmail.com</p>
+            <p>09 941487000</p>
+            <div class="contact-box">
+                <a href="https://www.facebook.com/dmarlearn/" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/facebook_2.png') }}" alt="Facebook Color" class="social-icon-color">
+                </a>
+                <a href="https://www.t.me/dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/telegram.png') }}" alt="Telegram" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/telegram_2.png') }}" alt="Telegram Color" class="social-icon-color">
+                </a>
+                <a href="https://www.tiktok.com/@dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/tiktok.png') }}" alt="TikTok" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/tiktok_2.png') }}" alt="TikTok Color" class="social-icon-color">
+                </a>
+                <a href="https://www.youtube.com/@DMarLearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/you tube.png') }}" alt="YouTube" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/you tube_2.png') }}" alt="YouTube Color" class="social-icon-color">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright 2024</p>
+    </div>
+</footer>
+
+<!--------------------------------------------------------------------------------------------------------------->
+    
+</body>
+</html>

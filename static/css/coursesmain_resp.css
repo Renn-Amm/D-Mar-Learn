@@ -1,0 +1,804 @@
+/* navication start */
+
+/* Tablets and Smaller Devices */
+@media (max-width: 1024px) {
+    .container-navigation {
+        padding: 10px 0;
+        height: 80px;
+    }
+
+    .logo-container {
+        margin-left: 40px;
+    }
+
+    .navigation {
+        margin-right: 40px;
+    }
+
+    .menu-toggle {
+        display: block;
+        font-size: 28px;
+    }
+
+    .navigation {
+        display: none;
+        position: absolute; 
+        top: 80px; 
+        left: 0;
+        width: 100%;
+        background-color: white; 
+    }
+
+    .navigation.active {
+        display: block;
+    }
+
+    .navigation ul {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .navigation ul li {
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 15px 20px; 
+        border-top: 1px solid #444; 
+        text-align: left; 
+    }
+
+    .navigation ul li a {
+        display: block;
+        color: #555;
+        text-decoration: none;
+        width: 100%;
+    }
+
+    .login-button {
+        width: 100%;
+        margin: 15px 0;
+        box-shadow: none;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 768px) {
+    .container-navigation {
+        padding: 8px 0;
+        height: 70px;
+    }
+
+    .logo-container {
+        margin-left: 20px;
+    }
+
+    .mission-text {
+        padding-top: 20px;
+    }
+
+    .menu-toggle {
+        margin-left: auto;
+        margin-right: 20px;
+    }
+
+    .navigation ul li {
+        padding: 12px 15px; 
+    }
+
+    .login-button {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+}
+
+/* Small Mobile Phones */
+@media (max-width: 480px) {
+    .container-navigation {
+        padding: 6px 0;
+        height: 60px;
+    }
+
+    .logo-container {
+        margin-left: 10px;
+    }
+
+    .menu-toggle {
+        margin-right: 10px;
+    }
+
+    .navigation ul li {
+        padding: 10px 12px;
+    }
+
+    .login-button {
+        padding: 8px 16px;
+        font-size: 16px;
+    }
+}
+/* Navigation Bar end */
+
+/* Banner start */
+
+@media (max-width: 768px) {
+    .episodeone-banner {
+        flex-direction: column; 
+        margin: 60px auto; 
+        padding: 10px; 
+    }
+
+    .episode-banner img {
+        max-width: 100%; 
+        width: 100%;
+    }
+}
+
+/* Banner End */
+
+/* starter lesson start */
+
+/* Media Query for Tablets and Smaller Screens */
+@media (max-width: 768px) {
+    .starter-title {
+        font-size: 32px;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 16px;
+        text-align: left;
+    }
+
+    .starter-description {
+        font-size: 18px;
+        color: #5D5D5D;
+        margin-bottom: 50px;
+        text-align: left;
+        line-height: 1.5;
+    }
+
+    .lesson-content {
+        padding: 0px;
+        text-align: left;
+    }
+
+    .lessons-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .lesson-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: #D6E9FF;
+        border-radius: 8px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease-in-out;
+        position: relative;
+        text-decoration: none;
+        color: inherit;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 380px;
+    }
+
+    .lesson-image {
+        width: 180px;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .lesson-content {
+        margin-top: -20px;
+        text-align: left;
+    }
+
+    .lesson-badge1 {
+        display: none;
+    }
+
+    .lesson-badge2 {
+        display: none;
+    }
+
+    .lesson-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #343434;
+        margin-bottom: 6px;
+    }
+
+    .lesson-episode {
+        font-size: 16px;
+        color: #777777;
+        margin-bottom: 6px;
+    }
+
+    .lesson-category {
+        font-size: 14px;
+        color: #7CB7FF;
+        font-weight: bold;
+    }
+
+    .lesson-badge,
+    .lesson-badge1,
+    .lesson-badge2,
+    .lesson-badge3,
+    .lesson-badge4,
+    .lesson-badge5,
+    .lesson-badge6,
+    .lesson-badge11,
+    .lesson-badge12,
+    .lesson-badge13,
+    .lesson-badge14,
+    .lesson-badge15,
+    .lesson-badge16{
+        display: none;
+    }
+}
+
+/* Media Query for Mobile Phones */
+@media (max-width: 480px) {
+    .starter-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 16px;
+        text-align: left;
+    }
+
+    .starter-description {
+        font-size: 16px;
+        color: #5D5D5D;
+        margin-bottom: 40px;
+        text-align: left;
+        line-height: 1.4;
+    }
+
+    .lesson-content {
+        padding: 0px;
+        text-align: left;
+    }
+
+    .lesson-card {
+        flex-direction: row;
+        max-width: 300px;
+    }
+
+    .lesson-image {
+        width: 130px;
+        height: 90px;
+    }
+
+    .lesson-title {
+        font-size: 18px;
+        margin-bottom: 4px;
+    }
+
+    .lesson-episode,
+    .lesson-category {
+        font-size: 14px;
+    }
+
+    .lesson-badge,
+    .lesson-badge1,
+    .lesson-badge2,
+    .lesson-badge3,
+    .lesson-badge4,
+    .lesson-badge5,
+    .lesson-badge6,
+    .lesson-badge11,
+    .lesson-badge12,
+    .lesson-badge13,
+    .lesson-badge14,
+    .lesson-badge15,
+    .lesson-badge16{
+        display: none;
+    }
+}
+
+/* Additional Media Queries */
+
+/* Media Query for Large Desktops */
+@media (min-width: 1300px) {
+    .lesson-card {
+        max-width: 600px;
+    }
+
+    .lesson-image {
+        width: 220px;
+        height: auto;
+    }
+
+    .lesson-title {
+        font-size: 32px;
+        font-weight: bold;
+        color: #343434;
+        margin-bottom: 4px;
+    }
+
+    .lesson-episode {
+        font-size: 24px;
+    }
+
+    .lesson-category {
+        font-size: 18px;
+    }
+    
+}
+
+/* Media Query for Desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .lesson-card {
+        max-width: 450px;
+    }
+
+    .lesson-image {
+        width: 200px;
+        height: auto;
+    }
+
+    .lesson-title {
+        font-size: 20px;
+    }
+
+    .lesson-episode {
+        font-size: 17px;
+    }
+
+    .lesson-category {
+        font-size: 15px;
+    }
+
+    .lesson-badge,
+    .lesson-badge1,
+    .lesson-badge2,
+    .lesson-badge3,
+    .lesson-badge4,
+    .lesson-badge5,
+    .lesson-badge6,
+    .lesson-badge11,
+    .lesson-badge12,
+    .lesson-badge13,
+    .lesson-badge14,
+    .lesson-badge15,
+    .lesson-badge16{
+        display: none;
+    }
+}
+
+/* Media Query for Tablets (Landscape) */
+@media (min-width: 769px) and (max-width: 991px) {
+    .lesson-card {
+        max-width: 400px;
+    }
+
+    .lesson-image {
+        width: 180px;
+        height: auto;
+    }
+
+    .lesson-title {
+        font-size: 18px;
+    }
+
+    .lesson-episode {
+        font-size: 16px;
+    }
+
+    .lesson-category {
+        font-size: 14px;
+    }
+
+    .lesson-badge,
+    .lesson-badge1,
+    .lesson-badge2,
+    .lesson-badge3,
+    .lesson-badge4,
+    .lesson-badge5,
+    .lesson-badge6,
+    .lesson-badge11,
+    .lesson-badge12,
+    .lesson-badge13,
+    .lesson-badge14,
+    .lesson-badge15,
+    .lesson-badge16{
+        display: none;
+    }
+}
+
+/* Media Query for Large Mobile Devices */
+@media (min-width: 481px) and (max-width: 768px) {
+    .lesson-card {
+        max-width: 320px;
+    }
+
+    .lesson-image {
+        width: 140px;
+        height: auto;
+    }
+
+    .lesson-title {
+        font-size: 17px;
+    }
+
+    .lesson-episode,
+    .lesson-category {
+        font-size: 14px;
+    }
+
+    .lesson-badge,
+    .lesson-badge1,
+    .lesson-badge2,
+    .lesson-badge3,
+    .lesson-badge4,
+    .lesson-badge5,
+    .lesson-badge6,
+    .lesson-badge11,
+    .lesson-badge12,
+    .lesson-badge13,
+    .lesson-badge14,
+    .lesson-badge15,
+    .lesson-badge16{
+        display: none;
+    }
+}
+
+/* Media Query for Ultra-Wide Screens */
+@media (min-width: 1600px) {
+    .lesson-card {
+        max-width: 800px;
+    }
+
+    .lesson-image {
+        width: 250px;
+        height: auto;
+    }
+
+    .lesson-title {
+        font-size: 36px;
+    }
+
+    .lesson-episode {
+        font-size: 28px;
+    }
+
+    .lesson-category {
+        font-size: 20px;
+    }
+}
+
+/* Media Query for Small Tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+    .lesson-card {
+        max-width: 340px;
+    }
+
+    .lesson-image {
+        width: 160px;
+    }
+
+    .lesson-title {
+        font-size: 18px;
+    }
+
+    .lesson-episode {
+        font-size: 16px;
+    }
+
+    .lesson-category {
+        font-size: 15px;
+    }
+
+    .lesson-badge,
+    .lesson-badge1,
+    .lesson-badge2,
+    .lesson-badge3,
+    .lesson-badge4,
+    .lesson-badge5,
+    .lesson-badge6,
+    .lesson-badge11,
+    .lesson-badge12,
+    .lesson-badge13,
+    .lesson-badge14,
+    .lesson-badge15,
+    .lesson-badge16{
+        display: none;
+    }
+}
+
+/* starter lesson end */
+
+
+/* learn & play start*/
+
+/* Tablets and Smaller Devices */
+@media (max-width: 1024px) {
+    
+    .play-learn-title {
+        font-size: 36px;
+    }
+
+    .image-container img {
+        max-width: 300px;
+        border-radius: 10px;
+    }
+    
+
+    .content1 {
+        margin-left: 0;
+    }
+
+    .content1 h2 {
+        font-size: 36px;
+    }
+
+    .content1 p {
+        font-size: 20px;
+    }
+
+    .content2 {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .content2 h2 {
+        font-size: 36px;
+    }
+
+    .content2 p {
+        font-size: 20px;
+    }
+
+    .btn {
+        font-size: 24px;
+        padding: 16px 30px;
+        border-radius: 40px;
+    }
+    
+}
+
+/* Mobile Phones */
+@media (max-width: 768px) {
+
+    .play-learn-title {
+        font-size: 36px;
+        text-align: center;
+    }
+
+    .game-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .play-learn-title {
+        font-size: 32px;
+    }
+
+    .image-container img {
+        max-width: 250px;
+    }
+    
+
+    .content1 {
+        padding: 0px;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .content1 h2 {
+        font-size: 24px;
+    }
+
+    .content1 p {
+        font-size: 16px;
+    }
+
+    .content2 {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .content2 h2 {
+        font-size: 24px;
+    }
+
+    .content2 p {
+        font-size: 16px;
+    }
+
+    .btn {
+        margin-bottom: 30px;
+        font-size: 24px;
+        padding: 16px 30px;
+        border-radius: 40px;
+    }
+}
+
+/* Small Mobile Phones */
+@media (max-width: 480px) {
+    .play-learn-title {
+        font-size: 28px;
+    }
+
+    .content h2 {
+        font-size: 24px;
+    }
+
+    .content p {
+        font-size: 16px;
+    }
+
+    .btn {
+        font-size: 20px;
+        padding: 10px 18px;
+    }
+}
+
+/* Learn and play end */
+
+/* Mobile phones */
+@media (max-width: 768px) {
+    .play-learn-title {
+        font-size: 32px;
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 30px;
+    }
+
+    .game-card {
+        padding: 10px;
+    }
+
+    .image-container img {
+        padding-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .content h2 {
+        font-size: 34px;
+        margin-bottom: 18px;
+    }
+
+    .content p {
+        font-size: 18px;
+        margin-bottom: 25px;
+    }
+
+    .btn {
+        font-size: 24px;
+        padding: 12px 24px;
+    }
+}
+
+/* Smaller mobile phones */
+@media (max-width: 480px) {
+    .play-learn-title {
+        font-size: 28px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+
+    .content h2 {
+        font-size: 28px;
+        margin-bottom: 16px;
+    }
+
+    .content p {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        font-size: 22px;
+        padding: 10px 20px;
+    }
+}
+
+
+/* footer start */
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-column1,
+    .footer-column2,
+    .footer-column3,
+    .footer-column4 {
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .footer-column1 img{
+        width: 280px;
+        height: auto;
+    }
+
+    .footer-column1 h3,
+    .footer-column1 p {
+        margin: 0px auto;
+    }
+
+    .footer-column2 nav ul {
+        text-align: center;
+        font-size: 25px;
+        margin-top: 20px;
+    }
+
+    .footer-column3 p{
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .social-icons {
+        justify-content: center;
+        margin-left: 30px;
+    }
+
+    .footer-column4 .text {
+        flex-direction: column;
+        align-items: center;
+        font-size: 20px;
+    }
+
+    .footer-column4 img{
+        width: 40px;
+        height: auto;
+    }
+
+
+}
+
+/* Mobile view adjustments */
+@media (max-width: 480px) {
+    .footer-container {
+        padding: 0 10px;
+    }
+
+    .footer-column1 h3 {
+        font-size: 24px;
+    }
+
+    .footer-column1 p {
+        font-size: 16px;
+    }
+
+    .footer-column2 nav ul li {
+        margin-bottom: 8px;
+    }
+
+    .footer-column3 p {
+        font-size: 14px;
+    }
+
+    .social-icons a {
+        width: 30px;
+        height: 30px;
+        margin: 20px 6px;
+    }
+
+    .footer-column4 .text {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .subscribe-form input[type="email"] {
+        padding: 8px;
+        height: 40px;
+    }
+
+    .subscribe-form button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .footer-bottom {
+        font-size: 12px;
+    }
+}
+/* footer End */

@@ -1,0 +1,542 @@
+
+.dropdownone-content, .dropdowntwo-content, .dropdownthree-content, .dropdownfour-content, .dropdownfive-content {
+    display: none;
+}
+
+/* Episode One Bar Start */
+.episodeone-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    max-width: 1440px;
+    background-color: #ffffff;
+    padding: 20px; 
+    margin: 10px auto;
+}
+
+.episode-banner img {
+    width: 100%;
+    height: auto;
+    max-width: 100%; 
+}
+
+/* Episode One Bar End  */
+
+/* Episode One Lessons Start */
+.Episodeone-Lessons {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    max-width: 1440px;
+    margin: 50px auto;
+    background-color: #ffffff;
+}
+
+.dropdownone , .dropdowntwo ,.dropdownthree  ,.dropdownfive ,.dropdownsix {
+    background-color: #dceeff;
+    border-radius: 5px;
+    width: 1000px;
+    height: auto;
+    margin: 20px auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.dropdown-header ,.dropdowntwo-header ,.dropdownthree-header ,.dropdownfive-header ,.dropdownsix-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 15px;
+    margin: 0px 20px 0px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+    font-size: 15px;
+}
+
+.dropdown-icon {
+    transition: transform 0.3s ease;
+}
+
+.dropdown-content {
+    display: none;
+    padding: 15px;
+    border-top: 1px solid #ccc;
+    font-size: 16px;
+
+}
+
+.playgame {
+    background-color: #7cb7ff;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid white;
+    cursor: pointer;
+    font-size: 23px;
+    display: inline-block;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.playgame:hover {
+    background-color: #f5db72;
+}
+
+
+/* Dropdown two start*/
+.dropdowntwo-content {
+    display: none;
+    position: relative; 
+    background-color: #dceeff;
+    width: 100%; 
+    max-width: 1000px;
+    max-height: 900px;
+    padding: 45px;
+    border-top: 1px solid #ccc;
+    font-size: 16px;
+  
+}
+
+.dropdowntwo-container{
+    display: block;
+    justify-content: center;
+    background-color: white;
+    margin: 15px;
+    padding: 20px 20px 20px 20px;
+    max-width: 900px;
+    max-height: 400px;
+    z-index: 1;
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    border-radius: 8px 8px 8px 8px;
+    line-height: 1.5cm;
+    border: 15px solid #fff;
+    
+}
+.dropdowntwo-container h3 {
+    margin: 10px 0 10px 10px; 
+    font-size: 25px;
+    font-weight: 1000;
+}
+
+.dropdowntwo-container h4 {
+    margin: 10px 0 10px 10px; 
+    font-size: 20px;
+    color: #a2a2a2;
+}
+
+.dropdowntwo-container p {
+    margin: 10px 0 10px 15px; 
+    font-size: 18px;
+}
+
+.dropdowntwo-container p em {
+    color: #7cb7ff;
+}
+
+/* Dropdown two end */
+
+/* Dropdownthree Start  */
+
+.dropdownthree-content{
+    display: none;
+}
+.dropdownthree-container .wordbox {
+    max-width: 900px;
+    max-height: 900px;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.dropdownthree-container h3 {
+    margin: 15px 0;
+    font-size: 22px;
+    font-weight: 1000;
+}
+
+.dropdownthree-container h4 {
+    margin: 15px 0;
+    font-size: 20px;
+    color: #777777;
+}
+
+.draggable-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 800px;
+    padding: 20px 20px 20px 20px;
+    margin: 30px 20px;
+    background-color: whitesmoke;
+    font-size: 20px;
+}
+
+.draggable {
+    background-color: #d3e4ff;
+    padding: 10px;
+    border-radius: 3px;
+    cursor: grab;
+    user-select: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    font-size: 20px;
+}
+
+.dropdownthree-container .dragbox {
+    display: block;
+    background-color: white;
+    margin: 5px auto 30px;
+    padding: 20px;
+    max-width: 900px;
+    max-height: 300px;
+    z-index: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 8px;
+    line-height: 1cm;
+}
+
+.dropdownthree-container .dragbox p {
+    font-size: 18px;
+}
+
+.definitions {
+    display: grid;
+    gap: 20px;
+    padding: 20px 20px 20px 20px;
+}
+
+.definition {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropzone {
+    width: 300px;
+    height: 40px;
+    border: 3px solid #d3e4ff;
+    border-radius: 4px;
+    padding: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+button {
+    background-color: #fefbed;
+    color: #7cb7ff;
+    font-size: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    border: 3px solid #d3e4ff;
+    cursor: pointer;
+    margin: 30px 0px 0px 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+button img{
+    width: 50px;
+    height: auto;
+    margin-right: 8px;
+}
+
+button:hover {
+    background-color: #f2f8ff;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+.modal-content {
+    position: relative;
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #dceeff;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.modal-content h3 {
+    font-size: 23px;
+    margin: 10px 0px 30px 0px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #7CB7FF;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #f5db72;
+    text-decoration: none;
+}
+
+.button-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.lists {
+    margin-left: 180px;
+}
+
+
+/* Dropdownthree End */
+
+/* Dropdownfive Start */
+
+.dropdownfive-content{
+    display: none;
+    height: 750px;
+}
+.dropdownfive-content h3{
+    font-size: 20px;
+    color: #777777;
+    margin-left: 50px;
+    margin-bottom: 20px;
+}
+
+
+.dropdownfive-container {
+    max-width: 900px;
+    height: 650px;
+    margin: 0 auto;
+    padding: 30px 40px 30px 40px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 22px;
+    margin-bottom: 5px;
+} 
+
+h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+} 
+
+.rule {
+    font-style: italic;
+    color: #3366cc;
+    margin: 15px 0;
+}
+
+p {
+    line-height: 1.6;
+    font-size: 18px;
+}
+
+ol {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+h4 {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.example {
+    color: #3366cc;
+    font-weight: bold;
+}
+
+.hint {
+    margin-top: 20px;
+    padding: 10px 10px 10px 10px;
+    border: 1px solid #ddd;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.hint .exceptions {
+    margin-top: 10px;
+    color: #444;
+    font-weight: normal;
+    padding: 10px 10px 10px 10px;
+}
+
+/* Dropdown six */
+.dropdownsix-content{
+    display: none;
+    height: 800px;
+    max-width: 900px;
+    height: auto;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 50px;
+    
+}
+
+.dropdownsix-content h2  {
+    background-color: #88C2F2;
+    padding: 10px 120px 10px 120px;
+    color: white;
+    display: inline-block;
+    margin-left: 220px;
+    margin-top: 30px;
+    width: 330px;
+}
+
+.dropdownsix-content table  {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 90%;
+    max-width: 1000px;
+    border: 2px solid #f5db72;
+}
+
+.dropdownsix-content th, td {
+    padding: 10px;
+    text-align: center;
+    border: 2px solid #f4de88;
+}
+
+
+.dropdownsix-content th{
+    background-color: #88C2F2;
+}
+
+
+
+.dropdownsix-content input[type="text"] {
+    width: 80%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+    border-bottom: 3px solid #f5db72;
+}
+
+.dropdownsix-content button {
+    background-color: #fefbed;
+    color: #7cb7ff;
+    font-size: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    border: 3px solid #d3e4ff;
+    cursor: pointer;
+    margin: 30px 0px 0px 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+button img{
+    width: 50px;
+    height: auto;
+    margin-right: 8px;
+}
+
+.dropdownfour-content button:hover {
+    background-color: #f2f8ff;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    color: green;
+}
+
+
+
+/* Word forms table */
+.word-forms-table {
+    width: 80%;
+    margin: 10px auto;
+    border-collapse: collapse;
+    border: 2px solid #71a7e8;
+}
+
+.word-forms-table thead th{
+    background-color: #a7cfff;
+    font-weight: bold;
+    text-align: center;
+    color: #3c3d3d;
+    padding: 10px;
+}
+.word-forms-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #d6e6f9;
+    width: 25%;
+    vertical-align: top;
+}
+
+
+
+/* Next Episode */
+.nextepisode button{
+    margin: 20px 120px 50px 0px;
+    padding: 10px 55px;
+    background-color: #7CB7FF;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 23px;
+    width: 250px;
+    height: 50px;
+}
+
+.nextepisode{
+    display: flex;
+    justify-content: flex-end; 
+    padding: 20px; 
+    margin-left: 55%;
+}
+
+.nextepisode button{
+    box-shadow: 0 4px 6px rgba(195, 222, 255, 1)
+}
+
+.nextepisode button:hover{
+    background-color: #f5db72;
+    box-shadow: 0 4px 6px rgba(249, 234, 174);
+}
+
+
+.nextepisode button.clicked {
+    background-color: #f3d24f;
+}
+

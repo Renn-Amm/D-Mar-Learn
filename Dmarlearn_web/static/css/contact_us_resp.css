@@ -1,0 +1,695 @@
+/* navication start */
+
+/* Tablets and Smaller Devices */
+@media (max-width: 1024px) {
+    .container-navigation {
+        padding: 10px 0;
+        height: 80px;
+    }
+
+    .logo-container {
+        margin-left: 40px;
+    }
+
+    .navigation {
+        margin-right: 40px;
+    }
+
+    .menu-toggle {
+        display: block;
+        font-size: 28px;
+    }
+
+    .navigation {
+        display: none;
+        position: absolute; 
+        top: 80px; 
+        left: 0;
+        width: 100%;
+        background-color: white; 
+    }
+
+    .navigation.active {
+        display: block;
+    }
+
+    .navigation ul {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .navigation ul li {
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 15px 20px; 
+        border-top: 1px solid #444; 
+        text-align: left; 
+    }
+
+    .navigation ul li a {
+        display: block;
+        color: #555;
+        text-decoration: none;
+        width: 100%;
+    }
+
+    .login-button {
+        width: 100%;
+        margin: 15px 0;
+        box-shadow: none;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 768px) {
+    .container-navigation {
+        padding: 8px 0;
+        height: 70px;
+    }
+
+    .logo-container {
+        margin-left: 20px;
+    }
+
+    .menu-toggle {
+        margin-left: auto;
+        margin-right: 20px;
+    }
+
+    .navigation ul li {
+        padding: 12px 15px; 
+    }
+
+    .login-button {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+}
+
+/* Small Mobile Phones */
+@media (max-width: 480px) {
+    .container-navigation {
+        padding: 6px 0;
+        height: 60px;
+    }
+
+    .logo-container {
+        margin-left: 10px;
+    }
+
+    .menu-toggle {
+        margin-right: 10px;
+    }
+
+    .navigation ul li {
+        padding: 10px 12px;
+    }
+
+    .login-button {
+        padding: 8px 16px;
+        font-size: 16px;
+    }
+}
+/* Navigation Bar end */
+
+
+
+/* Responsive Episode One Bar */
+
+/* Extra small screens (max-width: 576px) */
+@media (max-width: 576px) {
+    .episodeone-banner {
+        padding: 8px;
+        margin: 5px auto;
+    }
+
+    .banner-content {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .banner-content h1 {
+        padding-top: 100px;
+        font-size: 10px;
+    }
+
+    .banner-content .cta {
+        font-size: 12px; 
+        margin: 8px 0px 0px 0;
+    }
+}
+
+/* Mobile screens (max-width: 768px) */
+@media (max-width: 768px) {
+    .episodeone-banner {
+        padding: 10px;
+        margin: 5px auto;
+    }
+
+    .banner-content {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .banner-content h1 {
+        font-size: 24px; /* Smaller letter size for mobile */
+        padding-bottom: 10px;
+    }
+
+    .banner-content .cta {
+        font-size: 14px; /* Smaller button text */
+        padding: 8px 20px;
+        margin: 10px 0px 0px 0;
+    }
+}
+
+/* Tablet screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .episodeone-banner {
+        padding: 15px;
+        margin: 10px auto;
+    }
+
+    .banner-content h1 {
+        font-size: 36px; /* Slightly smaller for tablets */
+        padding-bottom: 15px;
+    }
+
+    .banner-content .cta {
+        font-size: 18px; /* Smaller button text for tablets */
+        padding: 12px 30px;
+        margin: 15px 0px 0px 0;
+    }
+
+    .banner-content {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Desktop screens (1024px - 1440px) */
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .episodeone-banner {
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .banner-content h1 {
+        font-size: 48px; /* Smaller size for regular desktops */
+        padding-bottom: 18px;
+    }
+
+    .banner-content .cta {
+        font-size: 22px;
+        padding: 15px 40px;
+        margin: 20px 0px 0px 0;
+    }
+}
+
+/* Large screens (min-width: 1440px) */
+@media (min-width: 1440px) {
+    .episodeone-banner {
+        padding: 30px;
+    }
+
+    .banner-content h1 {
+        font-size: 56px; /* Reduced size from original 72px */
+        padding-bottom: 20px;
+    }
+
+    .banner-content .cta {
+        font-size: 24px;
+        padding: 18px 45px;
+        margin: 20px 0px 0px -260px;
+    }
+}
+
+/* Extra large screens (min-width: 1920px) */
+@media (min-width: 1920px) {
+    .episodeone-banner {
+        padding: 40px;
+    }
+
+    .banner-content h1 {
+        font-size: 64px; /* Keep text larger for ultra-wide screens */
+        padding-bottom: 22px;
+    }
+
+    .banner-content .cta {
+        font-size: 28px;
+        padding: 22px 60px;
+        margin: 20px 0px 0px -300px;
+    }
+}
+
+
+
+/* Responsive Explore Our Courses Section */
+
+/* Mobile screens (max-width: 768px) */
+@media (max-width: 768px) {
+
+    .offers-section h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .offers-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .offer-card {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+    }
+
+    .offer-card h2 {
+        font-size: 24px;
+        padding-top: 50px;
+    }
+
+    .offer-card p {
+        font-size: 18px;
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/* Tablet screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .offers-section h1 {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .offers-container {
+        gap: 30px;
+    }
+
+    .offer-card {
+        width: 350px;
+        height: auto;
+        padding: 20px;
+    }
+
+    .offer-card h2 {
+        font-size: 28px;
+        padding-top: 60px;
+    }
+
+    .offer-card p {
+        font-size: 20px;
+        width: 280px;
+        margin-left: 10px;
+    }
+}
+
+/* Large screens (min-width: 1440px) */
+@media (min-width: 1440px) {
+    .offers-container {
+        gap: 50px;
+    }
+
+    .offer-card {
+        width: 450px;
+        height: 450px;
+        padding: 30px;
+    }
+
+    .offer-card h2 {
+        font-size: 36px;
+        padding-top: 70px;
+    }
+
+    .offer-card p {
+        font-size: 26px;
+        width: 350px;
+        margin-left: 0;
+    }
+}
+
+
+
+/* Payment Section - Responsive */
+
+/* Mobile screens (max-width: 768px) */
+@media (max-width: 768px) {
+    .payment-section {
+        padding: 20px;
+        margin-bottom: 60px;
+    }
+
+    .price-info {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 0;
+        padding-top: 20px;
+        font-size: 18px;
+    }
+
+    .price-detail {
+        padding-left: 0;
+    }
+
+    .price-5000ks, .episodes {
+        font-size: 18px;
+    }
+
+    .payment-options h2,
+    .purchase-info h3 {
+        font-size: 28px;
+    }
+
+    .kpay-info {
+        font-size: 18px;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    .platform-options {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .platform {
+        width: 90%;
+        height: auto;
+    }
+
+    .platform img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .platform p {
+        font-size: 28px;
+    }
+
+    .platform button {
+        font-size: 18px;
+    }
+}
+
+/* Tablet screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .payment-section {
+        padding: 30px;
+        margin-bottom: 80px;
+    }
+
+    .price-info {
+        flex-direction: column;
+        margin-left: 0;
+        padding-top: 50px;
+        font-size: 20px;
+    }
+
+    .price-detail {
+        padding-left: 0;
+    }
+
+    .price-5000ks, .episodes {
+        font-size: 20px;
+    }
+
+    .payment-options h2,
+    .purchase-info h3 {
+        font-size: 30px;
+    }
+
+    .kpay-info {
+        font-size: 20px;
+        margin-top: 20px;
+    }
+
+    .platform-options {
+        justify-content: space-around;
+        gap: 30px;
+    }
+
+    .platform {
+        width: 300px;
+        height: auto;
+    }
+
+    .platform img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .platform p {
+        font-size: 30px;
+    }
+
+    .platform button {
+        font-size: 20px;
+    }
+}
+
+/* Desktop screens (min-width: 1280px) */
+@media (min-width: 1280px) {
+    .payment-section {
+        padding: 40px;
+    }
+
+    .price-info {
+        flex-direction: row;
+        margin-left: 120px;
+        padding-top: 100px;
+        font-size: 24px;
+    }
+
+    .platform-options {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 41px;
+    }
+
+    .platform {
+        width: 370px;
+        height: 327px;
+    }
+
+    .platform img {
+        width: 93px;
+        height: 93px;
+    }
+
+    .platform p {
+        font-size: 36px;
+    }
+
+    .platform button {
+        font-size: 22px;
+    }
+}
+
+
+
+
+/* Thank You Section - Responsive */
+
+/* Mobile screens (max-width: 768px) */
+@media (max-width: 768px) {
+    .thank-you-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .thank-you-container img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .text-container {
+        margin: 0;
+        text-align: center;
+    }
+
+    .text-container h1 {
+        font-size: 36px;
+        margin-top: 20px;
+    }
+
+    .text-container p {
+        width: 100%;
+        font-size: 18px;
+        margin-top: 20px;
+    }
+}
+
+/* Tablet screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .thank-you-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .thank-you-container img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+
+    .text-container {
+        margin-top: 40px;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .text-container h1 {
+        font-size: 48px;
+    }
+
+    .text-container p {
+        width: 90%;
+        font-size: 24px;
+        margin-top: 20px;
+    }
+}
+
+/* Desktop screens (min-width: 1280px) */
+@media (min-width: 1280px) {
+    .thank-you-container {
+        flex-direction: row;
+        max-width: 1280px;
+        margin-top: 60px;
+        margin-bottom: 100px;
+    }
+
+    .thank-you-container img {
+        width: 420px;
+    }
+
+    .text-container {
+        margin-top: 100px;
+        margin-left: 80px;
+    }
+
+    .text-container h1 {
+        font-size: 64px;
+    }
+
+    .text-container p {
+        font-size: 36px;
+        width: 640px;
+    }
+}
+
+
+/* footer start */
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-column1,
+    .footer-column2,
+    .footer-column3,
+    .footer-column4 {
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .footer-column1 img{
+        width: 280px;
+        height: auto;
+    }
+
+    .footer-column1 h3,
+    .footer-column1 p {
+        margin: 0px auto;
+    }
+
+    .footer-column2 nav ul {
+        text-align: center;
+        font-size: 25px;
+        margin-top: 20px;
+    }
+
+    .footer-column3 p{
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .social-icons {
+        justify-content: center;
+        margin-left: 30px;
+    }
+
+    .footer-column4 .text {
+        flex-direction: column;
+        align-items: center;
+        font-size: 20px;
+    }
+
+    .footer-column4 img{
+        width: 40px;
+        height: auto;
+    }
+
+
+}
+
+/* Mobile view adjustments */
+@media (max-width: 480px) {
+    .footer-container {
+        padding: 0 10px;
+    }
+
+    .footer-column1 h3 {
+        font-size: 24px;
+    }
+
+    .footer-column1 p {
+        font-size: 16px;
+    }
+
+    .footer-column2 nav ul li {
+        margin-bottom: 8px;
+    }
+
+    .footer-column3 p {
+        font-size: 14px;
+    }
+
+    .social-icons a {
+        width: 30px;
+        height: 30px;
+        margin: 20px 6px;
+    }
+
+    .footer-column4 .text {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .subscribe-form input[type="email"] {
+        padding: 8px;
+        height: 40px;
+    }
+
+    .subscribe-form button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .footer-bottom {
+        font-size: 12px;
+    }
+}
+/* footer End */

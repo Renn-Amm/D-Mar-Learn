@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/allpage.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses_resp.css') }}">
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Crown icon -->
+    <title>Courses</title>
+</head>
+<body>
+    <!-- ----------------------------------Navigation Start -------------------------------------------->
+    <div class="overlay"></div>
+    <!-- Navigation -->
+    <header>
+        <div class="container-navigation">
+            <div class="logo-container">
+                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                &#9776; 
+            </button>
+            <nav class="navigation" style="font-family: Lato;">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</u></cc1></a></li>
+                    <li><a href="{{ url_for('courses') }}"><cc1 style="color: #7CB7FF;"><u>Courses</u></cc1></a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    <li>
+                        <div class="user-info">
+                            {% if session.get('user') %}
+                                <span id="user-name">
+                                    {% if session['user']['userinfo']['premium'] %}
+                                        <i class="fas fa-crown" aria-hidden="true"></i> <!-- Font Awesome crown icon -->
+                                    {% endif %}
+                                    {{ session['user']['userinfo']['name'][:15] }}{% if session['user']['userinfo']['name']|length > 15 %}...{% endif %}
+                                </span>
+                                <img id="profile-pic" src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" />
+                                <div id="user-dropdown" class="dropdown">
+                                    <img src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" class="dropdown-profile-pic">
+                                    <p>{{ session['user']['userinfo']['name'] }}</p>
+                                    <p>{{ session['user']['userinfo']['email'] }}</p>
+                                    <p>Status: {% if session['user']['userinfo']['premium'] %}Premium user{% else %}Regular user{% endif %}</p>
+                                    <a href="{{ url_for('logout') }}" id="logout-btn" class="logout-link">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ url_for('googleLogin') }}" class="login-button" id="login-btn">Login with Google</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Popup Content -->
+            <section class="popup-content" id="loginPopup">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <p>This is a sample popup content</p>
+            </section>
+
+            <script>
+                // JavaScript for dropdown and popup functionality
+
+                // User dropdown logic
+                const userName = document.getElementById('user-name');
+                const profilePic = document.getElementById('profile-pic');
+                const userDropdown = document.getElementById('user-dropdown');
+                const overlay = document.getElementById('overlay');
+
+                const toggleDropdown = (event) => {
+                    event.stopPropagation();
+                    if (userDropdown.style.display === 'none' || userDropdown.style.display === '') {
+                        userDropdown.style.display = 'block';
+                    } else {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                const closeDropdown = () => {
+                    if (userDropdown.style.display === 'block') {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                userName?.addEventListener('click', toggleDropdown);
+                profilePic?.addEventListener('click', toggleDropdown);
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', closeDropdown);
+                userDropdown.addEventListener('click', (event) => event.stopPropagation());
+
+                // Popup logic
+                const openPopupButton = document.getElementById('login-btn');
+                const closePopupButton = document.getElementById('closePopup');
+                const loginPopup = document.getElementById('loginPopup');
+
+                const openPopup = (e) => {
+                    e.preventDefault();
+                    loginPopup.classList.add('active');
+                    overlay.style.display = 'block';
+                };
+
+                const closePopup = () => {
+                    loginPopup.classList.remove('active');
+                    overlay.style.display = 'none';
+                };
+
+                openPopupButton.addEventListener('click', openPopup);
+                closePopupButton.addEventListener('click', closePopup);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closePopup();
+                    }
+                });
+
+                // Close popup when clicking outside of it
+                overlay.addEventListener('click', closePopup);
+            </script>
+
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var navigation = document.querySelector('.navigation');
+    
+            menuToggle.addEventListener('click', function () {
+                navigation.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!------------------------------------------------------------------------------------------->
+
+
+    <!---------------------------------- Episode Banner Start -------------------------------------->
+      <section class="episodeone-banner">
+        <div class="episode-banner">
+             <img src="{{ url_for('static', filename='img/coursesmainbg.png') }}" alt="episodeone">
+        </div>
+    </section>
+    <!------------------------------------- Episode Banner End ----------------------------------->
+
+
+    <!-------------------------------------- Starter lesson start -------------------------------->
+
+    <section class="starter-lessons">
+        <h2 class="starter-title">Starter Lessons</h2>
+        <p class="starter-description">
+            Kickstart your learning journey with Di Mar Learn! Enjoy the first two episodes. These lessons offer a preview of our interactive content, helping you start your English learning journey at no cost.
+        </p>
+        <div class="lessons-grid">
+            <a href="{{ url_for('episode1') }}" class="lesson-card" style="position: relative;">
+                <span class="lesson-badge">
+                    <img src="{{ url_for('static', filename='img/1.png') }}" alt="Badge 1" >
+                </span>
+                <img src="{{ url_for('static', filename='img/ep1.png') }}" alt="Electronic Crime" class="lesson-image">
+                <div class="lesson-content">
+                    <h3 class="lesson-title">Electronic Crime</h3>
+                    <p class="lesson-episode">Episode 1</p>
+                    <p class="lesson-category">Technology / Law</p>
+                </div>
+            </a>
+            
+            <a href="{{ url_for('episode2') }}" class="lesson-card" style="position: relative;">
+                <span class="lesson-badge">
+                    <img src="{{ url_for('static', filename='img/2.png') }}" alt="Badge 2">
+                </span>
+                <img src="{{ url_for('static', filename='img/ep2.png') }}" alt="Vitamin D" class="lesson-image">
+                <div class="lesson-content">
+                    <h3 class="lesson-title">Vitamin D</h3>
+                    <p class="lesson-episode">Episode 2</p>
+                    <p class="lesson-category">Medicine</p>
+                </div>
+            </a>
+        </div>        
+    </section>  
+
+    <!------------------------------------- Starter lesson end ------------------------------------->
+
+
+    <!------------------------------------- Subscribe now start ------------------------------------>
+    <section class="subscribe-now">
+            <div class="subscribe-now-text-header">
+                <h1 class="subscribe-now-header">GET ACCESS TO </br>EVERYTHING >></h1>
+                <p class="subscribe-now-text">Boost your learning with Di Mar Learn! Subscribe now for just 5,000Ks.
+                    Enhance your English skills with even more resources
+                    start your journey to fluency today!
+                </p>
+                <span><a href="{{ url_for('googleLogin2') }}#target-section" class="subscribenow-button">Subscribe Now >></a></span>
+            </div>
+            <div class="subscribe-now-image">
+                <img src="{{ url_for('static', filename='img/subscribenow.png') }}" alt="subscribe-now-png">
+            </div>
+    </section>
+
+    <!------------------------------------- Subscribe now end -------------------------------------->
+
+
+    <!------------------------------------- included with your payment start ----------------------->
+
+    <section class="included-payment-container">
+        <h2 class="subtitle-included-payment">A Peek At Some Of The Courses + Videos + Activities + Games</h2>
+        <h1 class="maintitle-included-payment">WHAT'S INCLUDED WITH YOUR PAYMENT</h1>
+        <div class="lessons-grid">
+            <a href="{{ url_for('episode3') }}" class="lesson-card" style="position: relative;">
+                <span class="lesson-badge">
+                    <img src="{{ url_for('static', filename='img/lock.png') }}" alt="Badge 3">
+                </span>
+                <img src="{{ url_for('static', filename='img/ep3.png') }}" alt="Business Growth" class="lesson-image">
+                <div class="lesson-content">
+                    <h3 class="lesson-title">Business Growth</h3>
+                    <p class="lesson-episode">Episode 3</p>
+                    <p class="lesson-category">Business</p>
+                </div>
+            </a>
+            
+            <a href="{{ url_for('episode4') }}" class="lesson-card" style="position: relative;">
+                <span class="lesson-badge">
+                    <img src="{{ url_for('static', filename='img/lock.png') }}" alt="Badge 4">
+                </span>
+                <img src="{{ url_for('static', filename='img/ep4.png') }}" alt="Rising Dollar" class="lesson-image">
+                <div class="lesson-content">
+                    <h3 class="lesson-title">Rising Dollar</h3>
+                    <p class="lesson-episode">Episode 4</p>
+                    <p class="lesson-category">Business</p>
+                </div>               
+            </a>
+            
+            <a href="{{ url_for('episode5') }}" class="lesson-card" style="position: relative;">
+                <span class="lesson-badge">
+                    <img src="{{ url_for('static', filename='img/lock.png') }}" alt="Badge 5">
+                </span>
+                <img src="{{ url_for('static', filename='img/ep5.png') }}" alt="Global Warming" class="lesson-image">
+                <div class="lesson-content">
+                    <h3 class="lesson-title">Global Warming</h3>
+                    <p class="lesson-episode">Episode 5</p>
+                    <p class="lesson-category">Environment</p>
+                </div>
+            </a>
+            
+            <a href="{{ url_for('episode6') }}" class="lesson-card" style="position: relative;">
+                <span class="lesson-badge">
+                    <img src="{{ url_for('static', filename='img/lock.png') }}" alt="Badge 6">
+                </span>
+                <img src="{{ url_for('static', filename='img/ep6.png') }}" alt="Greenhouse gases" class="lesson-image">
+                <div class="lesson-content">
+                    <h3 class="lesson-title">Greenhouse Gases</h3>
+                    <p class="lesson-episode">Episode 6</p>
+                    <p class="lesson-category">Environment</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- play & learn start -->
+
+        <!------------------------------------- play & learn start ------------------------------------->
+
+        <div class="play-learn">
+            <h1 class="play-learn-title">Play & Learn!</h1>
+    
+            <div class="game-card">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='img/hangman.png') }}" alt="Hangman Game">
+                </div>
+                <div class="content1">
+                    <h2>Guess the Word,<br> Improve Your Vocabulary!</h2>
+                    <p>Test your skills with our Hangman game and learn new words as you play. Can you beat the challenge?</p>
+                </div>
+            </div>
+    
+            <div class="game-card">
+                <div class="content2">
+                    <h2>Unscramble the Words,<br> Sharpen Your Mind!</h2>
+                    <p>Put your skills to the test with our word scramble game. Can you solve the puzzle before time runs out?</p>
+                </div>
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='img/scaramble.png') }}" alt="Scramble Game">
+                </div>
+            </div>
+        </div>
+    
+        <!-------------------------------------- play & learn end -------------------------------------->
+
+    <!-- play & learn end -->
+
+    <!-------------------------------------- included with your payment end ------------------------>
+
+
+    <!------------------------------------- TOP CATEGORIES START ----------------------------------->
+
+    <section class="categories-container">
+        <h1 class="bigtitle">D-Mar-Learn</h1>
+        <p class="subheading1">WANT TO SEE EVERYTHING FROM ONE CATEGORY ALL IN ONE PLACE?</p>
+        <h2 class="subheading2">OUR TOP CATEGORIES</h2>
+        <div class="categories">
+            <div class="category-card medicine">
+                <img src="{{ url_for('static', filename='img/medicine.png') }}" alt="subscribe-now-png" class="categories-img">
+                <P>Medicine</P>
+            </div>
+            <div class="category-card business">
+                <img src="{{ url_for('static', filename='img/business.png') }}" alt="subscribe-now-png" class="categories-img">
+                <p>Business</p>
+            </div>
+            <div class="category-card environment">
+                <img src="{{ url_for('static', filename='img/environment.png') }}" alt="subscribe-now-png" class="categories-img">
+                <p>Environment</p>
+            </div>
+            <div class="category-card science">
+                <img src="{{ url_for('static', filename='img/science.png') }}" alt="subscribe-now-png" class="categories-img">
+                <p>Science</p>
+            </div>
+            <div class="category-card architecture">
+                <img src="{{ url_for('static', filename='img/architecture.png') }}" alt="subscribe-now-png" class="categories-img">
+                <p>Architecture</p>
+            </div>
+            <div class="category-card law">
+                <img src="{{ url_for('static', filename='img/law.png') }}" alt="subscribe-now-png" class="categories-img">
+                <P>Law</P>
+            </div>
+        </div>
+    </section>
+
+    <!------------------------------------- TOP CATEGORIES END ------------------------------------->
+
+
+    <!------------------------------------- Coming Soon start -------------------------------------->
+
+    <section class="coming-soon">
+        <div class="coming-soon-image">
+            <img src="{{ url_for('static', filename='img/comingsoon.png') }}" alt="coming-soon-png">
+        </div>
+        <div class="coming-soon-text-header">
+            <h1 class="coming-soon-header">Level Up Your English</h1>
+            <p class="coming-soon-text">New Courses Coming Soon!</p>
+            <!-- <span><a href="#subscribenow" class="subscribenow-button">Join the Waitlist Now!</a></span> -->
+        </div>
+    </section>
+
+    <!------------------------------------- Coming Soon End ---------------------------------------->
+
+    <!-- Footer Start -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column1">
+                <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="logo">
+            </div>
+            <div class="footer-column2">
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                        <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                        <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="footer-column3">
+                <p>d.mar.learn.net@gmail.com</p>
+                <p>09 941487000</p>
+                <div class="contact-box">
+                    <a href="https://www.facebook.com/dmarlearn/" class="social-link" target="_blank">
+                        <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" class="social-icon">
+                        <img src="{{ url_for('static', filename='img/facebook_2.png') }}" alt="Facebook Color" class="social-icon-color">
+                    </a>
+                    <a href="https://www.t.me/dmarlearn" class="social-link" target="_blank">
+                        <img src="{{ url_for('static', filename='img/telegram.png') }}" alt="Telegram" class="social-icon">
+                        <img src="{{ url_for('static', filename='img/telegram_2.png') }}" alt="Telegram Color" class="social-icon-color">
+                    </a>
+                    <a href="https://www.tiktok.com/@dmarlearn" class="social-link" target="_blank">
+                        <img src="{{ url_for('static', filename='img/tiktok.png') }}" alt="TikTok" class="social-icon">
+                        <img src="{{ url_for('static', filename='img/tiktok_2.png') }}" alt="TikTok Color" class="social-icon-color">
+                    </a>
+                    <a href="https://www.youtube.com/@DMarLearn" class="social-link" target="_blank">
+                        <img src="{{ url_for('static', filename='img/you tube.png') }}" alt="YouTube" class="social-icon">
+                        <img src="{{ url_for('static', filename='img/you tube_2.png') }}" alt="YouTube Color" class="social-icon-color">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright 2024</p>
+        </div>
+    </footer>
+    
+    <!--------------------------------------------------------------------------------------------------------------->
+    </body>
+    </html>

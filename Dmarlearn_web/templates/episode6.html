@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/allpage.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode6.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode6_resp.css') }}"/>
+    <script src="{{ url_for('static', filename='js/episode6.js') }}"></script>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Crown icon -->
+    <title>Episode Six</title>
+</head>
+<body>
+    <div class="overlay"></div>
+    <!-- Navigation -->
+    <header>
+        <div class="container-navigation">
+            <div class="logo-container">
+                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                &#9776; 
+            </button>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    <li>
+                        <div class="user-info">
+                            {% if session.get('user') %}
+                                <span id="user-name">
+                                    {% if session['user']['userinfo']['premium'] %}
+                                        <i class="fas fa-crown" aria-hidden="true"></i> <!-- Font Awesome crown icon -->
+                                    {% endif %}
+                                    {{ session['user']['userinfo']['name'][:15] }}{% if session['user']['userinfo']['name']|length > 15 %}...{% endif %}
+                                </span>
+                                <img id="profile-pic" src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" />
+                                <div id="user-dropdown" class="dropdown">
+                                    <img src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" class="dropdown-profile-pic">
+                                    <p>{{ session['user']['userinfo']['name'] }}</p>
+                                    <p>{{ session['user']['userinfo']['email'] }}</p>
+                                    <p>Status: {% if session['user']['userinfo']['premium'] %}Premium user{% else %}Regular user{% endif %}</p>
+                                    <a href="{{ url_for('logout') }}" id="logout-btn" class="logout-link">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ url_for('googleLogin') }}" class="login-button" id="login-btn">Login with Google</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Popup Content -->
+            <section class="popup-content" id="loginPopup">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <p>This is a sample popup content</p>
+            </section>
+
+            <script>
+                // JavaScript for dropdown and popup functionality
+
+                // User dropdown logic
+                const userName = document.getElementById('user-name');
+                const profilePic = document.getElementById('profile-pic');
+                const userDropdown = document.getElementById('user-dropdown');
+                const overlay = document.getElementById('overlay');
+
+                const toggleDropdown = (event) => {
+                    event.stopPropagation();
+                    if (userDropdown.style.display === 'none' || userDropdown.style.display === '') {
+                        userDropdown.style.display = 'block';
+                    } else {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                const closeDropdown = () => {
+                    if (userDropdown.style.display === 'block') {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                userName?.addEventListener('click', toggleDropdown);
+                profilePic?.addEventListener('click', toggleDropdown);
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', closeDropdown);
+                userDropdown.addEventListener('click', (event) => event.stopPropagation());
+
+                // Popup logic
+                const openPopupButton = document.getElementById('login-btn');
+                const closePopupButton = document.getElementById('closePopup');
+                const loginPopup = document.getElementById('loginPopup');
+
+                const openPopup = (e) => {
+                    e.preventDefault();
+                    loginPopup.classList.add('active');
+                    overlay.style.display = 'block';
+                };
+
+                const closePopup = () => {
+                    loginPopup.classList.remove('active');
+                    overlay.style.display = 'none';
+                };
+
+                openPopupButton.addEventListener('click', openPopup);
+                closePopupButton.addEventListener('click', closePopup);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closePopup();
+                    }
+                });
+
+                // Close popup when clicking outside of it
+                overlay.addEventListener('click', closePopup);
+            </script>
+
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var navigation = document.querySelector('.navigation');
+    
+            menuToggle.addEventListener('click', function () {
+                navigation.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!------------------------------------------------------------------------------------------->
+
+    <!---------------------------------- Episode Banner Start -------------------------------------->
+      <section class="episodeone-banner">
+        <div class="episode-banner">
+             <img src="{{ url_for('static', filename='img/episodesix.png') }}" alt="episodesix">
+        </div>
+    </section>
+    <!------------------------------------- Episode Banner End ----------------------------------->
+
+    <section class="Episodetwo-Lessons">
+        <div class="dropdownone">
+            <div class="dropdown-header" onclick="toggleDropdown('dropdownContent1', 'icon1')">
+                <h1>01. Match the following.</h1>
+                <span class="dropdown-icon" id="icon1">▼</span>
+            </div>
+            <div class="dropdownone-content" id="dropdownContent1">
+                    <div class="dropdownone-container">
+                        <div class="wordbox">
+                            <h3>Greenhouse Gases - Activity</h3>
+                            <h4>Match with the words with the definitions.</h4>
+                            <div class="draggable-container">
+                                <span class="draggable" draggable="true">Diurnal</span>
+                                <span class="draggable" draggable="true">Accumulate</span>
+                                <span class="draggable" draggable="true">Put Out</span>
+                                <span class="draggable" draggable="true">Fossil Fuel</span>
+                                <span class="draggable" draggable="true">Dig Up</span>
+                            </div>
+                        </div>
+                        <div class="dragbox">
+                            <div class="definitions">
+                                <div class="definition">
+                                    <p>Natural fuels like coal, oil, and gas formed from ancient organic matter</p>
+                                    <input type="text" class="dropzone" readonly disabled>
+                                </div>
+                                <div class="definition">
+                                    <p>To remove from the ground</p>
+                                    <input type="text" class="dropzone" readonly disabled>
+                                </div>
+                                <div class="definition">
+                                    <p>To gather or collect over time</p>
+                                    <input type="text" class="dropzone" readonly disabled>
+                                </div>
+                                <div class="definition">
+                                    <p>Daily</p>
+                                    <input type="text" class="dropzone" readonly disabled>
+                                </div>
+                                <div class="definition">
+                                    <p>To extinguish or stop something from burning</p>
+                                    <input type="text" class="dropzone" readonly disabled>
+                                </div>
+                            </div>
+                            <button onclick="checkAnswers5()">
+                                <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                            </button>
+                            <button onclick="resetActivity5()">
+                                <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+                            </button>
+                            <button id="showAnswerButton5" style="display: none;" onclick="showAnswers5()">
+                                <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+                            </button>
+                            <button id="showFeedback5" style="display: none;" onclick="showFeedback5()">
+                                <img src="{{ url_for('static', filename='img/review.png') }}" alt="review" class="button-icon">Show Feedback
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="scoreModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h3>Feedback!</h3>
+                        <p id="scoreText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+                    
+                   
+
+   <!-- --------------------------------------Dropdowntwo Start------------------------------------->
+        <div class="dropdowntwo">
+            <div class="dropdowntwo-header" onclick="toggleDropdown('dropdownContent2', 'icon2')">
+                <h2>02. Watch the video</h2>
+                <span class="dropdown-icon" id="icon2">▼</span>
+            </div>
+            <div class="dropdowntwo-content" id="dropdownContent2">
+                <div class="episodeone-video">
+                    <video width="900" height="400" controls>
+                        <source src="{{ url_for('static', filename='video/S1E06 - Greenhouse Gases.mp4') }}" type="video/mp4">
+                    </video>
+                </div>
+                <div class="dropdowntwo-container">
+                    <h3>Transcript</h3>
+                    <h4>IELTS Preparation - Environment Transcript</h4>
+                    <p>Hello. I'm Margot Politis. Welcome to Study English, IELTS preparation. Today we're going to talk about the environment. Global warming is caused by the presence of greenhouses gases in the atmosphere. One of the worst greenhouses gases is carbon dioxide</p>
+                    <p>We're going to look at the language of cause and effect while we find out why these greenhouses gases are a problem. The main problem is our use of fossil fuels. So what we've done is put the whole natural system out of balance by digging up coal and oil that took about 200 million years to accumulate and we're releasing it all in about 100 years. So it's put the whole system out of balance at the moment, which has resulted in higher levels of these gases in the atmosphere</p>
+                    <p>That was Dr Roger Francey talking about the natural system. He says that the natural system is 'out of balance'. He also talked about the causes and effects of this. Listen for the main cause of the natural system being out of balance… The main problem is our use of fossil fuels</p>
+                    <p>He says 'the main problem is our use of fossil fuels'. So if we look at a table of cause and effect, we can say that 'the use of fossil fuels' is a cause, and 'the natural system out of balance' is an effect.</p>
+                    <p>Listen again. The main problem is our use of fossil fuels. So what we've done is put the whole natural system out of balance by digging up coal and oil that took about 200 million years to accumulate and we're releasing it all in about 100 years.</p>
+                    <p>So the natural system has been put out of balance by people digging up and burning coal and oil. This releases gases into the atmosphere. Coal and oil are fossil fuels. So if we go back to the table of cause and effect, we can say that 'digging up and burning coal and oil' is another cause.</p>
+                    <p>See if you can hear another effect. The main problem is our use of fossil fuels. So what we've done is put the whole natural system out of balance by digging up coal and oil that took about 200 million years to accumulate and we're releasing it all in about 100 years. So it's put the whole system out of balance at the moment, which has resulted in higher levels of these gases in the atmosphere.</p>    
+                    <p>It's put the whole system out of balance, which has resulted in higher levels of gases in the atmosphere. So here, 'the natural system out of balance' is now a cause. It has 'resulted in', or 'caused', higher levels of gases in the atmosphere. This is an effect.</p>   
+                    <p>To express these relationships, there many different word choices. We can use verbs like 'causes', 'leads to', 'results in'. So we can express the relationship like this: 'A causes B', 'A leads to B', 'A results in B'.</p>    
+                    <p>Listen to an example here. The main problem is our use of fossil fuels. So it's put the whole system out of balance at the moment, which has resulted in higher levels of these gases in the atmosphere.</p> 
+                    <p>'Our use of fossil fuels has resulted in higher levels of gases.' But we can also express the cause/effect relationship the other way round: 'Higher levels of gases are the result of our use of fossil fuels.' Notice that we use a noun phrase here. This is very common. We can use nouns like 'the result', 'the effect', 'the consequence'.</p>   
+                    <p>If we look at these effect relationships, we can say: 'B is the effect of A', 'B is the result of A', 'B is the consequence of A'. Remember that it's always important to have a variety in your language. Make sure you use both nouns and verbs to express causes, and effects. This will make you written work and your speech sound more interesting.</p>     
+                    <p>OK, so Dr Francey and his team have designed a new way of measuring one of the worst greenhouse gases in the earth's atmosphere: carbon dioxide. Listen for what they're trying to find out. We need to understand what happens in the tropics, that's where the biggest forests are and that's where some of the biggest changes are occurring in terms of human modification of those forests through conversion to agriculture and regular burning of these forests.</p>   
+                    <p>Our interest is not so much in that diurnal or daily variation. We're interested in what's happening on time scales of days or months or years.</p>  
+                    <p>They are interested in what's happening over days, months or years. Their interest is not so much in diurnal or daily variation. The conjunction 'or' here works to connect alternative meanings. In this sense, 'or' means 'that is', 'I mean'.</p>
+                    <p>'We're interested in diurnal, that is daily, variation.' 'We're interested in diurnal, I mean daily, variation.' The second word defines the first. It tells the reader or listener what the more unfamiliar, technical word means.</p>      
+                    <p>Listen again for what diurnal means. Our interest is not so much in that diurnal or daily variation. He says diurnal or daily. 'Diurnal' means 'daily'.</p>   
+                    <p>See if you can work out the meaning of CO2 here … "One of the main causes of global warming is CO2, or carbon dioxide." 'CO2 or carbon dioxide' 'CO2 is carbon dioxide'.</p>    
+                    <p>When you're looking at environmental issues, like global warming and greenhouses gases, it's often necessary to be familiar these kinds of chemical terms. You should try to learn the more common ones, like 'CO2'.</p>  
+                    <p>You might want to keep a copy of the 'periodic table' in your notebook. That's the list of all chemical elements and their abbreviations. Here are some of them: 'hydrogen' is H, but 'helium' is He. Notice that with abbreviations of elements, the first letter is always a capital, and the others are always small.</p>       
+                    <p>See if you can guess these ones: 'oxygen', that's O, and 'carbon' is C. But they're not always that easy: 'lead' is Pb, and 'sodium' is Na.</p>    
+                    <p>OK, now let's listen to Dr Francey talk about the new CO2 measuring device… Then we'll look at the names of countries and nationalities. There's been interest from Korea, Japan, France, and Malaysia, where the analyser could be installed on a 100-metre tower on the island of Borneo.</p>
+                    <p>She says there's been interest in their device from Korea, Japan, France, and Malaysia. It's important to learn and recognise the English names of the major countries of the world, their nationalities, and how to spell and pronounce these.</p>     
+                    <p>It's a good vocabulary exercise to make lists of these families of words. To help you remember them, try grouping countries according to how the nationalities are formed. Notice that they're all spelt with capital letters. We have the '–an' group: 'Australia, Australian', 'Korea, Korean', 'Malaysia, Malaysian', 'Fiji, Fijian'.</p>
+                    <p>We have the '–ese' group: 'Japan, Japanese', 'China, Chinese', 'Vietnam, Vietnamese'.</p>     
+                    <p>Then there's the '–i' group: 'Bangladesh, Bangladeshi', 'Kuwait, Kuwaiti'.</p>
+                    <p>And some nationalities are formed in an irregular way: 'France, French', 'New Zealand, New Zealander', 'Philippines, Filipino'. And watch the change in spelling with that one!</p>
+                    <p>Why don't you start your own list of English names for countries and their people? Some countries also take separate adjectives that you can learn along with them. And that's all for studying English today. I'll see you next time. Bye-bye.</p>
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdowntwo End --------------------------------------------->
+
+        <div class="dropdownthree">
+            <div class="dropdownthree-header" onclick="toggleDropdown('dropdownContent3', 'icon3')">
+                <h2>03. Study Notes</h2>
+                <span class="dropdown-icon" id="icon3">▼</span>
+            </div>
+            <div class="dropdownthree-content" id="dropdownContent3">
+                <h2>Episode 6: Greenhouse Gases</h2>
+                <div class="dropdownthree-container">
+                    <div class="notes">
+                        <div class="modal-verbs">
+                            <h4>Nationalities of Countries</h4>
+                            <p style="line-height: 0.8cm;">Learning the nationalities of countries is important and useful, especially when identifying yourself or any other group of people, and when describing personal and national characteristics.</p>
+                            <p style="line-height: 0.8cm;">Of equal importance is using the correct form when identifying or talking about a nationality, and spelling the nationality correctly</p>
+                            <p style="line-height: 0.8cm;">There are 5 groups of adjectival endings which are used to form nationalities from country names, but no easy rules that tell you what ending to use with which country. In other words, the ending on the country name does not determine necessarily the adjectival form of the nationality. Therefore, it is best to memorise the country name and nationality together.                            </p>
+                        </div>
+                        <div class="study-tips">
+                            <h3>Study Tips</h3>
+                            <p style="line-height: normal;">Knowing the nationalities of countries and using them correctly is helpful in the Speaking section of the IELTS test.</p>
+                            <p style="line-height: 0.8cm;">During the test you will have the opportunity to talk about your country, the people, and possibly where you have travelled or plan to travel so that you can speak about other countries and identify other nationalities.</p>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <p><strong>The groups are:</strong></p>
+                        <p><span>-(i)an<span style="color: white;">________________</span>-ese<span style="color: white;">________________</span>-i<span style="color: white;">________________</span>-ish<span style="color: white;">________________</span>-ic</span></p>
+                        <p>and a group that includes exceptions, for example, Philippines - Filipino.</p>
+                        <p>The	most	common	form	-(i)an	also	constitutes	the	largest	group	of	adjectives,	for	
+                            example,	Colombia	– Colombian	/kə'lʌmbiən/;	Mexico	– Mexican	/mɛksɪkən/.	</p>
+                        <p>The	noun	used	to	describe	the	person	from	these	countries	is	the	same	as	the	
+                            adjective</p>
+                        <p>Nationalities	are	always	capitalised	in	English</p>
+                        <br>
+                        <p><strong>Examples of Countries and Nationalities</strong></p>
+                        <p>Practise	the	pronunciation	of	these	nationalities,	which	are	grouped	according	to	
+                            their	adjectival	endings</p>
+
+                    </div>
+                    <table class="notes">
+                        <tr>
+                            <td><strong>-ese(Japan-Japanese)</strong></td>
+                            <td><strong>-(i)an(Australia-Australian;Korea– Korean)</strong></td>
+                            <td><strong>i(Bangladesh-Bangladeshi)</strong></td>
+                            <td><strong>ish(Finland	–Finnish)</strong></td>
+                            <td><strong>Others(Philippines–Filipino;France–French)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Portugal–Portuguese	</td>
+                            <td>Argentina- Argentinian	</td>
+                            <td>Pakistan–Pakistani</td>
+                            <td>Ireland	– Irish</td>
+                            <td>Switzerland	– Swiss</td>
+                        </tr>
+                        <tr>
+                            <td>Vietnam	–
+                                Vietnamese	</td>
+                            <td>Cambodia	–
+                                Cambodian		</td>
+                            <td></td>
+                            <td>Turkey	–
+                                Turkish	</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Egypt– Egyptian</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Singapore–Singaporean	</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>    
+            </div>
+        </div>
+
+        <!-- DropdownFour Activity Start -->
+
+        <div class="dropdownfour">
+            <div class="dropdownfour-header" onclick="toggleDropdown('dropdownContent4', 'icon4')">
+                <h2>04. Activity Sheet</h2>
+                <span class="dropdown-icon" id="icon4">▼</span>
+            </div>
+            <div class="dropdownfour-content" id="dropdownContent4">
+                <div class="dropdownfour-container questions-container">
+                    <h3>Greenhouse Gases - Activity 1</h3>
+                    <p>Change these more common countries/areas into the nationality and write the adjective in the appropriate column in the table. Practise the pronunciation.</p>
+                    <table class="country">
+                        <thead>
+                            <tr>
+                                <th>-ese (Japan-Japanese)</th>
+                                <th>-(i) (Australia - Australian; Korea-Korean)</th>
+                                <th>-i (Bangladesh-Bangladeshi)</th>
+                                <th>-ish (Finland-Finnish)</th>
+                                <th>Others (Philippines-Filipino; France-French)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" id="Japanese" placeholder="Japan"></td>
+                                <td><input type="text" id="Austrian" placeholder="Austria"></td>
+                                <td><input type="text" id="Bangladeshi" placeholder="Bangladesh"></td>
+                                <td><input type="text" id="English" placeholder="England"></td>
+                                <td><input type="text" id="French" placeholder="France"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="Chinese" placeholder="China"></td>
+                                <td><input type="text" id="Korean" placeholder="Korea"></td>
+                                <td><input type="text" id="Pakistani" placeholder="Pakistan"></td>
+                                <td><input type="text" id="Irish" placeholder="Ireland"></td>
+                                <td><input type="text" id="Filipino" placeholder="Philippines"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="Vietnamese" placeholder="Vietname"></td>
+                                <td><input type="text" id="Indian"  placeholder="India"></td>
+                                <td><input type="text" id="Israeli"  placeholder="Israel"></td>
+                                <td><input type="text" id="Spanish"  placeholder="Spain"></td>
+                                <td><input type="text" id="Greek" placeholder="Greece"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="Taiwanese" placeholder="Taiwan"></td>
+                                <td><input type="text" id="Canadian" placeholder="Canada"></td>
+                                <td><input type="text" id="Iraqi" placeholder="Iraq"></td>
+                                <td><input type="text" id="Danish" placeholder="Denmark"></td>
+                                <td><input type="text" id="Egyptian" placeholder="Egypt"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="Portuguese" placeholder="Portugal"></td>
+                                <td><input type="text" id="Brazilian" placeholder="Brazil"></td>
+                                <td><input type="text" id="Kuwait" placeholder="Kuwait"></td>
+                                <td><input type="text" id="Finnish" placeholder="Finland"></td>
+                                <td><input type="text" id="Dutch" placeholder="Dutch"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="text" id="Russian" placeholder="Russia"></td>
+                                <td></td>
+                                <td><input type="text" id="Swedish" placeholder="Sweden"></td>
+                                <td><input type="text" id="Swiss" placeholder="Switzerland"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="text" id="Mexican" placeholder="Mexico"></td>
+                                <td></td>
+                                <td><input type="text" id="British" placeholder="Britain"></td>
+                                <td><input type="text" id="Cambodian" placeholder="Cambodia"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="text" id="Turkish" placeholder="Turkey"></td>
+                                <td></td>
+                                <td></td>
+                                <td><input type="text" id="American" placeholder="America"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="text" id="Saudi" placeholder="Saudi"></td>
+                                <td></td>
+                                <td></td>
+                                <td><input type="text" id="Argentine" placeholder="Argentina"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="text" id="Austrian" placeholder="Austria"></td>
+                                <td></td>
+                                <td></td>
+                                <td><input type="text" id="Italian" placeholder="Italy"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            
+                    <button id="finishButton4" onclick="checkAnswers4()">
+                        <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                    </button>
+                    <div id="result"></div>
+            
+                    <button id="showAnswerButton4" style="display: none;" onclick="showAnswers4()">
+                        <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+                    </button>
+            
+                    <button id="tryAgainButton4" style="display: none;" onclick="resetActivity4()">
+                        <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+                    </button>
+                </div>
+            </div>
+        </div>    
+</section>
+
+
+    <div class="nextepisode">
+        <a href="{{ url_for('episode7') }}"><button>Next Episode</button></a>
+    </div>
+
+ <!----Footer -------------------------------------------------------------> 
+
+ <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column1">
+            <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="logo">
+        </div>
+        <div class="footer-column2">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="footer-column3">
+            <p>d.mar.learn.net@gmail.com</p>
+            <p>09 941487000</p>
+            <div class="contact-box">
+                <a href="https://www.facebook.com/dmarlearn/" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/facebook_2.png') }}" alt="Facebook Color" class="social-icon-color">
+                </a>
+                <a href="https://www.t.me/dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/telegram.png') }}" alt="Telegram" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/telegram_2.png') }}" alt="Telegram Color" class="social-icon-color">
+                </a>
+                <a href="https://www.tiktok.com/@dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/tiktok.png') }}" alt="TikTok" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/tiktok_2.png') }}" alt="TikTok Color" class="social-icon-color">
+                </a>
+                <a href="https://www.youtube.com/@DMarLearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/you tube.png') }}" alt="YouTube" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/you tube_2.png') }}" alt="YouTube Color" class="social-icon-color">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright 2024</p>
+    </div>
+</footer>
+
+<!--------------------------------------------------------------------------------------------------------------->
+    
+</body>
+</html>
+
+ 

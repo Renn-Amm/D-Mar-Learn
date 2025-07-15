@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/allpage.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode4.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode4_resp.css') }}"/>
+    <script src="{{ url_for('static', filename='js/episode4.js') }}"></script>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Crown icon -->
+    <title>Episode Four</title>
+</head>
+<body>
+    <div class="overlay"></div>
+    <!-- Navigation -->
+    <header>
+        <div class="container-navigation">
+            <div class="logo-container">
+                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                &#9776; 
+            </button>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    <li>
+                        <div class="user-info">
+                            {% if session.get('user') %}
+                                <span id="user-name">
+                                    {% if session['user']['userinfo']['premium'] %}
+                                        <i class="fas fa-crown" aria-hidden="true"></i> <!-- Font Awesome crown icon -->
+                                    {% endif %}
+                                    {{ session['user']['userinfo']['name'][:15] }}{% if session['user']['userinfo']['name']|length > 15 %}...{% endif %}
+                                </span>
+                                <img id="profile-pic" src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" />
+                                <div id="user-dropdown" class="dropdown">
+                                    <img src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" class="dropdown-profile-pic">
+                                    <p>{{ session['user']['userinfo']['name'] }}</p>
+                                    <p>{{ session['user']['userinfo']['email'] }}</p>
+                                    <p>Status: {% if session['user']['userinfo']['premium'] %}Premium user{% else %}Regular user{% endif %}</p>
+                                    <a href="{{ url_for('logout') }}" id="logout-btn" class="logout-link">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ url_for('googleLogin') }}" class="login-button" id="login-btn">Login with Google</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Popup Content -->
+            <section class="popup-content" id="loginPopup">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <p>This is a sample popup content</p>
+            </section>
+
+            <script>
+                // JavaScript for dropdown and popup functionality
+
+                // User dropdown logic
+                const userName = document.getElementById('user-name');
+                const profilePic = document.getElementById('profile-pic');
+                const userDropdown = document.getElementById('user-dropdown');
+                const overlay = document.getElementById('overlay');
+
+                const toggleDropdown = (event) => {
+                    event.stopPropagation();
+                    if (userDropdown.style.display === 'none' || userDropdown.style.display === '') {
+                        userDropdown.style.display = 'block';
+                    } else {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                const closeDropdown = () => {
+                    if (userDropdown.style.display === 'block') {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                userName?.addEventListener('click', toggleDropdown);
+                profilePic?.addEventListener('click', toggleDropdown);
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', closeDropdown);
+                userDropdown.addEventListener('click', (event) => event.stopPropagation());
+
+                // Popup logic
+                const openPopupButton = document.getElementById('login-btn');
+                const closePopupButton = document.getElementById('closePopup');
+                const loginPopup = document.getElementById('loginPopup');
+
+                const openPopup = (e) => {
+                    e.preventDefault();
+                    loginPopup.classList.add('active');
+                    overlay.style.display = 'block';
+                };
+
+                const closePopup = () => {
+                    loginPopup.classList.remove('active');
+                    overlay.style.display = 'none';
+                };
+
+                openPopupButton.addEventListener('click', openPopup);
+                closePopupButton.addEventListener('click', closePopup);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closePopup();
+                    }
+                });
+
+                // Close popup when clicking outside of it
+                overlay.addEventListener('click', closePopup);
+            </script>
+
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var navigation = document.querySelector('.navigation');
+    
+            menuToggle.addEventListener('click', function () {
+                navigation.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!------------------------------------------------------------------------------------------->
+
+    <!---------------------------------- Episode Banner Start -------------------------------------->
+      <section class="episodeone-banner">
+        <div class="episode-banner">
+             <img src="{{ url_for('static', filename='img/episodefour.png') }}" alt="episodefour">
+        </div>
+    </section>
+    <!------------------------------------- Episode Banner End ----------------------------------->
+
+    <section class="Episodetwo-Lessons">
+        <div class="dropdownone">
+            <div class="dropdown-header" onclick="toggleDropdown('dropdownContent1', 'icon1')">
+                <h1>01. Drag and Drop Activity</h1>
+                <span class="dropdown-icon" id="icon1">▼</span>
+            </div>
+            <div class="dropdownone-content" id="dropdownContent1">
+                <div class="dropdownone-container">
+                    <div class="wordbox">
+                        <h3>Rising Dollar - Activity</h3>
+                        <h4>Practise and consolidate your learning by completing our activities. In this one you need to
+                            decide whether the correct word is percent or percentage.
+                            <br><br>Drag and drop the correct word into the blank
+                        </h4>
+                        <div class="draggable-container">
+                            <span class="draggable" draggable="true">percent</span>
+                            <span class="draggable" draggable="true">percentage</span>
+                        </div>
+                    </div>
+                    <div class="dragbox">
+                        <div class="definitions">
+                            <div class="definition">
+                                <p>The <input type="text" class="dropzone" readonly disabled> of high school students that go to university is about twenty
+                                    <input type="text" class="dropzone" readonly disabled>.</p>
+                            </div>
+                            <div class="definition">
+                                <p>The bank has raised the interest rate by two <input type="text" class="dropzone" readonly disabled>.</p>
+                            </div>
+                            <div class="definition">
+                                <p>The <input type="text" class="dropzone" readonly disabled> of married women in the workforce rose from fifty to sixty
+                                    <input type="text" class="dropzone" readonly disabled>.</p>
+                            </div>
+                            <div class="definition">
+                                <p>Only forty <input type="text" class="dropzone" readonly disabled> of the population voted in the election</p>
+                            </div>
+                            <div class="definition">
+                                <p>If his answers are all correct, he'll get one hundred <input type="text" class="dropzone" readonly disabled> on the test.</p>
+                            </div>
+                            <div class="definition">
+                                <p>Only a small <input type="text" class="dropzone" readonly disabled> of people were interested in the election.</p>
+                            </div>
+                            <div class="definition">
+                                <p>The most popular leisure activity for the group is shopping, which has a ninety
+                                    <input type="text" class="dropzone" readonly disabled> participation rate across the population.</p>
+                            </div>
+                            <div class="definition">
+                                <p>The best male athletes can cover 152 miles in a 24hr period, while the best female
+                                    runners can cover only 125 miles. This represents a difference of 20
+                                    <input type="text" class="dropzone" readonly disabled>.</p>
+                            </div>
+                            <div class="definition">
+                                <p>Between 1980 and 2004 the banking sector remained constant at approximately thirty
+                                    <input type="text" class="dropzone" readonly disabled> of the workforce.</p>
+                            </div>
+                            <div class="definition">
+                                <p>The <input type="text" class="dropzone" readonly disabled> of production rose significantly in the last three years.</p>
+                            </div>
+                        </div>
+                        <button onclick="checkAnswers()">
+                            <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                        </button>
+                        <button onclick="resetActivity()">
+                            <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+                        </button>
+                        <button id="showAnswerButton" style="display: none;" onclick="showAnswers()">
+                            <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+                        </button>
+                        <button id="showFeedback" style="display: none;" onclick="showFeedback()">
+                            <img src="{{ url_for('static', filename='img/review.png') }}" alt="review" class="button-icon">Show Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="scoreModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Feedback!</h3>
+                    <p id="scoreText"></p>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+   <!-- --------------------------------------Dropdowntwo Start------------------------------------->
+        <div class="dropdowntwo">
+            <div class="dropdowntwo-header" onclick="toggleDropdown('dropdownContent2', 'icon2')">
+                <h2>02. Watch the video</h2>
+                <span class="dropdown-icon" id="icon2">▼</span>
+            </div>
+            <div class="dropdowntwo-content" id="dropdownContent2">
+                <div class="episodeone-video">
+                    <video width="900" height="400" controls>
+                        <source src="{{ url_for('static', filename='video/S1E04 - Rising Dollar.mp4') }}" type="video/mp4">
+                    </video>
+                </div>
+                <div class="dropdowntwo-container">
+                    <h3>Transcript</h3>
+                    <h4>Episode 4: Rising Dollar</h4>
+                    <p>Hello. I'm Margot Politis. Welcome to Study English, IELTS preparation.</p>
+                    <p>Today we're going to be making comparisons, and looking at some tricky prepositions of time.</p>
+                    <p>But first, let's listen to an academic talking about the Australian economy and the 
+                        Australian dollar. See if you can hear him use some comparative adjectives.</p>
+                    <p><em>It couldn't have come at a worse time, in the sense that with business investment
+                        weakening, and with the housing market, at least in activity terms, having turned,
+                        that's where the timing is unfortunate for us.</em></p>
+                    <p><em>The stronger the value of the Australian dollar and the longer it stays strong, the
+                        weaker our economic activity will be next year.</em></p>
+                    <p><em>I think growth in 2004 will be comparatively weak. My own prediction is that
+                        throughout the year growth will be around about 2 per cent.</em></p>
+                    <p><em>Being around the Reserve Bank's board table at this time I think would not be a
+                        comfortable place to be. The bank is probably in a bigger dilemma over what to do
+                        with interest rates with monetary policy than at any time that I can remember.</em></p>
+                    <p>Dr Ian Harper is discussing the value of the Australian dollar, and the growth of the
+                        Australian economy, including interest rates.</p>
+                    <p>He describes all these factors by comparing information. Listen to him talk about the
+                        value of the dollar.</p>
+                    <p><em>The stronger the value of the Australian dollar and the longer it stays strong, the
+                        weaker our economic activity will be next year.</em></p>
+                    <p>The stronger the value of the dollar, and the longer it stays strong, the weaker our
+                        economic activity.</p>
+                    <p>The adjectives used in the clip are strong, weak and long.</p>
+                    <p>The Australian dollar is strong.
+                        <br>It is stronger than it used to be.
+                        <br>It has been strong for a long time.
+                        <br>It is making economic activity weak.
+                        <br>The longer it stays strong, the weaker the economic activity.</p>
+                    <p>Let's look at comparative adjectives a bit more
+                        closely.</p>
+                    <table>
+                        <th colspan="2">With single syllable words, we add -er':</th>
+                        <tr>
+                            <td>strong</td>
+                            <td>stronger</td>
+                        </tr>
+                        <tr>
+                            <td>long</td>
+                            <td>longer</td>
+                        </tr>
+                        <tr>
+                            <td>weak</td>
+                            <td>weaker</td>
+                        </tr>
+                        <tr>
+                            <td>big</td>
+                            <td>bigger</td>
+                        </tr>
+                    </table>
+                    <p>But not all adjectives follow this simple pattern. Some are irregular.</p>
+                    <p><em>It couldn't have come at a worse time.</em></p>
+                    <p>It couldn't have come at a worse time.</p>
+                    <p>Worse.</p>
+                    <p>Worse comes from the adjective bad:</p>
+                    <p>bad, worse.</p>
+                    <p>Irregular adjectives are often best learnt with the superlative or 'most' form:</p>
+                    <p>bad, worse, worst</p>
+                    <p>and</p>
+                    <p>good, better, best.</p>
+                    <p></p>
+                    <p>When comparing, there are 2 ways to do it.</p>
+                    <p>To say 2 things are the same, we use as ______ as.</p>
+                    <p>Growth is as slow as it was last year.</p>
+                    <p>When saying one thing is more than the other, we use the comparative form. We
+                        usually use the word 'than' when comparing.</p>
+                    <p>Growth is slower than last year.</p>
+                    <p>The superlative form, the 'most' or '-est' form, is used with the word 'the' -</p>
+                    <p>Growth is the slowest it's ever been.</p>
+                    <p>Notice that we usually use 'more' and 'most' with adjectives that have more than 2
+                        syllables.</p>
+                    <p>So we have:
+                        <br>slow, slower, slowest,</p>
+                    <p>but</p>
+                    <p>beautiful, more beautiful, most beautiful.</p>
+                    <p>OK, now we're going to look at some prepositions of time.</p>
+                    <p>Listen for one in this clip…</p>
+                    <p><em>I think growth in 2004 will be comparatively weak.</em></p>
+                    <p>He says 'in 2004'. 'In' is a preposition of time.</p>
+                    <p>The prepositions of time are: at, on and in.</p>
+                    <p>Let's look at how they're all used.</p>
+                    <p>At is used for times. For example:</p>
+                    <p>The lecture is at 7 o'clock.</p>
+                    <p></p>
+                    <p>'On' is used for days and dates:</p>
+                    <p>The lecture is on Thursday.</p>
+                    <p>The lecture is on the 27th of October.</p>
+                    <p>'In' is for periods of time, and for months, years and seasons:</p>
+                    <p>The lecture is in the morning, in June, in 2004, in winter.</p>
+                    <p>So we'd say:</p>
+                    <p>The lecture is at 7 o'clock, in the morning, on Thursday, on the 27th October, in 2004.</p>
+                    <p>Notice that we say:
+                        <br>in the morning, in the afternoon, in the evening,
+                        <br>but we say:
+                        <br>at night</p>
+                    <p>Now let's test you on these prepositions</p>
+                    <p>I saw her _ _ _ _ _ Tuesday, _ _ _ _ _ 3 o'clock _ _ _ _ _ the afternoon.</p>
+                    <p>We've got the choice of in, at, or on.</p>
+                    <p>I saw her <u>on</u> Tuesday, <u>at</u> 3 o'clock, <u>in</u> the afternoon.</p>
+                    <p>Here's another one…</p>
+                    <p>They went shopping _ _ _ _ _ night _ _ _ _ _ Friday last week. Shops are open late
+                        _ _ _ _ _ summer.</p>
+                    <p>They went shopping <u>at</u> night, <u>on</u> Friday last week. Shops are open late <u>in</u> summer.</p>
+                    <p>OK, now let's listen to the whole clip again. See if you can hear how much he thinks
+                        the Australian economy will grow…</p>
+                    <p><em>It couldn't have come at a worse time, in the sense that with business investment
+                        weakening, and with the housing market, at least in activity terms, having turned,
+                        that's where the timing is unfortunate for us.</em></p>
+                    <p><em>The stronger the value of the Australian dollar and the longer it stays strong, the
+                        weaker our economic activity will be next year.</em></p>
+                    <p><em>I think growth in 2004 will be comparatively weak.</em></p>
+                    <p><em>My own prediction is that throughout the year growth will be around about 2 per cent.</em></p>
+                    <p><em>Being around the Reserve Bank's board table at this time I think would not be a
+                        comfortable place to be. The bank is probably in a bigger dilemma over what to do
+                        with interest rates with monetary policy than at any time that I can remember.</em></p>
+                    <p>His prediction is for growth to be about 2 percent.</p>
+                    <p>We write 2 percent like this: 2%</p>
+                    <p>Percent comes from the Latin phrase per centum, by the hundred or in every
+                        hundred.</p>
+                    <p>It's used to express proportions out of a hundred, including rates of interest.</p>
+                    <p>Percent is always used with a number.</p>
+                    <p>So we say:
+                        <br>Twenty percent of students attended the lecture.</p>
+                    <p>That means: 20 out of every hundred students attended.</p>
+                    <p>Or 'She got 90 percent in the test.' means she got 90 out of every hundred questions
+                        right.</p>
+                    <p>Or: Growth will be around 2 per cent.</p>
+                    <p>We also have the word percentage. Percentage is a noun. It means the portion or
+                        amount of something.</p>
+                    <p>So we say:</p>
+                    <p>What was the percentage of students who attended the lecture?
+                        <br>20 percent of students attended the lecture.</p>
+                    <p>She got 90% in her test.
+                        <br>That is a high percentage.</p>
+                    <p>OK. Now let's test you using percent or percentage.</p>
+                    <p>The _ _ _ _ _ of high school students that go to university is about twenty _ _ _ _ _</p>
+                    <p>The <u>percentage</u> of high school students that go to university is about twenty <u>percent</u>.</p>
+                    <p>The bank has raised the interest rate by two _ _ _ _ _.</p>
+                    <p>The bank has raised the interest rate by two <u>percent</u>.</p>
+                    <p>The _ _ _ _ _ of married women in the workforce rose from 50 to 60 _ _ _ _ _.</p>
+                    <p>The <u>percentage</u> of married women in the workforce rose from 50 to 60 <u>percent</u>.</p>
+                    <p>If his answers are all correct, he'll get 100 _ _ _ _ _ on the test.</p>
+                    <p>If his answers are all correct, he'll get 100 <u>percent</u> on the test.</p>
+                    <p></p>
+                    <p>So you should notice that the signal for using percent is that there’s always a number
+                        first. And of course, you can always use the percent sign [%] instead of writing out
+                        the words.</p>
+                    <p>And that's all we've got time for today.</p>
+                    <p>I'll see you next time on Study English!</p>
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdowntwo End --------------------------------------------->
+
+        <div class="dropdownthree">
+            <div class="dropdownthree-header" onclick="toggleDropdown('dropdownContent3', 'icon3')">
+                <h2>03. Study Notes</h2>
+                <span class="dropdown-icon" id="icon3">▼</span>
+            </div>
+            <div class="dropdownthree-content" id="dropdownContent3">
+                <h2>Episode 4: Rising Dollar</h2>
+                <div class="dropdownthree-container">
+                    <div class="notes">
+                        <div class="modal-verbs">
+                            <h4>Making Comparisons</h4>
+                            <p style="line-height: 0.8cm;">When describing information presented
+                                in graphs, tables or pie charts, it is
+                                necessary to use language specifying
+                                amount, and the language of
+                                comparison.</p>
+                            <p style="line-height: 0.8cm;">In specifying amount the use of per cent
+                                and percentage is important because
+                                visual data is commonly presented in
+                                this form.</p>
+                            <p style="line-height: 0.8cm;">Of equal importance is the use of
+                                comparative language, making the
+                                description of the visual data
+                                meaningful, and meeting the
+                                requirements of the IELTS Writing task.</p>
+                        </div>
+                        <div class="study-tips">
+                            <h3>Study Tips</h3>
+                            <p style="line-height: normal;">In IELTS Writing task 1, it is
+                                important to make factual
+                                statements, about the data in
+                                graphs, tables or pie charts.</p>
+                            <p style="line-height: 0.8cm;">Statements describing trends in
+                                must be supported by examples,
+                                and taken from the information
+                                supplied in the IELTS question.</p>
+                            <p style="line-height: 0.8cm;">When describing data use a
+                                variety of structures, including
+                                both 'per cent' and 'percentage',
+                                and comparative language.</p>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <h2>Specifying amount</h2>
+                        <p>The two words, per cent and percentage, are commonly used when specifying
+                            factual information in graphs, tables or pie charts. These words, however, are
+                            often confused or misused. The differences in meaning and use are as
+                            follows.</p>
+                        <p><strong>PERCENT /pə'sɛnt/ - (two words) British English, Australian English
+                            <br>PERCENT	/pɚ'sɛnt/ - (one word) American English, Canadian English</strong></p>
+                        <p>
+                            <li>specifies an amount for or in every hundred</li>
+                            <li>can	be used as a noun, adjective or adverb</li>
+                            <li>in formal writing, use per cent (percent), rather than the % sign</li>
+                            <li>use per cent (percent) with a number, for example:</li>
+                        </p>
+                        <p>It	is	predicted	that	house	prices	will	rise	2	percent over	the	year.</p>
+                    </div>
+
+                    <div class="box">
+                        <p><strong>PERCENTAGE		- (one	word	only)
+                            <br>/pə'sɛntɪʤ/ - British	English,	Australian	English
+                            <br>/pɚ'sɛntɪʤ/ - American	English,	Canadian	English</strong></p>
+                        <p>
+                            <li>specifies	an	amount	for	or	in	every	hundred;	this	is	not	the	same	as	a	total	
+                                number</li>
+                            <li>used	as	a	noun</li>
+                            <li>percentage	can	be	followed	by	either	a	singular	or	plural	noun,	for	example:</li>
+                        </p>
+                        <p>A	small	percentage	of	the	state’s	budget is	used	for	infrastructure.
+                            <br>A	large	percentage	of	the	buildings	in	that	street	will	be	demolished.</p>
+                    </div>
+
+                    <div class="box">
+                        <h2>Language of comparison</h2>
+                        <p>When describing trends in graphs, table or pie charts, it is necessary to select
+                            and compare salient features or meaningful items. There are a number of
+                            ways comparisons can be made.</p>
+                        <table>
+                            <th colspan="2">Adjectives have <b>three degrees</b> of comparison:</th>
+                            <tr>
+                                <td><b>positive</b></td>
+                                <td>big, good, interesting</td>
+                            </tr>
+                            <tr>
+                                <td><b>comparative</b></td>
+                                <td>bigger, better, more interesting</td>
+                            </tr>
+                            <tr>
+                                <td><b>superlative</b></td>
+                                <td>biggest, best, most interesting</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="box">
+                        <h2>Comparative</h2>
+                        <li style="margin-top: 20px;">comparative forms are used to compare 2 people, places, things, and
+                            actions:
+                            <br> Taking the train is faster but more expensive than driving to
+                            Sydney.</li>
+                            <br>
+                        <li>If the second person, place, thing or action is given, then ‘than’ is
+                            added after the comparative.</li>
+                    </div>
+
+                    <div class="box">
+                        <h2>Superlative</h2>
+                        <li style="margin-top: 20px;">superlative forms are used to compare 3 or more people, places, and
+                            things:
+                            <br> Walking is the cheapest and the best form of exercise.</li>
+                            <br>
+                        <li>the' is always used with superlatives</li>
+                        <p><b>Comparative and Superlative forms of adjectives</b></p>
+                    </div>
+
+                    <div class="box">
+                        <h2>One-syllable adjectives</h2>
+                        <table>
+                            <tr>
+                                <td colspan="3">Add <b>-er</b> and <b>-est</b> to the positive adjective to form the <b>comparative</b>
+                                    and <b>superlative</b> degrees:</td>
+                            </tr>
+                            <tr>
+                                <td>hard<br>large</td>
+                                <td>harder<br>larger</td>
+                                <td>harderst<br>largest</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Some adjectives have <b>irregular</b> forms:</td>
+                            </tr>
+                            <tr>
+                                <td>good<br>bad</td>
+                                <td>better<br>worse</td>
+                                <td>best<br>worst</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Some adjectives have <b>more than one</b> form:</td>
+                            </tr>
+                            <tr>
+                                <td>far</td>
+                                <td>farther/further</td>
+                                <td>farthest/furthest</td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr style="border-color: transparent;">
+                                <td colspan="3" style="border-color: transparent;">Spelling tip: If an adjective ends in a single consonant and is
+                                    preceded by a single vowel, the consonant is doubled</td>
+                            </tr>
+                            <tr style="border-color: transparent;">
+                                <td style="border-color: transparent;">thin<br>big</td>
+                                <td style="border-color: transparent;">thinner<br>bigger</td>
+                                <td style="border-color: transparent;">thinnest<br>biggest</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="box">
+                        <h2>Two-syllable adjectives</h2>
+                        <table>
+                            <tr>
+                                <td colspan="3">Use <b>more/less</b> and the <b>most/the least</b> to form the <b>comparative</b> and
+                                    <b>superlative</b> degrees:</td>
+                            </tr>
+                            <tr>
+                                <td>modern<br>profitable</td>
+                                <td>more/less modern<br>more/less profitable</td>
+                                <td>the most/the least modern<br>the most/the least profitable</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">If an adjective ends in a final <b>-y</b> and is <b>preceded by a consonant</b>, the
+                                <b>-y</b> changes to an <b>-i before -er</b> and <b>-est</b>:</td>
+                            </tr>
+                            <tr>
+                                <td>easy<br>funny</td>
+                                <td>easier<br>funnier</td>
+                                <td>easiest<br>funniest</td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr style="border-color: transparent;">
+                                <td colspan="3" style="border-color: transparent;">Spelling tip: If an adjective ends in an -e, the final -e is
+                                    dropped before -er and -est:</td>
+                            </tr>
+                            <tr style="border-color: transparent;">
+                                <td style="border-color: transparent;">simple<br>secure</td>
+                                <td style="border-color: transparent;">simpler<br>securer</td>
+                                <td style="border-color: transparent;">simplest<br>securest</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>    
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdownthree End --------------------------------------------->
+
+        <div class="dropdownfour">
+            <div class="dropdownfour-header" onclick="toggleDropdown('dropdownContent4', 'icon4')">
+                <h2>04. Activity Sheet</h2>
+                <span class="dropdown-icon" id="icon4">▼</span>
+            </div>
+            <div class="dropdownfour-content" id="dropdownContent4">
+                <div class="dropdownfour-container">
+                    <h3>Rising Dollar - Activity</h3>
+                    <h4>Match with the words with the definitions.</h4>
+                    <p>In the second activity you need to choose the appropriate comparative adjective to complete
+                        the sentences below.</p>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(1) The data shows that Mitchells is the third <input type="text" id="answer1" class="answer-input" readonly disabled> 
+                            company in Australia. </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(1, 'largest')">a. largest</button>
+                            <button onclick="selectAnswer(1, 'better')">b. better</button>
+                            <button onclick="selectAnswer(1, 'busier')">c. busier</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(2) Researchers are claiming that pollution levels are <input type="text" id="answer2" class="answer-input" readonly disabled> 
+                            than in previous years. </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(2, 'lowest')">a. lowest</button>
+                            <button onclick="selectAnswer(2, 'less serious')">b. less serious</button>
+                            <button onclick="selectAnswer(2, 'largest')">c. largest</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(3) The streets in Sydney are <input type="text" id="answer3" class="answer-input" readonly disabled> 
+                            now than they were in 2003. </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(3, 'harder')">a. harder</button>
+                            <button onclick="selectAnswer(3, 'highest')">b. highest</button>
+                            <button onclick="selectAnswer(3, 'busier')">c. busier</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(4) Mexico has the <input type="text" id="answer4" class="answer-input" readonly disabled> 
+                            income per capita of the five cities compared in the graph. </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(4, 'lowest')">a. lowest</button>
+                            <button onclick="selectAnswer(4, 'better')">b. better</button>
+                            <button onclick="selectAnswer(4, 'most profitable')">c. most profitable</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(5) Though it is an inferior product, marketing research indicates that it is still <input type="text" id="answer5" class="answer-input" readonly disabled> 
+                            than the Smith brand. </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(5, 'lowest')">a. lowest</button>
+                            <button onclick="selectAnswer(5, 'better')">b. better</button>
+                            <button onclick="selectAnswer(5, 'largest')">c. largest</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(6) Studying for the maths exam was <input type="text" id="answer6" class="answer-input" readonly disabled> 
+                            than for any of the other subjects. </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(6, 'busier')">a. busier</button>
+                            <button onclick="selectAnswer(6, 'less serious')">b. less serious</button>
+                            <button onclick="selectAnswer(6, 'harder')">c. harder</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(7) The return on their investment was significant, and, in comparison to the other three firms, was the <input type="text" id="answer7" class="answer-input" readonly disabled>  </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(7, 'most profitable')">a. most profitable</button>
+                            <button onclick="selectAnswer(7, 'least experienced')">b. least experience</button>
+                            <button onclick="selectAnswer(7, 'highest')">c. highest</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(8) Surprisingly, it was the <input type="text" id="answer8" class="answer-input" readonly disabled> 
+                        athlete who completed the marathon first. </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(8, 'largest')">a. largest</button>
+                            <button onclick="selectAnswer(8, 'highest')">b. highest</button>
+                            <button onclick="selectAnswer(8, 'least experienced')">c. least experienced</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(9) There are several models available on the market but the latest is designed for the <input type="text" id="answer9" class="answer-input" readonly disabled> 
+                        consumer because of it's complexity. </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(9, 'more serious')">a. more serious</button>
+                            <button onclick="selectAnswer(9, 'busier')">b. busier</button>
+                            <button onclick="selectAnswer(9, 'better')">c. better</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(10) Because the north experienced the <input type="text" id="answer10" class="answer-input" readonly disabled> 
+                        rainfall may explain the reason for the poor crops and high prices in that region. </p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(10, 'harder')">a. harder</button>
+                            <button onclick="selectAnswer(10, 'more serious')">b. more serious</button>
+                            <button onclick="selectAnswer(10, 'highest')">c. highest</button>
+                        </div>
+                    </div>  
+                    
+                    <div class="buttons">
+                        <button id="finishButton2" onclick="checkAnswers2()">
+                            <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                        </button>
+                        <button onclick="resetActivity2()">
+                            <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+                        </button>
+                        <button id="showAnswerButton2" style="display: none;" onclick="showAnswers2()">
+                            <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+                        </button>
+                        <button id="showFeedbackButton2" style="display: none;" onclick="showFeedback2()">
+                            <img src="{{ url_for('static', filename='img/review.png') }}" alt="review" class="button-icon">Show Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="scoreModal2" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal2()">&times;</span>
+                    <h3>Feedback!</h3>
+                    <p id="scoreText2"></p>
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdownfour End --------------------------------------------->
+        
+</section>
+
+
+    <div class="nextepisode">
+        <a href="{{ url_for('episode5') }}"><button>Next Episode</button></a>
+    </div>
+
+ <!----Footer -------------------------------------------------------------> 
+
+ <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column1">
+            <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="logo">
+        </div>
+        <div class="footer-column2">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="footer-column3">
+            <p>d.mar.learn.net@gmail.com</p>
+            <p>09 941487000</p>
+            <div class="contact-box">
+                <a href="https://www.facebook.com/dmarlearn/" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/facebook_2.png') }}" alt="Facebook Color" class="social-icon-color">
+                </a>
+                <a href="https://www.t.me/dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/telegram.png') }}" alt="Telegram" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/telegram_2.png') }}" alt="Telegram Color" class="social-icon-color">
+                </a>
+                <a href="https://www.tiktok.com/@dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/tiktok.png') }}" alt="TikTok" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/tiktok_2.png') }}" alt="TikTok Color" class="social-icon-color">
+                </a>
+                <a href="https://www.youtube.com/@DMarLearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/you tube.png') }}" alt="YouTube" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/you tube_2.png') }}" alt="YouTube Color" class="social-icon-color">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright 2024</p>
+    </div>
+</footer>
+
+<!--------------------------------------------------------------------------------------------------------------->
+    
+</body>
+</html>

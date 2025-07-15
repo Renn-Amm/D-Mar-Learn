@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/allpage.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode1.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode1_resp.css') }}"/>
+    <script src="{{ url_for('static', filename='js/episode1.js') }}"></script>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Crown icon -->
+    <title>Episode One</title>
+</head>
+<body>
+    <div class="overlay"></div>
+    <!-- Navigation -->
+    <header>
+        <div class="container-navigation">
+            <div class="logo-container">
+                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                &#9776; 
+            </button>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    <li>
+                        <div class="user-info">
+                            {% if session.get('user') %}
+                                <span id="user-name">
+                                    {% if session['user']['userinfo']['premium'] %}
+                                        <i class="fas fa-crown" aria-hidden="true"></i> <!-- Font Awesome crown icon -->
+                                    {% endif %}
+                                    {{ session['user']['userinfo']['name'][:15] }}{% if session['user']['userinfo']['name']|length > 15 %}...{% endif %}
+                                </span>
+                                <img id="profile-pic" src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" />
+                                <div id="user-dropdown" class="dropdown">
+                                    <img src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" class="dropdown-profile-pic">
+                                    <p>{{ session['user']['userinfo']['name'] }}</p>
+                                    <p>{{ session['user']['userinfo']['email'] }}</p>
+                                    <p>Status: {% if session['user']['userinfo']['premium'] %}Premium user{% else %}Regular user{% endif %}</p>
+                                    <a href="{{ url_for('logout') }}" id="logout-btn" class="logout-link">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ url_for('googleLogin') }}" class="login-button" id="login-btn">Login with Google</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Popup Content -->
+            <section class="popup-content" id="loginPopup">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <p>This is a sample popup content</p>
+            </section>
+
+            <script>
+                // JavaScript for dropdown and popup functionality
+
+                // User dropdown logic
+                const userName = document.getElementById('user-name');
+                const profilePic = document.getElementById('profile-pic');
+                const userDropdown = document.getElementById('user-dropdown');
+                const overlay = document.getElementById('overlay');
+
+                const toggleDropdown = (event) => {
+                    event.stopPropagation();
+                    if (userDropdown.style.display === 'none' || userDropdown.style.display === '') {
+                        userDropdown.style.display = 'block';
+                    } else {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                const closeDropdown = () => {
+                    if (userDropdown.style.display === 'block') {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                userName?.addEventListener('click', toggleDropdown);
+                profilePic?.addEventListener('click', toggleDropdown);
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', closeDropdown);
+                userDropdown.addEventListener('click', (event) => event.stopPropagation());
+
+                // Popup logic
+                const openPopupButton = document.getElementById('login-btn');
+                const closePopupButton = document.getElementById('closePopup');
+                const loginPopup = document.getElementById('loginPopup');
+
+                const openPopup = (e) => {
+                    e.preventDefault();
+                    loginPopup.classList.add('active');
+                    overlay.style.display = 'block';
+                };
+
+                const closePopup = () => {
+                    loginPopup.classList.remove('active');
+                    overlay.style.display = 'none';
+                };
+
+                openPopupButton.addEventListener('click', openPopup);
+                closePopupButton.addEventListener('click', closePopup);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closePopup();
+                    }
+                });
+
+                // Close popup when clicking outside of it
+                overlay.addEventListener('click', closePopup);
+            </script>
+
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var navigation = document.querySelector('.navigation');
+    
+            menuToggle.addEventListener('click', function () {
+                navigation.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!------------------------------------------------------------------------------------------->
+
+<!--------Episode Banner Start---------->
+
+    <section class="episodeone-banner">
+        <div class="episode-banner">
+             <img src="{{ url_for('static', filename='img/episodeone.png') }}" alt="episodeone">
+        </div>
+    </section>
+
+
+<!---------Exercises Start--------------------->
+    <!-- <section class="Episodeone-Lessons">
+        <div class="dropdownone">
+            <div class="dropdown-header" onclick="toggleDropdown('dropdownContent1', 'icon1')">
+                <h1>01. Select the electronic crimes.</h1>
+                <span class="dropdown-icon" id="icon1">▼</span>
+            </div>
+            <div class="dropdown-content" id="dropdownContent1">
+                <a href="index.html" class="playgame" onclick="playGame()">Play the game!</a>
+            </div>
+        </div> -->
+
+<!----------Dropdown Two Start----------------->
+        <div class="dropdowntwo">
+            <div class="dropdowntwo-header" onclick="toggleDropdown('dropdownContent2', 'icon2')">
+                <h2>01. Watch the video</h2>
+                <span class="dropdown-icon" id="icon2">▼</span>
+            </div>
+            <div class="dropdowntwo-content" id="dropdownContent2">
+                <div class="episodeone-video">
+                    <video width="900" height="400" controls>
+                        <source src="{{ url_for('static', filename='video/S1E01 - Electronic Crime.mp4') }}" type="video/mp4">
+                    </video>
+                </div>
+                <div class="dropdowntwo-container">
+                    <h3>Transcript</h3>
+                    <h4>Episode 2: Electronic Crime</h4>
+                    <p>Hello. I'm Margot Politis. Welcome to Study English, IELTS preparation.</p>
+                    <p style="line-height: 0.8cm">In this series, we look at the skills you'll need to write formal, academic English, and you'll have the chance to listen to people talking about topics you'll find at colleges and universities.</p>
+                    <p>In today's episode we're going to hear someone talking about a new type of crime - electronic crime.</p>
+                    <p>Listen carefully to this police officer.</p>
+                    <p>Then we're going to look at word families, and do some spelling.</p>
+                    <p style="line-height: 0.8cm"><em>It is a new frontier, and there are old, traditional forms of crime being committed electronically, and via computers and the internet, but there are also new emerging.</em></p>
+                    <p><em>Electronic crime really does cross over a whole range of different crime types.</em></p>
+                    <p style="line-height: 0.8cm"><em>You can imagine stalking offences that may be facilitated via email, harassment, threatening emails, small-scale fraud offences, right up through to large-scale frauds committed via the internet.</em></p>
+                    <p style="line-height: 0.8cm">OK, so let's have a closer look at that clip. We're going to focus on vocabulary and word groups, but first, listen again to this sentence. See if you can hear the keyword, the main subject of the sentence.</p>
+                    <p style="line-height: 0.8cm"><em>It is a new frontier, and there are old, traditional forms of crime being committed electronically, and via. He says the Al via computers and the internet.</em></p>
+                    <p>He says there are old, traditional forms of crime being committed electronically.</p>
+                    <p>The keyword is 'crime'. That's what the sentence is about.</p>
+                    <p>Crime is a noun.</p>
+                    <p>We say that a crime is committed, or done.</p>
+                    <p>To commit a crime is to do something illegal.</p>
+                    <p>Let's have a closer look at the word 'crime'.</p>
+                    <p>In English, many words can change to have different uses. In this way, they form word groups.</p>
+                    <p>Learning words groups is an excellent way to build your vocabulary.</p>
+                    <p>You should write them down in a table like this showing adjectives, nouns, verbs, and adverbs.</p>
+                    <p>Of course, there are often at least 2 different sorts of nouns - nouns for things, and nouns for people.</p>
+                    <p>Let's have a look at the crime word group.</p>
+                    <img src="{{ url_for('static', filename='img/table1.png') }}" alt="table1" width="430px">
+                    <p>Crime is a noun. It's a thing.</p>
+                    <p>A 'criminal' is a person who commits a crime.</p>
+                    <p>Criminal is also the adjective.</p>
+                    <p>We can describe something by using the word 'criminal' before the noun. That was a criminal act.</p>
+                    <p>And we have the adverb criminally. To behave criminally is to behave in an illegal way.</p>
+                    <p>There's no verb from crime. We have to use the phrase to commit a crime.</p>
+                    <p>OK. We'll come back to our table a bit later.</p>
+                    <p>Right now, listen to what sort of crimes are being committed these days - and listen for an '-l-y' adverb.</p>
+                    <p style="line-height: 0.8cm"><em>It is a new frontier, and there are old, traditional forms of crime being committed electronically, and via computers and the internet.</em></p>
+                    <p>He says there are old forms of crime being committed electronically.</p>
+                    <p>Electronically is an adverb. It means in an electronic way, or using electronics.</p>
+                    <p>Electronics is the study of electricity and the things that use electricity.</p>
+                    <p>Listen to the way electronic is used here.</p>
+                    <p style="line-height: 0.8cm"><em>It is a new frontier, and there are old, traditional forms of crime being committed electronically, and via computers and the internet, but there are also new crime types emerging.</em></p>
+                    <p><em>Electronic crime really does cross over a whole range of different crime types.</em></p>
+                    <p>Electronic crime really does cross over a whole range of different crime types.</p>
+                    <p>He uses the phrases 'electronic crime', and 'committed electronically'.</p>
+                    <p style="line-height: 0.8cm">Notice that 'electronic', the adjective, comes before the noun 'crime', but that the adverb 'electronically' comes after the verb 'committed'.</p>
+                    <p>Let's look at the table again.</p>
+                    <img src="{{ url_for('static', filename='img/table2.png') }}" alt="table2" width="430px">
+                    <p>We have electronic the adjective, electronically the adverb, and electronics, the noun.</p>
+                    <p style="line-height: 0.8cm">You'll notice that not all words take all these different forms. But where they do exist, you will be able to see patterns emerging.</p>
+                    <p>For example look at the adverbs criminally and electronically.</p>
+                    <p>They both end in '-l-y', '-ly.</p>
+                    <p>OK, so we've looked at electronic, and its word family.</p>
+                    <p style="line-height: 0.8cm">These days, electroniralia is often used to mean relating to computers, or new technologies. It sometimes gets shortened to 'e'.</p>
+                    <p>We have e-mail - electronic mail, e-business, electronic business.</p>
+                    <p>So we could call these electronic crimes e-crimes - crimes committed using computers and the internet.</p>
+                    <p style="line-height: 0.8cm">But what sorts of e-crimes are being commited. Listen for the two main types of crimes that he mentions.</p>
+                    <p><em>Electronic crime really does cross over a whole range of different crime types.</em></p>
+                    <p style="line-height: 0.8cm"><em>You can imagine stalking offences that may be facilitated via email, harassment, threatening emails, small-scale fraud offences, right up through to large-scale frauds committed via the internet.</em></p>
+                    <p>He mentions two main types of crimes: stalking offences and fraud offences.</p>
+                    <p>An offence is another word for a crime.</p>
+                    <p>Notice how you can build your vocabulary by looking at words on a theme.</p>
+                    <p>An offence is a crime, and offenders are criminals.</p>
+                    <p>But look at some other crime words. We've got robbery and robbers, burglary and burglars.</p>
+                    <p style="line-height: 0.8cm">And there are lots more - you should try to learn words in themes like this. See how many words you can find for different types of crimes and criminals.</p>
+                    <p>OK, now let's have a quick look at some spelling.</p>
+                    <p style="line-height: 0.8cm">Spelling is very important in formal writing, but English spelling is very difficult. They're aren't too many rules, and most of them can be broken.</p>
+                    <p>Notice that many words can have doubled letters, but you can't tell by just listening to the words.</p>
+                    <p style="line-height: 0.8cm">In today's story we've seen the words committed, electronically, different, cross, harassment and offences.</p>
+                    <p>They have all got doubled letters.</p>
+                    <p>There aren't really any rules for spelling these words - you have to learn them all one by one.</p>
+                    <p>When you come across new words, try writing them down out a few times, and spelling them out loud.</p>
+                    <p style="line-height: 0.8cm">Notice in Australia and England, we spell doubled letters out by saying the word double before them. Double f, double s.</p>
+                    <p style="line-height: 0.8cm">But in the United States, they just say the letter twice -f-f, s-s. So you can choose either way, but you should learn to recognise both.</p>
+                    <p>Listen to this... <br> Different - d-i-f-f-e-r-e-n-t- different</p>
+                    <p>Harassment - h-a-r-a-s-s-m-e-n-t- harassment</p>
+                    <p>Electronically - e-l-e-c-t-r-o-n-i-c-a-l-l-y- electronically</p>
+                    <p style="line-height: 0.8cm">Notice that even though English spelling can be very difficult, it's very important to make sure you spell words correctly.</p>
+                    <p>It makes your writing look bad if you misspell words in essays. So you'll need to work hard at it!</p>
+                    <img src="{{ url_for('static', filename='img/list.png') }}" alt="list" width="430px">
+                    <p style="line-height: 0.8cm">So our lessons for today are: write down new words you find. Check the spelling in a dictionary, to make sure you've spelt them correctly.</p>
+                    <p style="line-height: 0.8cm">See if you can find other words that belong to the same family - can the word be used as a noun or verb? Write all the word forms in your word family table.</p>
+                    <p style="line-height: 0.8cm">Don't forget that it's very useful to keep your words listed according to topics - like crime words, or business words, or computer words.</p>
+                    <p>And that's all we've got time for today.</p>
+                    <p>I'll see you for the next episode of Study English! bye bye.</p>
+                </div>
+            </div>
+        </div>
+
+<!-------------Dropdownthree -------------------->
+        <div class="dropdownthree">
+            <div class="dropdownthree-header" onclick="toggleDropdown('dropdownContent3', 'icon3')">
+                <h2>02. Drag and Drop Activity</h2>
+                <span class="dropdown-icon" id="icon3">▼</span>
+            </div>
+            <div class="dropdownthree-content" id="dropdownContent3">
+                <div class="dropdownthree-container">
+                    <div class="wordbox">
+                        <h3>Electronic Crime - Activity</h3>
+                        <h4>Match with the words with the definitions.</h4>
+                        <div class="draggable-container">
+                            <span class="draggable" draggable="true">Criminal</span>
+                            <span class="draggable" draggable="true">Crime</span>
+                            <span class="draggable" draggable="true">Criminally</span>
+                            <span class="draggable" draggable="true">Offence</span>
+                            <span class="draggable" draggable="true">Offender</span>
+                            <span class="draggable" draggable="true">Robbery</span>
+                            <span class="draggable" draggable="true">Robber</span>
+                            <span class="draggable" draggable="true">Burglary</span>
+                            <span class="draggable" draggable="true">Burglar</span>
+                            <span class="draggable" draggable="true">Stalking Offence</span>
+                            <span class="draggable" draggable="true">Fraud Offence</span>
+                        </div>
+                    </div>
+                    <div class="dragbox">
+                        <div class="definitions">
+                            <div class="definition">
+                                <p>A person who commits robbery</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>Synonym of crime</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>A person who has committed a crime</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>The crime of gaining money by financial benefits <br>by a trick or by lying</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>Synonym of criminal</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>A person who commits burglary</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>An act that is against the law and punishable by the authorities.</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>The act of stealing from a person or place, often using <br>force or threats.</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>In a manner that relates to crime or criminals.</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>The crime of repeatedly following or harassing another person, <br>causing them fear or distress.</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>The act of illegally entering a building with the intent <br>to commit a crime, especially theft.</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            
+                        </div>
+                        <button onclick="checkAnswers()">
+                            <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                        </button>
+                        <button onclick="resetActivity()">
+                            <img src="{{ url_for('static', filename='img/reload.png') }}" style="display: none;" alt="reload" class="button-icon">Try again
+                        </button>
+                        <button id="showAnswerButton" style="display: none;" onclick="showAnswers()">
+                            <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+                        </button>
+                        <button id="showFeedback" style="display: none;" onclick="showFeedback()">
+                            <img src="{{ url_for('static', filename='img/review.png') }}" alt="review" class="button-icon">Show Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="scoreModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Feedback!</h3>
+                    <p id="scoreText"></p>
+                </div>
+            </div>
+        </div>
+
+<!-------------Dropdownfive Start---------------->
+        <div class="dropdownfive">
+            <div class="dropdownfive-header" onclick="toggleDropdown('dropdownContent5', 'icon5')">
+                <h2>03. Study Notes</h2>
+                <span class="dropdown-icon" id="icon5">▼</span>
+            </div>
+            <div class="dropdownfive-content" id="dropdownContent5">
+                <h3>Episode 1:Electronic Crime</h3>
+                <div class="dropdownfive-container">
+                    <h2>Spelling Rules</h2>
+                    <h3>RULE 1: ie/ei</h3>
+                    <p class="rule">
+                        <em>Write i before e<br>
+                        Except after c<br>
+                        Or when sounded like ay<br>
+                        As in neighbour and weigh.</em>
+                    </p>
+                    <p>
+                        This rhyme may help you remember the rules for using <strong>ie</strong> and <strong>ei</strong> correctly.<br>
+                        As the rule says, you should generally write <strong>ie</strong> except under <strong>TWO</strong> conditions:
+                    </p>
+                    <ol>
+                        <li>when the two letters follow <strong>c</strong></li>
+                        <li>when the two letters sound like <strong>ay</strong> (as in <em>day</em>)</li>
+                    </ol>
+                    <h4>Examples:</h4>
+                    <p>Some <strong>ie</strong> words:</p>
+                    <p class="example">believe, belief, chief, field, grief, relief, yield, siege, niece, friend</p>
+                    <p>Some <strong>ei</strong> words:</p>
+                    <p class="example">ceiling, conceit, deceive, deceit, receive, receipt, neighbour, eight, weigh, weight, vein, skein</p>
+                    <div class="hint">
+                        <strong>HINT:</strong> The major exceptions to this rule are the following words:
+                        <div class="exceptions">
+                            conscience, forfeit, seize<br>
+                            counterfeit, height, sheik<br>
+                            either, leisure, species<br>
+                            financier, neither, sufficient<br>
+                            foreign, science, weird
+                        </div>
+                    </div>
+                    <br><br>
+                    <h2>RULE 2a_Doubling Cosonants- One-Syllable Words </h2>
+                    <p>If the word ends in a consonant preceded by a single vowel, then double that last consonant when you add a suffix beginning with a vowel. </p>
+                    <br>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>drag</td>
+                            <td>dragged</td>
+                            <td>dragging</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>flip</td>
+                            <td>flipped</td>
+                            <td>flipping</td>
+                            <td>flipper</td>
+                        </tr>
+                        <tr>
+                            <td>nap</td>
+                            <td>napped</td>
+                            <td>napping</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>shop</td>
+                            <td>shopped</td>
+                            <td>shopping</td>
+                            <td>shopper</td>
+                        </tr>
+                        <tr>
+                            <td>slip</td>
+                            <td>slipped</td>
+                            <td>slipping</td>
+                            <td>slipper</td>
+                        </tr>
+                        <tr>
+                            <td>star</td>
+                            <td>starred</td>
+                            <td>starring</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>tap</td>
+                            <td>tapped</td>
+                            <td>tapping</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>trap</td>
+                            <td>trapped</td>
+                            <td>trapping</td>
+                            <td>trapper</td>
+                        </tr>
+                        <tr>
+                            <td>wet</td>
+                            <td>wetted</td>
+                            <td>wetting</td>
+                            <td>wetter</td>
+                        </tr>
+                    <br>
+                     </table>
+                    <br>
+                    <p><strong>Note</strong> that in one Syllable words with TWO-vowels, do not double the last cosonant</p>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>beat</td>
+                            <td>foot</td>
+                            <td>look</td>
+                            <td>seat</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>footed</td>
+                            <td>looked</td>
+                            <td>seated</td>
+                        </tr>
+                        <tr>
+                            <td>beating</td>
+                            <td>footing</td>
+                            <td>looking</td>
+                            <td>seating</td>
+                        </tr>
+                        <tr>
+                            <td>beater</td>
+                            <td>footer</td>
+                            <td>looker</td>
+                            <td></td>
+                        </tr>
+                    <br>
+                    </table>
+                    <br>
+                    <p><strong>Note</strong> that in one-syllable words ending in a double cosonant, do not double the last cosonant</p>
+                    <table class="word-forms-table">
+                            <tr>
+                                <td>lock</td>
+                                <td>locked</td>
+                                <td>locking</td>
+                                <td>locker</td>
+                            </tr>
+                            <tr>
+                                <td>knock</td>
+                                <td>knocked</td>
+                                <td>knocking</td>
+                                <td>knocker</td>
+                            </tr>
+                            <tr>
+                                <td>swing</td>
+                                <td></td>
+                                <td>swinging</td>
+                                <td>swinger</td>
+                            </tr>
+                            <tr>
+                                <td>climb</td>
+                                <td>climbed</td>
+                                <td>climbing</td>
+                                <td>climber</td>
+                            </tr>
+                            <tr>
+                                <td>talk</td>
+                                <td>talked</td>
+                                <td>talking</td>
+                                <td>talked</td>
+                            </tr>
+                        <br>
+                    </table>
+                    <br>
+                    <p><strong>Note</strong> that in one-syllable words ending in a final -e instead of a cosonant, do not double the last cosonant</p>
+                    <br>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>hope</td>
+                            <td>stare</td>
+                            <td>tape</td>
+                        </tr>
+                        <tr>
+                            <td>hoped</td>
+                            <td>stared</td>
+                            <td>taped</td>
+                        </tr>
+                        <tr>
+                            <td>hoping</td>
+                            <td>staring</td>
+                            <td>taping</td>
+                        </tr>
+                    <br>
+                    </table>
+                    <p><strong>Note</strong> also not double the last consonant when adding a suffix that starts with a consonant.</p>
+                    <br>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>star</td>
+                            <td>starless</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>fear</td>
+                            <td>fearless</td>
+                            <td>fearful</td>
+                        </tr>
+                        <tr>
+                            <td>doubt</td>
+                            <td>doubtless</td>
+                            <td>doubtful</td>
+                        </tr>
+                    </table>
+                    <br>
+                    <h2>RULE 2b____________Doubling Cosonants- Two-Syllable Words </h2>
+                    <br>
+                    <p>For words with two or more syllables that end with a consotant preceded by a single vowel, then double the consonant when both of these conditions apply.</p>
+                    <p style="margin-left: 30px;">1. Add a suffix beginning with a vowel.</p>
+                    <p style="margin-left: 30px;">2. The last syllable of the word is accented.</p>
+                    <br>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>begin</td>
+                            <td></td>
+                            <td>beginning</td>
+                            <td>beginner</td>
+                        </tr>
+                        <tr>
+                            <td>occurr</td>
+                            <td>occurred</td>
+                            <td>occurring</td>
+                            <td>occurrence</td>
+                        </tr>
+                        <tr>
+                            <td>omit</td>
+                            <td>omitted</td>
+                            <td>omitting</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>prefer</td>
+                            <td>preferred</td>
+                            <td>preferring</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>refer</td>
+                            <td>referred</td>
+                            <td>referring</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>regret</td>
+                            <td>regretted</td>
+                            <td>regretting</td>
+                            <td>regrettable</td>
+                        </tr>
+                        <tr>
+                            <td>submit</td>
+                            <td>submittedd</td>
+                            <td>submitting</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>unwrap</td>
+                            <td>unwrapped</td>
+                            <td>unwrapping</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <p><strong>Note</strong>that when the last syllable of a two-syllable word is not stressed then the final consonant is not doubled.</p>
+                    <br>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>labour</td>
+                            <td>laboured</td>
+                            <td>labouring</td>
+                            <td>labourer</td>
+                        </tr>
+                        <tr>
+                            <td>format</td>
+                            <td>formated</td>
+                            <td>formating</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <h2>RULE 3____________Prefixes </h2>
+                    <p>A Prefix is a word part added at the beginning of a base word.</p>
+                    <p>Knowing Prefixes helps to improve both your vocabulary and your spelling</p>
+                    <table class="word-forms-table">
+                        <thead>
+                            <tr>
+                                <th>Prefix</th>
+                                <th>Meaning</th>
+                                <th>Examples</th>     
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td><strong>ante-</strong></td>
+                            <td>before</td>
+                            <td>anteroom,antenatal,antedate,antediluvian</td>
+                        </tr>
+                        <tr>
+                            <td><strong>anti-</strong></td>
+                            <td>aganist</td>
+                            <td>antidote,antibody,antidisestablishmentarianism</td>
+                        </tr>
+                        <tr>
+                            <td><strong>auto-</strong></td>
+                            <td>self</td>
+                            <td>automobile,automation,automatic,autoimmune</td>
+                        </tr>
+                        <tr>
+                            <td><strong>bene-</strong></td>
+                            <td>good</td>
+                            <td>benefit,beneficial,beneficiary,benefactor</td>
+                        </tr>
+                        <tr>
+                            <td><strong>bi-</strong></td>
+                            <td>two, twice</td>
+                            <td>bicycle,bicameral,bi-weekly,biennial</td>
+                        </tr>
+                        <tr>
+                            <td><strong>bio-</strong></td>
+                            <td>life</td>
+                            <td>biography,biology,biosphere,biochemistry,bio-technology</td>
+                        </tr>
+                        <tr>
+                            <td><strong>de-</strong></td>
+                            <td>away, down</td>
+                            <td>depress, decrease, demrit, depreciate</td>
+                        </tr>
+                        <tr>
+                            <td><strong>dis-</strong></td>
+                            <td>not, no longer, away</td>
+                            <td>disappear, disapprove, disavow, disallow</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ex-</strong></td>
+                            <td>out, no longer</td>
+                            <td>exclude, expel, ex-wife, ex-president</td>
+                        </tr>
+                        <tr>
+                            <td><strong>im-</strong></td>
+                            <td>in, not</td>
+                            <td>immense, immodest, immoderate, improper</td>
+                        </tr>
+                        <tr>
+                            <td><strong>in-</strong></td>
+                            <td>in, out</td>
+                            <td>inflow, incorrect, incompetent, incomplete, incoherent</td>
+                        </tr>
+                        <tr>
+                            <td><strong>inter-</strong></td>
+                            <td>between, among</td>
+                            <td>interact, interstate, interrelated, intersect, intervene</td>
+                        </tr>
+                        <tr>
+                            <td><strong>intra-</strong></td>
+                            <td>within, between members of the same group</td>
+                            <td>intramural, intranet, intrastate, intravenous, intrapreneur</td>
+                        </tr>
+                        <tr>
+                            <td><strong>mis-</strong></td>
+                            <td>wrong, bad</td>
+                            <td>misspell, misinterpret, misadventure, mispronounce</td>
+                        </tr>
+                        <tr>
+                            <td><strong>per-</strong></td>
+                            <td>entirely, through</td>
+                            <td>perfect, pertain</td>
+                        </tr>
+                        <tr>
+                            <td><strong>post-</strong></td>
+                            <td>after</td>
+                            <td>post-mortem, postdate, postpone</td>
+                        </tr>
+                        <tr>
+                            <td><strong>pre-</strong></td>
+                            <td>before </td>
+                            <td>pregame, premarital, prefix, premature</td>
+                        </tr>
+                        <tr>
+                            <td><strong>pro-</strong></td>
+                            <td>for, take place of</td>
+                            <td>prohibit, proclaim</td>
+                        </tr>
+                        <tr>
+                            <td><strong>re-</strong></td>
+                            <td>again, back</td>
+                            <td>retell, re-do, reply, readdress, rethink, reclaim</td>
+                        </tr>
+                        <tr>
+                            <td><strong>retro-</strong></td>
+                            <td>back</td>
+                            <td>retrospect, retrograde, retroactive</td>
+                        </tr>
+                        <tr>
+                            <td><strong>semi-</strong></td>
+                            <td>half, partially</td>
+                            <td>semicircle, semiautomatic</td>
+                        </tr>
+                        <tr>
+                            <td><strong>un-</strong></td>
+                            <td>not, contrary to</td>
+                            <td>unhappy, unable, unwise</td>
+                        </tr>
+                    </table>
+                    <div class="hint">
+                        <br>
+                        <strong>HINT:</strong> Do NOT double letters when prefixes are added to words.
+                        <p>However, a double consonant is needed when a prefix ends with the same letter as the beginning of the word. </p>
+                        <p>Be sure to write the whole prefix before writing the base word.</p>
+                        <div class="exceptions">
+                            <table class="word-forms-table">
+                                <tr>
+                                    <td><strong>Incorrect</strong></td>
+                                    <td><strong>Correct</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>dissatisfied </td>
+                                    <td>dissatisfaction, dissatisfied</td>
+                                </tr>
+                                <tr>
+                                    <td>mispelling </td>
+                                    <td>misspelling, misspelled</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <br><br>
+                    <h2>RULE 4_______________Suffixes </h2>
+                    <p>A Suffix is a word part added to the end of the word. </p>
+                    <p>Although Prefixes do not change the spelling of the base word, some changes do occur when Suffixes are added to base words</p>
+                    <h4>4a___________Suffixes wiht words ending in -e</h4>
+                    <br>
+                    <p>If the word ends in <strong>-e</strong> and the suffix begins with a vowel(for example -able, -ary, -ing and -ous), drop the <strong>-e</strong></p>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>age</td>
+                            <td>aging</td>
+                            <td>desire</td>
+                            <td>desirable</td>
+                        </tr>
+                        <tr>
+                            <td>fame</td>
+                            <td>famous</td>
+                            <td>imagine</td>
+                            <td>imaginary</td>
+                        </tr>
+                    </table>
+                    <br>
+                    <p><strong>Exception</strong> To keep the /s/ sound of <strong>-ce</strong>, and the sound of <strong>-ge</strong>, do not drop the final<strong>-e</strong> before <strong>-able</strong> or <strong>-ous</strong></p>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>change</td>
+                            <td>changeable</td>
+                            <td>courage</td>
+                            <td>courageous</td>
+                        </tr>
+                        <tr>
+                            <td>knowledge</td>
+                            <td>knowledgeable</td>
+                            <td>marriage</td>
+                            <td>marriageable</td>
+                        </tr>
+                        <tr>
+                            <td>notice</td>
+                            <td>noticeable</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table> 
+                    <br>
+                    <p>There are also a few exceptions for other words in which the -e is kept in the word before a suffix starting with a vowel:</p>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>acre</td>
+                            <td>acreage</td>
+                            <td>mile</td>
+                            <td>mileage</td>
+                        </tr>
+                    </table>
+                    <br>
+                    <p>If the word ends in <strong>-e</strong> and the suffix begins with a consonant (for example -<strong>less, -ly, -ment, - ness , - some</strong>) keep the ,<strong>-e</strong></p>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>care</td>
+                            <td>careful</td>
+                            <td>entire</td>
+                            <td>entirely</td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td>nameless</td>
+                            <td>safe</td>
+                            <td>sefety</td>
+                        </tr>
+                        <tr>
+                            <td>same</td>
+                            <td>sameness</td>
+                            <td>state</td>
+                            <td>statement</td>
+                        </tr>
+                        <tr>
+                            <td>whole</td>
+                            <td>wholesome</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <p><strong>Exception: </strong> There are some words in which the <strong>-e</strong> is dropped before a suffix starting with a consonant.</p>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>argue</td>
+                            <td>arguement</td>
+                            <td>awe</td>
+                            <td>awful</td>
+                        </tr>
+                        <tr>
+                            <td>nine</td>
+                            <td>ninth</td>
+                            <td>true</td>
+                            <td>truly</td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <h4>4b_________The -ly Suffix</h4>
+                    <p>If a word ends in -/ , do not drop that -l when adding the suffix -ly.</p>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>formal</td>
+                            <td>formally</td>
+                        </tr>
+                        <tr>
+                            <td>usual</td>
+                            <td>usually</td>
+                        </tr>
+                        <tr>
+                            <td>real</td>
+                            <td>really</td>
+                        </tr>
+                    </table>
+                    <p>But if the word already ends with two <strong>-l</strong> s, merely add the <strong>-y</strong> of the <strong>-ly</strong> suffix.</p>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>chill</td>
+                            <td>chilly</td>
+                        </tr>
+                        <tr>
+                            <td>hill</td>
+                            <td>hilly</td>
+                        </tr>
+                    </table>
+                    <br>
+                    <br>
+                    <h4>4c_______________Suffixes with words ending in -ic</h4>
+                    <br>
+                    <p>When a word ends in <strong>-ic</strong>, add a <strong>-k</strong> before suffixes starting with <strong>-i</strong>, <strong>-c</strong> , OR <strong>-y</strong></p>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>picnic</td>
+                            <td>picnicking</td>
+                            <td>politic</td>
+                            <td>politicking</td>
+                        </tr>
+                        <tr>
+                            <td>traffic</td>
+                            <td>trafficking</td>
+                        </tr>
+                    </table>
+                    <br>
+                    <p>Some words that end in <strong>-ic</strong> add the suffix <strong>-ally</strong> not <strong>-ly</strong>.</p>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>logic</td>
+                            <td>logically</td>
+                            <td>tragic</td>
+                            <td>tragically</td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <h2>RULE 5____________Y to I (sp)</h2>
+                    <br>
+                    <p>When adding a suffix to words that end with <strong>-y</strong> , change the <strong>-y</strong> to an <strong>-i</strong>.</p>
+                    <p>To avoid a double <strong>i</strong> in a word, keep the <strong>-y</strong> before the <strong>-ing</strong> suffix.</p>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>apply</td>
+                            <td>applies,applied</td>
+                            <td>applying</td>
+                        </tr>
+                        <tr>
+                            <td>carry</td>
+                            <td>carries, carried</td>
+                            <td>carrying</td>
+                        </tr>
+                        <tr>
+                            <td>carry</td>
+                            <td>carries, carried</td>
+                            <td>carrying</td>
+                        </tr>
+                        <tr>
+                            <td>study</td>
+                            <td>studies, studied</td>
+                            <td>studying</td>
+                        </tr>
+                        <tr>
+                            <td>apology</td>
+                            <td>apologies</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>beauty</td>
+                            <td>beautiful</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>ceremony</td>
+                            <td>ceremonies</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>busy</td>
+                            <td>ceremonies</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>easy</td>
+                            <td>busied, business</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>happy</td>
+                            <td>easily,easiness, happily, happiness</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <p><strong>Exception:</strong> If there is a vowel before the initial <strong>-y</strong>, keep the <strong>-y</strong> before adding <strong>-s</strong> or <strong>-ed</strong>.</p>
+                    <table class="word-forms-table">
+                        <tr>
+                            <td>stay</td>
+                            <td>stays,stayed</td>
+                        </tr>
+                        <tr>
+                            <td>enjoy</td>
+                            <td>enjoys,enjoyed</td>
+                        </tr>
+                        <tr>
+                            <td>day</td>
+                            <td>days</td>
+                        </tr>
+                        <tr>
+                            <td>attorney</td>
+                            <td>attorneys</td>
+                        </tr>
+                        <tr>
+                            <td>key</td>
+                            <td>keys</td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <h2>RULE 6____________Plurals (sp)</h2>
+                    <br>
+                    <p>Here are some major ways to form plurals of words in English.</p>
+                    <br>
+                    <div class="6a">
+                        <h4>6a_____________Forming plurals of most words.</h4>
+                        <table class="word-forms-table">
+                            <tr>
+                                <td>one boy</td>
+                                <td>two boys</td>
+                            </tr>
+                            <tr>
+                                <td>one wall</td>
+                                <td>two walls</td>
+                            </tr>
+                            <tr>
+                                <td>a shoe</td>
+                                <td>a pair of shoes</td>
+                            </tr>
+                            <tr>
+                                <td>the page</td>
+                                <td>two pages</td>
+                            </tr>
+                            <tr>
+                                <td>one ribbon</td>
+                                <td>six ribbons</td>
+                            </tr>
+                            <tr>
+                                <td>Mr. Herron</td>
+                                <td>the Herrons</td>
+                            </tr>
+                            <tr>
+                                <td>Mrs Smith</td>
+                                <td>all the Smiths</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <p>For phrases and hyphenised words, pluralise the last word, unless another word is more important.</p>
+                        <table class="word-forms-table">
+                             <tr>
+                                <td>one videocassette recorder</td>
+                                <td>two videocassette recorders</td>
+                            </tr>
+                            <tr>
+                                <td>one systems analyst</td>
+                                <td>two systems analysts</td>
+                            </tr>
+                            <tr>
+                                 <td>one sister-in-law</td>
+                                <td>two sisters-in-law</td>
+                            </tr>
+                        </table>
+                        <p><strong>When words end in -s, -sh, -ch,-x or -z, add -es</strong> for the plural form(because an extra syllable is needed for pronunciation)</p>
+                        <table class="word-forms-table">
+                            <tr>
+                                <td>one box</td>
+                                <td>two boxes</td>
+                            </tr>
+                            <tr>
+                                <td>a loss</td>
+                                <td>several losses</td>
+                            </tr>
+                            <tr>
+                                <td>the church</td>
+                                <td>two churches</td>
+                            </tr>
+                            <tr>
+                                <td>a buzz</td>
+                                <td>several buzzes</td>
+                            </tr>
+                            <tr>
+                                <td>a brush</td>
+                                <td>a pair of brushes</td>
+                             </tr>
+                        </table>
+                    </div>
+                    <br>
+                    <div class="6b">
+                        <h4>6b_________Plurals of words ending in -f or -fe</h4><br>
+                        <p>For plurals of some words that end in <strong>-f</strong> or <strong>-fe</strong> change the <strong>-fe</strong> to <strong>-ve</strong> and add <strong></strong></p>
+                        <table class="word-forms-table">
+                            <tr>
+                                <td>one thief</td>
+                                <td>two thieves</td>
+                            </tr>
+                            <tr>
+                                <td>a leaf</td>
+                                <td>two leaves</td>
+                            </tr>
+                            <tr>
+                                <td>a wife</td>
+                                <td>several wives</td>
+                            </tr>
+                            <tr>
+                                <td>one life</td>
+                                <td>their lives</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <p>For other words ending in <strong>-f</strong> add <strong>s</strong> without making any changes to the base word.</p>
+                        <table class="word-forms-table">
+                            <tr>
+                                <td>a roof</td>
+                                <td>two roofs</td>
+                            </tr>
+                            <tr>
+                                <td>his beliefs</td>
+                                <td>their beliefs</td>
+                            </tr>
+                            <tr>
+                                <td>the chief</td>
+                                <td>several chiefs</td>
+                            </tr>
+                            <tr>
+                                <td>a reef</td>
+                                <td>many reefs</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="6c">
+                        <h4>6c_________Plurals of words ending in -y</h4><br>
+                        <p>For words ending in a consonant <strong>plus -y</strong>, change the <strong>y</strong> to <strong>i</strong> and add <strong>-es</strong></p>
+                        <table class="word-forms-table">
+                            <tr>
+                                <td>one company</td>
+                                <td>two companies</td>
+                            </tr>
+                            <tr>
+                                <td>one candy</td>
+                                <td>some candies</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <p>For words ending in a vowel <strong>plus -y</strong>, add <strong>-s</strong>.</p>
+                        <table class="word-forms-table">
+                            <tr>
+                                <td>one boy</td>
+                                <td>two boys</td>
+                            </tr>
+                            <tr>
+                                <td>a monkey</td>
+                                <td>some monkeys</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="6d">
+                        <h4>6d_________Plurals of words ending in -o</h4><br>
+                        <p>For words ending in a vowel <strong>plus -o</strong>, add an <strong>-s</strong></p>
+                        <table class="word-forms-table">
+                            <tr>
+                                <td>one radio</td>
+                                <td>two radios</td>
+                            </tr>
+                            <tr>
+                                <td>a patio</td>
+                                <td>some patios</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <p>For words ending in a consonant <strong>plus -o</strong>, add an <strong>-s</strong> for some plurals,and <strong>-es</strong> for other plurals, 
+                        and either <strong>-s</strong> or <strong>-es</strong> for still other plurals.</p>
+                        <table class="word-forms-table">
+                            <tr>
+                                <td>-s only</td>
+                                <td>-es only</td>
+                                <td>-s or -es</td>
+                            </tr>
+                            <tr>
+                                <td>autos</td>
+                                <td>echoes</td>
+                                <td>zeros or zeroes</td>
+                            </tr>
+                            <tr>
+                                <td>memos</td>
+                                <td>heroes</td>
+                                <td>cargos or cargoes</td>
+                            </tr>
+                            <tr>
+                                <td>memos</td>
+                                <td>heroes</td>
+                                <td>cargos or cargoes</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="6e">
+                        <h4>6e_________Words with Irregular Plurals</h4><br>
+                        <p>For some words, the plural is formed by changing the base word.</p>
+                        <table class="word-forms-table">
+                            <tr>
+                                <td>one child</td>
+                                <td>two children</td>
+                            </tr>
+                            <tr>
+                                <td>a woman</td>
+                                <td>two women</td>
+                            </tr>
+                            <tr>
+                                <td>one goose</td>
+                                <td>two geese</td>
+                            </tr>
+                            <tr>
+                                <td>a foot</td>
+                                <td>two feet</td>
+                            </tr>
+                            <tr>
+                                <td>a mouse</td>
+                                <td>several mice</td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>
+                    <div class="6f">
+                        <h4>6f_________Words with no separate plural form</h4><br>
+                        <p>Some words have the same form for both singular and plural.</p>
+                        <table class="word-forms-table">
+                            <tr>
+                                <td>deer</td>
+                                <td>cattle</td>
+                                <td>pilers</td>
+                            </tr>
+                            <tr>
+                                <td>sheep</td>
+                                <td>trousers</td>
+                                <td>wheat</td>
+                            </tr>
+                            <tr>
+                                <td>finish</td>
+                                <td>scissors</td>
+                                <td>rice</td>
+                            </tr>
+                        </table>
+                    </div><br>
+                    <div class="6g">
+                        <h4>6g_________Plurals of foreign words</h4><br>
+                        <table class="word-forms-table">
+                            <tr>
+                                <td>alumnus</td>
+                                <td>alumni</td>
+                            </tr>
+                            <tr>
+                                <td>antenna</td>
+                                <td>antennae</td>
+                            </tr>
+                            <tr>
+                                <td>appendix</td>
+                                <td>appendices</td>
+                            </tr>
+                            <tr>
+                                <td>criterion</td>
+                                <td>criteria</td>
+                            </tr>
+                            <tr>
+                                <td>psychosis</td>
+                                <td>psychoses</td>
+                            </tr>
+                            <tr>
+                                <td>radius</td>
+                                <td>radii</td>
+                            </tr>
+                            <tr>
+                                <td>thesis</td>
+                                <td>theses</td>
+                            </tr>
+                            <tr>
+                                <td>basis</td>
+                                <td>bases</td>
+                            </tr>
+                            <tr>
+                                <td>crisis</td>
+                                <td>crises</td>
+                            </tr>
+                            <tr>
+                                <td>datum</td>
+                                <td>data</td>
+                            </tr>
+                            <tr>
+                                <td>medium</td>
+                                <td>media</td>
+                            </tr>
+                            <tr>
+                                <td>memorandum</td>
+                                <td>memoranda</td>
+                            </tr>
+                            <tr>
+                                <td>phenomenon</td>
+                                <td>phenomena</td>
+                            </tr>
+                        </table>
+                        <p><strong>NB:</strong> Some of these words are beginning to acquire an English plural form eg memorandums/memos, antennas.</p>
+                    </div>
+                </div>  
+        </div>
+        </div>
+
+<!------------DropdownSix Start------------------->
+<div class="dropdownsix">
+    <div class="dropdownsix-header" onclick="toggleDropdown('dropdownContent6', 'icon6')">
+        <h2>04. Fill in the blank</h2>
+        <span class="dropdown-icon" id="icon6">▼</span>
+    </div>
+    <div class="dropdownsix-content" id="dropdownContent6">
+        <h2>NOUN</h2>
+        <table id="fill-in-table">
+            <thead>
+                <tr>
+                    <th>ADJECTIVE</th>
+                    <th>OPPOSITE</th>
+                    <th>PERSON</th>
+                    <th>THING</th>
+                    <th>VERB</th>
+                    <th>ADVERB</th>
+                </tr>
+            </thead>
+             <tbody>
+                <tr>
+                    <td>analytical</td>
+                    <td><input type="text" id="unanalytical"></td>
+                    <td>analyst</td>
+                    <td><input type="text" id="analysis"></td>
+                    <td>analyse</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>argumentative</td>
+                    <td></td>
+                    <td></td>
+                    <td>argument</td>
+                    <td>argue</td>
+                    <td><input type="text" id="argumentatively"></td>
+                </tr>
+                <tr>
+                    <td>comparative</td>
+                    <td></td>
+                    <td></td>
+                    <td>comparison</td>
+                    <td><input type="text" id="compare"></td>
+                    <td>comparatively</td>
+                </tr>
+                <tr>
+                    <td>contrastive</td>
+                    <td></td>
+                    <td></td>
+                    <td>contrast</td>
+                    <td><input type="text" id="contrast"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="convicing"></td>
+                    <td>unconvinced</td>
+                    <td></td>
+                    <td>conviction</td>
+                    <td>convince</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>debatable</td>
+                    <td></td>
+                    <td><input type="text" id="debater"></td>
+                    <td>debate</td>
+                    <td>debate</td>
+                    <td></td>
+                </tr> 
+                <tr>
+                    <td>discursive</td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="text" id="discussion"></td>
+                    <td>discuss</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="examined"></td>
+                    <td></td>
+                    <td>examiner</td>
+                    <td>examination</td>
+                    <td><input type="text" id="examine"></td>
+                    <td></td>
+                </tr> 
+                <tr>
+                    <td>explicable</td>
+                    <td><input type="text" id="inexplicable"></td>
+                    <td></td>
+                    <td>explanation</td>
+                    <td>explain</td>
+                    <td><input type="text" id="inexplicably"></td>
+                </tr>  
+            </tbody>
+        </table>
+        <button onclick="checkAnswers3()">
+            <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+        </button>
+        <div id="result"></div>
+
+        <button id="showAnswerButton3" style="display: none;" onclick="showAnswers3()">
+            <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+        </button>
+
+        <button id="tryAgainButton3" style="display: none;" onclick="resetActivity3()">
+            <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+        </button>
+
+    </div>
+</div>
+
+</section>
+
+<!-- Dropdownsix Start -->
+    
+<!-- dropdownsix end -->
+    
+    <div class="nextepisode">
+        <a href="{{ url_for('episode2') }}"><button>Next Episode</button></a>
+    </div>
+
+ <!----Footer -------------------------------------------------------------> 
+
+ <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column1">
+            <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="logo">
+        </div>
+        <div class="footer-column2">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="footer-column3">
+            <p>d.mar.learn.net@gmail.com</p>
+            <p>09 941487000</p>
+            <div class="contact-box">
+                <a href="https://www.facebook.com/dmarlearn/" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/facebook_2.png') }}" alt="Facebook Color" class="social-icon-color">
+                </a>
+                <a href="https://www.t.me/dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/telegram.png') }}" alt="Telegram" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/telegram_2.png') }}" alt="Telegram Color" class="social-icon-color">
+                </a>
+                <a href="https://www.tiktok.com/@dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/tiktok.png') }}" alt="TikTok" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/tiktok_2.png') }}" alt="TikTok Color" class="social-icon-color">
+                </a>
+                <a href="https://www.youtube.com/@DMarLearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/you tube.png') }}" alt="YouTube" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/you tube_2.png') }}" alt="YouTube Color" class="social-icon-color">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright 2024</p>
+    </div>
+</footer>
+
+<!--------------------------------------------------------------------------------------------------------------->
+</body>
+</html>

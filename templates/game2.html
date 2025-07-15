@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Scramble Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='game2/game2.css') }}"/>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Word Scramble Game</h1>
+        <div class="scramble-box">
+            <p id="scrambled-word">_ _ _ _ _ _</p>
+        </div>
+        <input type="text" id="guess-input" placeholder="Your Guess...">
+        <button id="submit-btn">Submit</button>
+        <p id="feedback"></p>
+        <p id="score">Score: 0</p>
+        <button id="next-btn">Next Word</button>
+        <button id="return-main"><a href="{{ url_for('courses') }}">Exit</a></button>
+    </div>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <p id="popup-text"></p>
+            <button id="close-popup">Close</button>
+        </div>
+    </div>
+    <div id="snowflakes-container">
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    </div>
+
+    <script src="{{ url_for('static', filename='game2/game2.js') }}"></script>
+
+</body>
+</html>
+

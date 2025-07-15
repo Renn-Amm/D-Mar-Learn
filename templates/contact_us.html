@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/allpage.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contact_us.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contact_us_resp.css') }}"/>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Crown icon -->
+    <title>Contact us</title>
+</head>
+<body>
+    <div class="overlay"></div>
+    <!-- Navigation -->
+    <header>
+        <div class="container-navigation">
+            <div class="logo-container">
+                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                &#9776; 
+            </button>
+            <nav class="navigation" style="font-family: Lato;">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}"><cc1 style="color: #7CB7FF;"><u>Contact us</u></cc1></a></li>
+                    <li>
+                        <div class="user-info">
+                            {% if session.get('user') %}
+                                <span id="user-name">
+                                    {% if session['user']['userinfo']['premium'] %}
+                                        <i class="fas fa-crown" aria-hidden="true"></i> <!-- Font Awesome crown icon -->
+                                    {% endif %}
+                                    {{ session['user']['userinfo']['name'][:15] }}{% if session['user']['userinfo']['name']|length > 15 %}...{% endif %}
+                                </span>
+                                <img id="profile-pic" src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" />
+                                <div id="user-dropdown" class="dropdown">
+                                    <img src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" class="dropdown-profile-pic">
+                                    <p>{{ session['user']['userinfo']['name'] }}</p>
+                                    <p>{{ session['user']['userinfo']['email'] }}</p>
+                                    <p>Status: {% if session['user']['userinfo']['premium'] %}Premium user{% else %}Regular user{% endif %}</p>
+                                    <a href="{{ url_for('logout') }}" id="logout-btn" class="logout-link">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ url_for('googleLogin') }}" class="login-button" id="login-btn">Login with Google</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Popup Content -->
+            <section class="popup-content" id="loginPopup">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <p>This is a sample popup content</p>
+            </section>
+
+            <script>
+                // JavaScript for dropdown and popup functionality
+
+                // User dropdown logic
+                const userName = document.getElementById('user-name');
+                const profilePic = document.getElementById('profile-pic');
+                const userDropdown = document.getElementById('user-dropdown');
+                const overlay = document.getElementById('overlay');
+
+                const toggleDropdown = (event) => {
+                    event.stopPropagation();
+                    if (userDropdown.style.display === 'none' || userDropdown.style.display === '') {
+                        userDropdown.style.display = 'block';
+                    } else {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                const closeDropdown = () => {
+                    if (userDropdown.style.display === 'block') {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                userName?.addEventListener('click', toggleDropdown);
+                profilePic?.addEventListener('click', toggleDropdown);
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', closeDropdown);
+                userDropdown.addEventListener('click', (event) => event.stopPropagation());
+
+                // Popup logic
+                const openPopupButton = document.getElementById('login-btn');
+                const closePopupButton = document.getElementById('closePopup');
+                const loginPopup = document.getElementById('loginPopup');
+
+                const openPopup = (e) => {
+                    e.preventDefault();
+                    loginPopup.classList.add('active');
+                    overlay.style.display = 'block';
+                };
+
+                const closePopup = () => {
+                    loginPopup.classList.remove('active');
+                    overlay.style.display = 'none';
+                };
+
+                openPopupButton.addEventListener('click', openPopup);
+                closePopupButton.addEventListener('click', closePopup);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closePopup();
+                    }
+                });
+
+                // Close popup when clicking outside of it
+                overlay.addEventListener('click', closePopup);
+            </script>
+
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var navigation = document.querySelector('.navigation');
+    
+            menuToggle.addEventListener('click', function () {
+                navigation.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!------------------------------------------------------------------------------------------->
+
+
+
+    <!---------------------------------- Episode Banner Start -------------------------------------->
+    <section class="episodeone-banner">
+        <div class="episode-banner">
+            <img src="{{ url_for('static', filename='img/paymentmain.png') }}" alt="episodeone">
+            <div class="banner-content">
+                <h1>Get Access to Everything >></h1>
+                <a href="{{ url_for('googleLogin3') }}" onclick="scrollToDiv()" class="cta">Subscribe Now >></a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function scrollToDiv() {
+            document.getElementById("target-section").scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+    <!------------------------------------- Episode Banner End ----------------------------------->
+
+
+
+    <!------------------------------------ Explore our courses start ----------------------------->
+
+    <section class="offers-section">
+        <h1>Explore Our Courses with Exclusive Offers!</h1>
+        <div class="offers-container">
+            <div class="offer-card">
+                <h2>Get Started for Free</h2>
+                <p>Kickstart your learning journey with Di Mar Learn! Enjoy the first two episodes.</p>
+            </div>
+            <div class="offer-card">
+                <h2>Unlock More with Our Special Promotion</h2>
+                <p>Upgrade to the first production bundle.</p>
+            </div>
+            <div class="offer-card">
+                <h2>Join the Waitlist for Upcoming Courses</h2>
+                <p>Sign up for our waitlist and receive early access to our upcoming courses.</p>
+            </div>
+        </div>
+    </section>
+       
+
+    <!------------------------------------ Explore our courses end ------------------------------->
+
+
+
+    <!------------------------------------ payment start ------------------------------------------->
+
+
+    <section class="price-info" id="target-section">
+        <p class="price">Price</p>
+        <div class="price-detail">
+        <p class="price-5000ks">5,000ks/ first production bundle</p>
+        <p class="episodes">episode 3,4,5,6,7,8,9,10 included , no extra costs.</p>
+        </div>
+    </section>
+
+    <section class="payment-section">      
+        <div class="payment-options">
+            <h2>Easy and Secure Payment Options</h2>
+            <div class="kbz-pay">
+                <img src="{{ url_for('static', filename='img/kpay.png') }}" alt="KBZ Pay">
+                <p class="kpay-info">We have made purchasing our courses simple and convenient for you. All payments can be made securely through KBZ Pay.</p>
+            </div>
+        </div>
+        
+        <div class="purchase-info">
+            <h3>How to Purchase</h3>
+            <p class="text1">You can buy our courses directly through any of the following platforms.</p>
+            <p class="text2">Just send us a message on your preferred platform, and our support team will guide you through the quick and easy payment process.</p>
+        </div>
+        
+        <div class="platform-options">
+            <div class="platform telegram">
+                <img src="{{ url_for('static', filename='img/telegram1.png') }}" alt="Telegram">
+                <p>Telegram</p>
+                <a href="https://www.t.me/Alvinsale1" target="_blank">
+                    Chat with us on telegram</a>
+            </div>
+            <div class="platform viber">
+                <img src="{{ url_for('static', filename='img/viber.png') }}" alt="Viber">
+                <p>Viber</p>
+                <a>
+                    09 941487000</a>
+            </div>
+            <div class="platform facebook">
+                <img src="{{ url_for('static', filename='img/facebook1.png') }}" alt="Facebook">
+                <p>Facebook</p>
+                <a href="https://www.facebook.com/dmarlearn/" target="_blank">
+                    Connect on Facebook</a>
+            </div>
+        </div>
+
+        <div class="purchase-info">
+            <div class="check">
+                <h3>Non-Refundable Fees</h3>
+                <img src="{{ url_for('static', filename='img/Check.png') }}" alt="check">
+            </div>
+            <p class="text1">Please note that all purchases are final. There is no refund policy on this purchase.</p>
+        </div>
+
+        <div class="purchase-info">
+            <div class="check">
+                <h3>Restrictions on Use</h3>
+                <img src="{{ url_for('static', filename='img/Check.png') }}" alt="check">
+            </div>
+            <p class="text2">Your account is personal and non-transferable. Only you have access to it, as all activities and processes are recorded and tracked through your account.</p>
+        </div>
+    </section>
+    
+
+    <!------------------------------------ payment end --------------------------------------------->
+
+
+
+    <!------------------------------------ Thank you start ----------------------------------------------->
+
+    <section class="thank-you-container">
+        <img src="{{ url_for('static', filename='img/thankyou.png') }}" alt="Student with books">
+        <div class="text-container">
+            <h1>Thank you for choosing <br><span>D Mar Learn!</span></h1>
+            <p>We're excited to support you on your educational journey.</p>
+    </section>
+
+    <!------------------------------------ Thank you end ------------------------------------------------->
+
+
+
+    <!----Footer -------------------------------------------------------------> 
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column1">
+                <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="logo">
+            </div>
+            <div class="footer-column2">
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                        <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                        <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="footer-column3">
+                <p>d.mar.learn.net@gmail.com</p>
+                <p>09 941487000</p>
+                <div class="contact-box">
+                    <a href="https://www.facebook.com/dmarlearn/" class="social-link" target="_blank">
+                        <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" class="social-icon">
+                        <img src="{{ url_for('static', filename='img/facebook_2.png') }}" alt="Facebook Color" class="social-icon-color">
+                    </a>
+                    <a href="https://www.t.me/dmarlearn" class="social-link" target="_blank">
+                        <img src="{{ url_for('static', filename='img/telegram.png') }}" alt="Telegram" class="social-icon">
+                        <img src="{{ url_for('static', filename='img/telegram_2.png') }}" alt="Telegram Color" class="social-icon-color">
+                    </a>
+                    <a href="https://www.tiktok.com/@dmarlearn" class="social-link" target="_blank">
+                        <img src="{{ url_for('static', filename='img/tiktok.png') }}" alt="TikTok" class="social-icon">
+                        <img src="{{ url_for('static', filename='img/tiktok_2.png') }}" alt="TikTok Color" class="social-icon-color">
+                    </a>
+                    <a href="https://www.youtube.com/@DMarLearn" class="social-link" target="_blank">
+                        <img src="{{ url_for('static', filename='img/you tube.png') }}" alt="YouTube" class="social-icon">
+                        <img src="{{ url_for('static', filename='img/you tube_2.png') }}" alt="YouTube Color" class="social-icon-color">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright 2024</p>
+        </div>
+    </footer>
+
+<!--------------------------------------------------------------------------------------------------------------->
+        
+    </body>
+    </html>

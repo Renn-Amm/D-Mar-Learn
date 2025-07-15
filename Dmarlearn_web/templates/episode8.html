@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/allpage.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode8.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode8_resp.css') }}"/>
+    <script src="{{ url_for('static', filename='js/episode8.js') }}"></script>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Crown icon -->
+    <title>Episode Eight</title>
+</head>
+<body>
+    <div class="overlay"></div>
+    <!-- Navigation -->
+    <header>
+        <div class="container-navigation">
+            <div class="logo-container">
+                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                &#9776; 
+            </button>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    <li>
+                        <div class="user-info">
+                            {% if session.get('user') %}
+                                <span id="user-name">
+                                    {% if session['user']['userinfo']['premium'] %}
+                                        <i class="fas fa-crown" aria-hidden="true"></i> <!-- Font Awesome crown icon -->
+                                    {% endif %}
+                                    {{ session['user']['userinfo']['name'][:15] }}{% if session['user']['userinfo']['name']|length > 15 %}...{% endif %}
+                                </span>
+                                <img id="profile-pic" src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" />
+                                <div id="user-dropdown" class="dropdown">
+                                    <img src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" class="dropdown-profile-pic">
+                                    <p>{{ session['user']['userinfo']['name'] }}</p>
+                                    <p>{{ session['user']['userinfo']['email'] }}</p>
+                                    <p>Status: {% if session['user']['userinfo']['premium'] %}Premium user{% else %}Regular user{% endif %}</p>
+                                    <a href="{{ url_for('logout') }}" id="logout-btn" class="logout-link">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ url_for('googleLogin') }}" class="login-button" id="login-btn">Login with Google</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Popup Content -->
+            <section class="popup-content" id="loginPopup">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <p>This is a sample popup content</p>
+            </section>
+
+            <script>
+                // JavaScript for dropdown and popup functionality
+
+                // User dropdown logic
+                const userName = document.getElementById('user-name');
+                const profilePic = document.getElementById('profile-pic');
+                const userDropdown = document.getElementById('user-dropdown');
+                const overlay = document.getElementById('overlay');
+
+                const toggleDropdown = (event) => {
+                    event.stopPropagation();
+                    if (userDropdown.style.display === 'none' || userDropdown.style.display === '') {
+                        userDropdown.style.display = 'block';
+                    } else {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                const closeDropdown = () => {
+                    if (userDropdown.style.display === 'block') {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                userName?.addEventListener('click', toggleDropdown);
+                profilePic?.addEventListener('click', toggleDropdown);
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', closeDropdown);
+                userDropdown.addEventListener('click', (event) => event.stopPropagation());
+
+                // Popup logic
+                const openPopupButton = document.getElementById('login-btn');
+                const closePopupButton = document.getElementById('closePopup');
+                const loginPopup = document.getElementById('loginPopup');
+
+                const openPopup = (e) => {
+                    e.preventDefault();
+                    loginPopup.classList.add('active');
+                    overlay.style.display = 'block';
+                };
+
+                const closePopup = () => {
+                    loginPopup.classList.remove('active');
+                    overlay.style.display = 'none';
+                };
+
+                openPopupButton.addEventListener('click', openPopup);
+                closePopupButton.addEventListener('click', closePopup);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closePopup();
+                    }
+                });
+
+                // Close popup when clicking outside of it
+                overlay.addEventListener('click', closePopup);
+            </script>
+
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var navigation = document.querySelector('.navigation');
+    
+            menuToggle.addEventListener('click', function () {
+                navigation.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!------------------------------------------------------------------------------------------->
+
+
+    <!---------------------------------- Episode Banner Start -------------------------------------->
+      <section class="episodeone-banner">
+        <div class="episode-banner">
+             <img src="{{ url_for('static', filename='img/episodeeight.png') }}" alt="episodeeight">
+        </div>
+    </section>
+    <!------------------------------------- Episode Banner End ----------------------------------->
+
+    <section class="Episodetwo-Lessons">
+        <div class="dropdownone">
+            <div class="dropdown-header" onclick="toggleDropdown('dropdownContent1', 'icon1')">
+                <h1>01. Drag and Drop Activity</h1>
+                <span class="dropdown-icon" id="icon1">▼</span>
+            </div>
+            <div class="dropdownone-content" id="dropdownContent1">
+                <div class="dropdownone-container">
+                    <div class="wordbox">
+                        <h3>CROCODILE TOURISM - Activity</h3>
+                        <h4>Choose	a	word	or	phrase	in	the	box to	match	the	list	of	words	on	the	left.	Mark	the	
+                            linking. Make	sure	you	link	the	last	sound	of	the	word	
+                            and	the	first	sound	of	the	following	word.</h4>
+                        <div class="draggable-container">
+                            <span class="draggable" draggable="true">teacher</span>
+                            <span class="draggable" draggable="true">and night</span>
+                            <span class="draggable" draggable="true">match</span>
+                            <span class="draggable" draggable="true">or two</span>
+                            <span class="draggable" draggable="true">or false</span>
+                            <span class="draggable" draggable="true">eyes</span>
+                            <span class="draggable" draggable="true">expensive</span>
+                            <span class="draggable" draggable="true">of flowers</span>
+                            <span class="draggable" draggable="true">of students</span>
+                            <span class="draggable" draggable="true">evening</span>
+                        </div>
+                    </div>
+                    <div class="dragbox">
+                        <div class="definitions">
+                            <div class="definition">
+                                <p>head</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>Wednesday</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>a bunch</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>too</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>a number</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>tennis</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>one</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>blue</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>true</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                            <div class="definition">
+                                <p>day</p>
+                                <input type="text" class="dropzone" readonly disabled>
+                            </div>
+                        </div>
+                        <button onclick="checkAnswers()">
+                            <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                        </button>
+                        <button onclick="resetActivity()">
+                            <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+                        </button>
+                        <button id="showAnswerButton" style="display: none;" onclick="showAnswers()">
+                            <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+                        </button>
+                        <button id="showFeedback" style="display: none;" onclick="showFeedback()">
+                            <img src="{{ url_for('static', filename='img/review.png') }}" alt="review" class="button-icon">Show Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="scoreModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Feedback!</h3>
+                    <p id="scoreText"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <!-- --------------------------------------Dropdowntwo Start------------------------------------->
+        <div class="dropdowntwo">
+            <div class="dropdowntwo-header" onclick="toggleDropdown('dropdownContent2', 'icon2')">
+                <h2>02. Watch the video</h2>
+                <span class="dropdown-icon" id="icon2">▼</span>
+            </div>
+            <div class="dropdowntwo-content" id="dropdownContent2">
+                <div class="episodeone-video">
+                    <video width="900" height="400" controls>
+                        <source src="{{ url_for('static', filename='video/S1E08 - Crocodile Tourism.mp4') }}" type="video/mp4">
+                    </video>
+                </div>
+                <div class="dropdowntwo-container">
+                    <h3>Transcript</h3>
+                    <h4>Episode 8: CROCODILE TOURISM</h4>
+                    <p>Hello. Welcome again to Study English, IELTS preparation. I’m Margot Politis.</p>
+                    <p>Today we’ll look at some words that cause a lot of confusion - the relative pronouns
+                        ‘that’, ‘which’ and ‘who’, and then we’ll do some pronunciation practice.</p>
+                    <p>But first, let’s listen to some people talk about a very dangerous tourist attraction from
+                        Australia’s Northern Territory.</p>
+                    <p><em>People have always been fascinated with death. Most of the mysteries that you see
+                        on television, the films that you see, involve murder in one kind or another.
+                        Crocodiles are one of the last remaining dinosaurs and the idea of a crocodile
+                        coming out of the water and grabbing somebody is absolutely riveting. </em></p>
+                    <p><em>I read about the death of the German tourist who was taken by a crocodile. It didn't
+                        put me off coming to the Northern Territory, quite the opposite in fact.</em></p>
+                    <p><em>I think the NT is famous for its crocodiles and probably quite famous for its crocodile
+                        attacks and that tourists who come here would like to be, or feel as though they were,
+                        involved in that danger.</em></p>
+                    <p><em>Tourists want to have a story to take
+                        home and if they can say that they were
+                        in the Northern Territory where the
+                        German tourist was taken by the croc,
+                        then it adds to their own adventure.</em></p>
+                    <p>So he thinks people may actually be
+                        attracted to the Northern Territory
+                        because of the dangerous crocodiles. 
+                        </p>
+                    <p>But now we’re going to leave the
+                        crocodiles, and talk about something
+                        else that can be dangerous – the
+                        relative pronouns ‘who’, ‘which’ and
+                        ‘that’. </p>
+                    <p>Listen for some relative pronouns here. </p>
+                    <p><em>People have always been fascinated
+                        with death. Most of the mysteries that
+                        you see on TV, the films that you see,
+                        involve murder of one kind or another</em></p>
+                    <p><em>I read about the death of the German
+                        tourist who was taken by a crocodile. </em></p>
+                    <p>Most of the mysteries ‘that’ you see on
+                        TV involve murders. </p>
+                    <p>I read about the death of the tourist ‘who’ was taken by a crocodile. </p>
+                    <p>Relative pronouns are used to introduce relative clauses.</p>
+                    <p>They give more information about a subject. </p>
+                    <p>The subject here is ‘mysteries’. </p>
+                    <p>The ‘that clause’ gives us more information about the subject - ‘the mysteries that
+                        you see on TV’, </p>
+                    <p>‘The tourist’ is the subject. The ‘who
+                        clause’ gives more information – ‘the
+                        tourist who was taken by a crocodile’. 
+                        </p>
+                    <p>But how do you choose between ‘who’,
+                        ‘which’ or ‘that’?</p>
+                    <p>Well the relative pronoun ‘who’ is only
+                        used with people. 
+                        </p>
+                    <p>‘Which ‘is only used with things. </p>
+                    <p>‘That’ is usually only used with things as
+                        well. Sometimes, in informal language,
+                        it can refer to people. </p>
+                    <p>But when you’re learning English, it’s probably best to avoid using ‘that’ for people. </p>
+                    <p>The most difficult thing with these relative pronouns is working out the difference
+                        between ‘which’ and ‘that’. </p>
+                    <p>As a general rule, we use ‘which’ when the clause does not affect the meaning of the
+                        sentence. </p>
+                    <p>A ‘which’ clause just gives us extra
+                        information. 
+                        </p>
+                    <p>It can be left out of a sentence, and the
+                        sentence still has the same meaning. </p>
+                    <p>When ‘which’ is used in this type of
+                        clause, we put commas around it.</p>
+                    <p>'The hat, which is on the bed, is new.' </p>
+                    <p>Here, the clause ‘which is on the bed’,
+                        just gives us additional information.</p>
+                    <p>We can take it out, and the sentence still makes sense.</p>
+                    <p>There is only one hat, it’s the hat on the bed. We take out the which clause, and the
+                        important information is still there: </p>
+                    <p>‘The hat is new.’ 
+                    </p>
+                    <p>OK, now let’s look at ‘that’. </p>
+                    <p>We use ‘that’ for clauses that are a crucial part of the sentence. They are actually
+                        part of the definition of the subject. </p>
+                    <p>‘The hat that is on the bed is new.’ </p>
+                    <p>Notice ‘that’ clauses do not use commas, because they are a crucial part of the
+                        sentence. </p>
+                    <p>There are a number of hats that this sentence could be referring to. But the sentence
+                        is specifically talking about the hat on the bed, so we use ‘that’. 
+                        </p>
+                    <p>The ‘that’ clause cannot be taken out of the sentence. 
+                    </p>
+                    <p>‘The hat is new.’ </p>
+                    <p>It doesn’t make sense here, because it doesn’t tell us which hat is being discussed. </p>
+                    <p>It will take some practice to get used to when to use ‘who’, ‘which’ and ‘that’. </p>
+                    <p>To sum up, we use ‘that’ to define the subject. </p>
+                    <p>We use ‘which’, in a clause with commas, to add extra information. 
+                    </p>
+                    <p>You will notice ‘which’ often being used in place of ‘that’, especially in spoken
+                        language. While not strictly correct, it is very common. </p>
+                    <p>The word ‘who’ is a bit simpler. It’s only used when the subject is a person, and can
+                        be used in both of these types of clauses.</p>
+                    <p>OK. Now we’re going to do some pronunciation practice. </p>
+                    <p>Students learning English often complain that native speakers speak too fast. </p>
+                    <p>Well, it’s true. English speakers do run their words together, so it’s often very difficult
+                        to hear when one word ends and another begins. 
+                        </p>
+                    <p>To make your spoken English sound natural, it’s important for you to do this too. </p>
+                    <p>You need to learn to link words ending in a ‘final consonant’ sound to words with an
+                        ‘initial vowel’ sound. </p>
+                    <p>Let’s look at some words linked with ‘of’. </p>
+                    <p><em>People have always been fascinated with death. Most of the mysteries that you see
+                        on television, the films that you see, involve murder in one kind or another.
+                        Crocodiles are one of the last remaining dinosaurs, and the idea of a crocodile
+                        coming out of the water and grabbing somebody is absolutely riveting. </em></p>
+                    <p><em>I read about the death of the German tourist who was taken by a crocodile. It didn't
+                        put me off coming to the Northern Territory, quite the opposite. </em></p>
+                    <p>He uses the phrases: </p>
+                    <p>most of’, </p>
+                    <p>‘one of’, </p>
+                    <p>‘out of’, </p>
+                    <p>‘death of’. </p>
+                    <p>But in sentences, these phrases will usually become linked together:</p>
+                    <p>‘most of, most of’, </p>
+                    <p>‘one of, one of’, </p>
+                    <p>‘out of, out of’, </p>
+                    <p>‘death of, death of’. </p>
+                    <p>Notice that ‘of’ in these phrases is unstressed. </p>
+                    <p>Practice these ones: </p>
+                    <p>‘many of, many of’, </p>
+                    <p>‘most of, most of’ </p>
+                    <p>‘one of, one of’ </p>
+                    <p>‘several of, several of’</p>
+                    <p>Listen to the differences when I read these sentences in a natural, conversational
+                        way. </p>
+                    <p>'One of my best friends lives here'.
+                        <br>'One of my best friends lives here'. </p>
+                    <p>'Many of the trees have died'.
+                        <br>'Many of the trees have died'. </p>
+                    <p>'I enjoy most of her songs'.
+                        <br>'I enjoy most of her songs'. </p>
+                    <p><em>People have always been fascinated with death. Crocodiles are one of the last
+                        remaining dinosaurs and the idea of a crocodile coming out of the water and
+                        grabbing somebody is absolutely riveting. </em></p>
+                    <p>He says people have always been fascinated with death. </p>
+                    <p>People ‘have always’. </p>
+                    <p>Notice how in conversation, we link the final consonant sound ‘v’, with the initial
+                        vowel sound ‘aw’: </p>
+                    <p>‘have always’, </p>
+                    <p>‘Crocodiles are, crocodiles are’, </p>
+                    <p>‘is absolutely, is absolutely’. </p>
+                    <p>Ok, now let’s try these sentences. 
+                    </p>
+                    <p>‘She is always studying hard.’
+                        <br>‘She is always studying hard.’ </p>
+                    <p>‘They aren’t scared by crocodiles.’
+                        <br>‘They aren’t scared by crocodiles.’ </p>
+                    <p>So make sure you practice words in phrases and sentences. That way you’ll get used
+                        to linking your words, and your spoken English will sound more natural. </p>
+                    <p>And don’t forget to listen to native speakers as much as you can, and try to copy
+                        them, even if they do speak fast! 
+                        </p>
+                    <p>And that’s all for today. I’ll see you next time on Study English. Bye bye. </p>
+
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdowntwo End --------------------------------------------->
+
+        <div class="dropdownthree">
+            <div class="dropdownthree-header" onclick="toggleDropdown('dropdownContent3', 'icon3')">
+                <h2>03. Study Notes</h2>
+                <span class="dropdown-icon" id="icon3">▼</span>
+            </div>
+            <div class="dropdownthree-content" id="dropdownContent3">
+                <h2>Episode 8: CROCODILE TOURISM</h2>
+                <div class="dropdownthree-container">
+                    <div class="notes">
+                        <div class="modal-verbs">
+                            <h4>Speaking Naturally</h4>
+                            <p style="line-height: 0.8cm;">The	IELTS Speaking	Test assesses	your	
+                                ability	to	communicate	effectively,	using	
+                                Spoken	English.	The	following	criteria	are	
+                                used	to	assess	your	performance:
+                                </p>
+                            <p style="line-height: 0.8cm;">
+                                <li>fluency	and	coherence</li>
+                                <li>vocabulary	range</li>
+                                <li>the	range	and	accuracy	of	your	
+                                    grammar</li>
+                                <li>pronunciation:	rhythm,	
+                                    intonation	patterns,	stress
+                                    </li>
+                            </p>
+                            <p style="line-height: 0.8cm;">The	study	notes	for	this	episode	focus	on	
+                                the	communication	skills	needed	for	
+                                fluency and	coherence.</p>
+                        </div>
+                        <div class="study-tips">
+                            <h3>Study Tips</h3>
+                            <p style="line-height: 0.8cm;">In	the	IELTS	Speaking	Test,	it	is	
+                                important	to	speak	clearly,	at	a	
+                                reasonable	pace	and	in	a	smooth	
+                                manner.	This	is	achieved	by	linking	
+                                your	words.</p>
+                            <p style="line-height: 0.8cm;" >To	make	your	spoken	English	sound	
+                                natural	you	need	to	link	words	
+                                ending	in	a	'final	consonant'	sound	to	
+                                words	with	an	'initial	vowel'	sound.</p>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <p>Fluency	refers	to	your	ability	to	speak	smoothly	and	continuously.	Coherence	refers	
+                            to	your	ability	to	speak	in	a	well-organised,	logical	manner.	This	means	you	need	to	
+                            present	your	ideas	and/or	information	in	a	logical	sequence.</p>
+                    </div>
+
+                    <div class="box">
+                        <h2>Linking or ‘Connected Speech’</h2>
+                        <p>For	fluency	and	coherence	in	your	speaking,	it	is	necessary	to	link	words	together	in	
+                            English	sentences,	concentrating	on	the	last	sound	of	the	word	and	the	first	sound	of	
+                            the	following	word</p>
+                    </div>
+
+                    <div class="box">
+                        <p>There	are	different	types	of	linking	that	occur	between:</p>
+                        <p><strong>consonant	+	vowel ‘just		a	moment’	 /'ʤʌs tə 'moʊmənt/</strong></p>
+                        <p>here	the	final	sound	/t/	in	just is	linked	with	the	a /ə/ and	pronounced	as	one	
+                            word	/ tə/</p>
+                        <p><strong>vowel	+	vowel				‘see	you		at	home’			/si ju w æt		hoʊm/</strong></p>
+                        <p>When	linking	occurs	between	vowels,	a	/w/		or	/j/	sound	is	inserted	between	
+                            the	vowels.</p>
+                        <p><strong>consonant	+	consonant		‘	speak			to	her’			/spik tə hɜ/</strong></p>
+                        <p>For	consonant	+	consonant	linking		- slightly	hold	the	final	consonant,	release
+                            and	then	pronounce	the	following	consonant.</p>
+                    </div>
+  
+                </div>    
+            </div>
+        </div>
+
+        
+</section>
+
+
+    <div class="nextepisode">
+        <a href="{{ url_for('episode9') }}"><button>Next Episode</button></a>
+    </div>
+
+ <!----Footer -------------------------------------------------------------> 
+
+ <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column1">
+            <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="logo">
+        </div>
+        <div class="footer-column2">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="footer-column3">
+            <p>d.mar.learn.net@gmail.com</p>
+            <p>09 941487000</p>
+            <div class="contact-box">
+                <a href="https://www.facebook.com/dmarlearn/" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/facebook_2.png') }}" alt="Facebook Color" class="social-icon-color">
+                </a>
+                <a href="https://www.t.me/dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/telegram.png') }}" alt="Telegram" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/telegram_2.png') }}" alt="Telegram Color" class="social-icon-color">
+                </a>
+                <a href="https://www.tiktok.com/@dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/tiktok.png') }}" alt="TikTok" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/tiktok_2.png') }}" alt="TikTok Color" class="social-icon-color">
+                </a>
+                <a href="https://www.youtube.com/@DMarLearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/you tube.png') }}" alt="YouTube" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/you tube_2.png') }}" alt="YouTube Color" class="social-icon-color">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright 2024</p>
+    </div>
+</footer>
+
+<!--------------------------------------------------------------------------------------------------------------->
+    
+</body>
+</html>

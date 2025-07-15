@@ -1,0 +1,376 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato';
+}
+
+body {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+
+body.popup-active .main-content {
+    filter: blur(5px);
+    transition: filter 0.3s ease;
+    pointer-events: none;
+}
+
+/* Prevent scrolling when popup is active */
+body.popup-active {
+    overflow: hidden;
+}
+
+/* Ensure the popup overlays other content */
+.login-popup {
+    z-index: 2000;
+}
+
+/* Optional: Add a smooth transition for the popup appearance */
+.login-popup {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity and color as needed */
+    display: none;
+    z-index: 1500;
+}
+
+body.popup-active .overlay {
+    display: block;
+}
+
+/* Blur Method */
+
+
+/* Navigation Styles */
+.container-navigation {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: white;
+    padding: 18px 0;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.10);
+    max-width: 1440px;
+    margin: 0 auto;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 90px;
+    
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 60px;
+}
+
+.logo {
+    width: 120px;
+    height: auto;
+}
+
+
+.navigation {
+    display: flex;
+    align-items: center;
+    margin-right: 60px; /* Adjusted to align with logo margin */
+}
+
+.navigation ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+}
+
+.navigation ul li {
+    margin-left: 20px; 
+    font-weight: bold;
+    padding: 0 10px; 
+}
+
+.navigation ul li a {
+    text-decoration: none;
+    color: #333333;
+}
+
+.navigation ul li a:hover {
+    color: #7CB7FF;
+}
+
+.login-button {
+    padding: 10px 30px;
+    background-color: #7CB7FF;
+    text-decoration: none;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(195, 222, 255, 1)
+}
+
+.login-button span{
+    color: white;
+}
+
+.login-button:hover {
+    background: #f5db72;
+    box-shadow: 0 4px 6px rgba(249, 234, 174);
+}
+
+.login-button.clicked {
+    background-color: #f3d24f;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 30px;
+    background: none;
+    border: none;
+    color: #7cb7ff; 
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+/*  */
+.login-button {
+    padding: 10px 30px;
+    background-color: #7CB7FF;
+    text-decoration: none;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(195, 222, 255, 1)
+}
+
+.login-button span{
+    color: white;
+}
+
+.login-button:hover {
+    background: #f5db72;
+    box-shadow: 0 4px 6px rgba(249, 234, 174);
+}
+
+.login-button.clicked {
+    background-color: #f3d24f;
+}
+
+#profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.user-info {
+    display: flex;
+    align-items: center; /* Vertically centers the profile pic and username */
+}
+
+#user-name {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#user-dropdown {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background: #f2f8ff;
+    border-radius: 10px;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.10);
+    padding: 20px;
+    width: 250px;
+    display: none;
+    z-index: 2000;
+}
+
+.dropdown-profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 10px auto;
+}
+
+#logout-btn {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #7CB7FF;
+    padding: 10px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+#logout-btn:hover {
+    background-color: #f5db72;
+}
+
+/* Styles for the overlay and popup */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 1500;
+}
+
+.popup-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -50%) scale(1.25);
+    box-sizing: border-box;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.10);
+    background: #f2f8ff;
+    border-radius: 20px;
+    padding: 50px;
+    width: 400px;
+    height: 550px;
+    transition: all 0.3s ease-in-out;
+    z-index: 2000;
+}
+
+.popup-content.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+/* ########################################################################################################## */
+
+/* footer */ 
+footer {
+    background-color: #FFF9E7;
+    padding: 40px 0;
+    color: #333;
+    text-align: center;
+    max-width: 1440px;
+    margin: 0px auto;
+
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    max-width: 1440px;
+    margin: 20px auto;
+    padding: 0 20px 50px;
+
+}
+
+
+.footer-column1  {
+    flex: 1;
+    max-width: 240px;
+    margin: 0px 0px 0px 0px;
+}
+
+
+.footer-column1 img {
+    width: 200px;
+    height: auto;
+    
+}
+
+.footer-column2 a {
+    color: #333;
+    margin: 5px 0px;
+}
+
+.footer-column a:hover {
+    text-decoration: underline;
+}
+
+.footer-column2 nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0px;
+    text-align: left;
+}
+
+.footer-column2 nav ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column3 p{
+    text-align: left;
+    margin-bottom: 10px;
+
+}
+/* ###################### */
+.social-link {
+    display: inline-block;
+    width: 40px;
+    height: 40px;;
+    margin: 30px 8px;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.social-icon,
+.social-icon-color {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    transition: opacity 0.8s ease;
+}
+
+.social-icon-color {
+    opacity: 0;
+}
+
+.social-link:hover {
+    transform: scale(1.2);
+}
+
+.social-link:hover .social-icon {
+    opacity: 0;
+}
+
+.social-link:hover .social-icon-color {
+    opacity: 1;
+}
+
+/* ######################### */
+.footer-column4 .text{
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+}
+
+.footer-column4 img{
+    width: 25px;
+    height: auto;
+    margin: 0px 10px;
+}

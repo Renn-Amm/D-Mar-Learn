@@ -1,0 +1,139 @@
+
+
+
+.about {
+    text-align: center;
+    margin-top: 90px;
+    padding: 0px 20px;
+    background-color: #A7CFFF;
+}
+
+/* ABOUT US section */
+#about h2 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.aboutp1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.aboutp2 {
+    font-size: 20px;
+    line-height: 1.6;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+/* OUR MISSION section */
+.mission {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.mission-card{
+    display: flex;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.mission h2 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.mission-text {
+    padding-top: 100px;
+    font-size: 28px;
+    text-align: left;
+    max-width: 850px;
+    line-height: 1.8;
+}
+
+.mission img {
+    width: 630px;
+    display: block;
+    margin: 20px auto;
+}
+
+/* MEET OUR DEVELOPERS section */
+.developers {
+    padding: 30px 20px;
+}
+
+.developers h2 {
+    font-size: 48px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.developer-cards {
+    padding-left: 80px;
+    max-width: 1280px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.developer-card {
+    width: 400px;
+    background-image: url("/img/cardbg.png");
+    border-radius: 35px;
+    padding: 20px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(124, 183, 255, 0.4);
+}
+
+.developer-card img {
+    width: 360px;
+}
+
+.developer-card h3 {
+    margin: 10px 0 5px 0;
+}
+
+/* THANK YOU section */
+.thank-you {
+    background-color: #FFFFFF;
+    padding: 100px 20px;
+}
+
+.thank-you-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.thank-you-text {
+    max-width: 750px;
+    text-align: center;
+}
+
+.thank-you-text h2 {
+    font-size: 42px;
+}
+
+.thank-you-text h1 {
+    font-size: 42px;
+    margin-bottom: 50px;
+    color: #F3D24F;
+}
+
+.thank-you-text p {
+    font-size: 24px;
+    margin-bottom: 60px;
+}
+
+.left-image img, 
+.right-image img {
+    width: 330px;
+    height: auto;
+    margin-top: 60px;
+}
+
+
+

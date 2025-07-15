@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/allpage.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode9.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode9_resp.css') }}"/>
+    <script src="{{ url_for('static', filename='js/episode9.js') }}"></script>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Crown icon -->
+    <title>Episode Nine</title>
+</head>
+<body>
+    <div class="overlay"></div>
+    <!-- Navigation -->
+    <header>
+        <div class="container-navigation">
+            <div class="logo-container">
+                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                &#9776; 
+            </button>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    <li>
+                        <div class="user-info">
+                            {% if session.get('user') %}
+                                <span id="user-name">
+                                    {% if session['user']['userinfo']['premium'] %}
+                                        <i class="fas fa-crown" aria-hidden="true"></i> <!-- Font Awesome crown icon -->
+                                    {% endif %}
+                                    {{ session['user']['userinfo']['name'][:15] }}{% if session['user']['userinfo']['name']|length > 15 %}...{% endif %}
+                                </span>
+                                <img id="profile-pic" src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" />
+                                <div id="user-dropdown" class="dropdown">
+                                    <img src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" class="dropdown-profile-pic">
+                                    <p>{{ session['user']['userinfo']['name'] }}</p>
+                                    <p>{{ session['user']['userinfo']['email'] }}</p>
+                                    <p>Status: {% if session['user']['userinfo']['premium'] %}Premium user{% else %}Regular user{% endif %}</p>
+                                    <a href="{{ url_for('logout') }}" id="logout-btn" class="logout-link">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ url_for('googleLogin') }}" class="login-button" id="login-btn">Login with Google</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Popup Content -->
+            <section class="popup-content" id="loginPopup">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <p>This is a sample popup content</p>
+            </section>
+
+            <script>
+                // JavaScript for dropdown and popup functionality
+
+                // User dropdown logic
+                const userName = document.getElementById('user-name');
+                const profilePic = document.getElementById('profile-pic');
+                const userDropdown = document.getElementById('user-dropdown');
+                const overlay = document.getElementById('overlay');
+
+                const toggleDropdown = (event) => {
+                    event.stopPropagation();
+                    if (userDropdown.style.display === 'none' || userDropdown.style.display === '') {
+                        userDropdown.style.display = 'block';
+                    } else {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                const closeDropdown = () => {
+                    if (userDropdown.style.display === 'block') {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                userName?.addEventListener('click', toggleDropdown);
+                profilePic?.addEventListener('click', toggleDropdown);
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', closeDropdown);
+                userDropdown.addEventListener('click', (event) => event.stopPropagation());
+
+                // Popup logic
+                const openPopupButton = document.getElementById('login-btn');
+                const closePopupButton = document.getElementById('closePopup');
+                const loginPopup = document.getElementById('loginPopup');
+
+                const openPopup = (e) => {
+                    e.preventDefault();
+                    loginPopup.classList.add('active');
+                    overlay.style.display = 'block';
+                };
+
+                const closePopup = () => {
+                    loginPopup.classList.remove('active');
+                    overlay.style.display = 'none';
+                };
+
+                openPopupButton.addEventListener('click', openPopup);
+                closePopupButton.addEventListener('click', closePopup);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closePopup();
+                    }
+                });
+
+                // Close popup when clicking outside of it
+                overlay.addEventListener('click', closePopup);
+            </script>
+
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var navigation = document.querySelector('.navigation');
+    
+            menuToggle.addEventListener('click', function () {
+                navigation.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!------------------------------------------------------------------------------------------->
+
+    <!---------------------------------- Episode Banner Start -------------------------------------->
+      <section class="episodeone-banner">
+        <div class="episode-banner">
+             <img src="{{ url_for('static', filename='img/episodenine.jpg') }}" alt="episodenine">
+        </div>
+    </section>
+    <!------------------------------------- Episode Banner End ----------------------------------->
+
+    <section class="Episodetwo-Lessons">
+
+
+
+   <!-- --------------------------------------Dropdowntwo Start------------------------------------->
+        <div class="dropdowntwo">
+            <div class="dropdowntwo-header" onclick="toggleDropdown('dropdownContent2', 'icon2')">
+                <h2>01. Watch the video</h2>
+                <span class="dropdown-icon" id="icon2">▼</span>
+            </div>
+            <div class="dropdowntwo-content" id="dropdownContent2">
+                <div class="episodeone-video">
+                    <video width="900" height="400" controls>
+                        <source src="{{ url_for('static', filename='video/S1E09 - ADHD.mp4') }}" type="video/mp4">
+                    </video>
+                </div>
+                <div class="dropdowntwo-container">
+                    <h3>Transcript</h3>
+                    <h4>Episode 9: ADHD</h4>
+                    <p>Hello. I’m Margot Politis. Welcome to Study English, IELTS preparation. </p>
+                    <p>Today we’re going to talk about acronyms, abbreviations and names, and then we’ll
+                        do a bit of vocabulary building as well. 
+                        </p>
+                    <p>The boy in today’s clip is about to have a test to see whether he has Attention Deficit
+                        Hyperactivity Disorder, or ADHD. </p>
+                    <p>While you’re watching, listen for some other abbreviations. </p>
+                    <p>How do you know if your child does have ADHD? An EEG brain scan helps answer
+                        that, say the Swinburne researchers. </p>
+                    <p><em>Jacques Duff is a psychologist and one of Richard’s PhD students. A computer
+                        programme will compare Xavier’s brain scan with a database of scans of ADHD
+                        sufferers. If he does have the condition, the ADHD diagnosis will be automatically
+                        triggered. </em></p>
+                    <p>Xavier was having a test to see if he has ‘ADHD’. 
+                    </p>
+                    <p>‘ADHD’ is an abbreviation. </p>
+                    <p>An abbreviation is the short form of a phrase or a
+                        word. </p>
+                    <p>We often abbreviate phrases using the first letter
+                        of each word. </p>
+                    <p>Notice that you use capitals letters for these
+                        types of abbreviations. 
+                        </p>
+                    <p>‘ADHD’ stands for Attention Deficit Hyperactivity Disorder. ‘ADHD’ is much quicker
+                        and easier to say, and to write. </p>
+                    <p>You might recognise some of these common abbreviations: </p>
+                    <p>‘UFO’ stands for ‘Unidentified Flying Object’. </p>
+                    <p>‘ASAP’ means ‘As Soon As Possible’. 
+                    </p>
+                    <p>Other common abbreviations are: </p>
+                    <p>‘PC’, ‘Personal Computer’, 
+                    </p>
+                    <p>TV’ for ‘Television’,</p>
+                    <p>and ‘CD-ROM’ – that’s a ‘Compact Disc with a
+                        Read Only Memory’! </p>
+                    <p>Notice that each letter in the abbreviation is pronounced separately, but the last letter
+                        is pronounced more strongly because it carries the primary stress. </p>
+                    <p>So we say ‘USA’, ‘ASAP’, ‘ABC’, and ‘TV’.</p>
+                    <p>Listen for another abbreviation here. 
+                    </p>
+                    <p>Jacques Duff is a psychologist and one of Richard’s PhD students. </p>
+                    <p>Jacques Duff is one of Richard’s PhD students. </p>
+                    <p>‘PhD’ stands for Doctor of Philosophy. 
+                    </p>
+                    <p>Another abbreviation you’ll recognise is ‘IELTS’. 
+                    </p>
+                    <p>‘IELTS’ stands for ‘International English
+                        Language Testing System’. 
+                        </p>
+                    <p>This form of abbreviation is called an ‘acronym’.
+                        With an acronym, we don’t pronounce the
+                        individual letters, we pronounce it as a word. </p>
+                    <p>So we say ‘IELTS’, not ‘I - E - L - T - S’. </p>
+                    <p>Some other examples of acronyms are: 
+                    </p>
+                    <p>‘AIDS’, that’s ‘Acquired Immune Deficiency Syndrome’, </p>
+                    <p>and ‘RAM’, ‘Random Access Memory.’ 
+                    </p>
+                    <p>Another example is ‘ASEAN’ – that stands for the ‘Association of South East Asian
+                        Nations’. </p>
+                    <p>There’s one more common shortening in today’s story. Listen for whether it’s an
+                        abbreviation or an acronym. </p>
+                    <p><em>An EEG brain scan helps answer that, say the Swinburne researchers. </em></p>
+                    <p>He says an ‘EEG’. That’s an abbreviation. We don’t pronounce it ‘eeg’, we say ‘E E
+                        G’. </p>
+                    <p>‘EEG’ stands for ‘Electro- Encephalograph’. </p>
+                    <p>That’s a type of brain scan, but you can see why we shorten it to EEG. </p>
+                    <p>Notice that in formal academic writing, it’s necessary to write out an abbreviation in
+                        full the first time you use it. 
+                        </p>
+                    <p>So if you wanted to write about an EEG, you’d
+                        write it out in full the first time, and place the
+                        abbreviation in brackets, like this. </p>
+                    <p>‘An Electro – Encephalograph [EEG] can help
+                        treat patients.’ </p>
+                    <p>After that in your paper, you can just use the
+                        abbreviation on its own. </p>
+                    <p>OK. So let’s listen to the clip again, but this time,
+                        listen for words to do with universities. </p>
+                    <p><em>How do you know if your child does have ADHD? An EEG brain scan helps answer
+                        that, say the Swinburne researchers. </em></p>
+                    <p><em>Jacques Duff is a psychologist and one of Richard’s PhD students. A computer
+                        programme will compare Xavier’s brain scan with a database of scans of ADHD
+                        sufferers. </em></p>
+                    <p>He refers to the Swinburne researchers. 
+                    </p>
+                    <p>‘Swinburne’ is the name of a university in Victoria. 
+                    </p>
+                    <p>There were also some other university-related words. 
+                    </p>
+                    <p>Jacques Duff is a psychologist and a PhD student. </p>
+                    <p>A great way to learn new words is in themes like this, and by organising them into
+                        word trees. </p>
+                    <p>Let’s look at university words. </p>
+                    <p>Students might study for a ‘Diploma’, a ‘Bachelor degree’, an ‘Honours degree’, a
+                        ‘Masters degree’ or a ‘PhD’. </p>
+                    <p>Jacques Duff is a PhD student, so that’s where he fits into this tree. 
+                    </p>
+                    <p>There are number of different people and places mentioned in today’s story. We
+                        don’t see them all, but we hear their names. 
+                        </p>
+                    <p>Listen for the names in this clip. </p>
+                    <p><em>An EEG brain scan helps answer that, say the Swinburne researchers. Jacques Duff
+                        is a psychologist and one of Richard’s PhD students. A computer programme will
+                        compare Xavier’s brain scan with a database of scans of ADHD sufferers. </em></p>
+                    <p>The people he mentions are ‘Jacques Duff’, ‘Richard’ and ‘Xavier’. </p>
+                    <p>If someone has an uncommon name, people will often ask how their name is spelt. </p>
+                    <p>For example, ‘Xavier’ is an uncommon name in Australia. So if I met Xavier, I might
+                        ask him, “how do you spell your name?” </p>
+                    <p>So it’s a good idea to get used to spelling out your name. </p>
+                    <p>‘Xavier’ is spelt like this: X-A-V-I-E-R, Xavier. </p>
+                    <p>‘Jacques’ is also an uncommon name in English, because it’s a French name. </p>
+                    <p>In this case, we have both a first and a last name. </p>
+                    <p>His first name is ‘Jacques’, and his last name is ‘Duff’.</p>
+                    <p>A first name is sometimes called a ‘christian name’. It’s also called a ‘given name’.
+                        It’s the name your family chooses for you. </p>
+                    <p>The last name is also called a ‘surname’, or ‘family name’. That’s usually the name
+                        of one parent that’s passed on to their children. </p>
+                    <p>Jacque’s first name is spelt ‘J-A-C-Q-U-E-S’, and his surname is Duff. 
+                    </p>
+                    <p>Notice that if you asked someone in Australia to spell out the name ‘Duff’, they would
+                        say: ‘D-U- double F’. </p>
+                    <p>But in North America, people would spell it like this ‘D-U-F-F’. They don’t use the
+                        word ‘double’. They say the letter twice instead. </p>
+                    <p>So if we asked Jacques Duff to spell out his surname, he would say: </p>
+                    <p>‘D-U-double F’, or, he might say ‘D-U-F-F’. </p>
+                    <p>You’ll need to be familiar with both ways of spelling out double letters. You should
+                        also make sure you know exactly how to spell out your own name in English. 
+                        </p>
+                    <p>That’s all for today. </p>
+                    <p>I’m Margot Politis - that’s M-A-R-G-O-T P-O- L-I-T-I-S. </p>
+                    <p>See you next time. </p>
+
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdowntwo End --------------------------------------------->
+
+        <div class="dropdownthree">
+            <div class="dropdownthree-header" onclick="toggleDropdown('dropdownContent3', 'icon3')">
+                <h2>02. Study Notes</h2>
+                <span class="dropdown-icon" id="icon3">▼</span>
+            </div>
+            <div class="dropdownthree-content" id="dropdownContent3">
+                <h2>Episode 9: ADHD</h2>
+                <div class="dropdownthree-container">
+                    <div class="notes">
+                        <div class="modal-verbs">
+                            <h4>Abbreviations	and	Acronyms</h4>
+                            <p style="line-height: 0.8cm;">Though	abbreviations	and	acronyms	are	generally	
+                                not	used	in	formal	writing	with	the	exception	of	
+                                some	scientific	or	technical	writing,	it	is	important	
+                                to	be	familiar	with	some	of	the	more	common	
+                                ones.	</p>
+                            <p style="line-height: 0.8cm;">These	could	occur	in	both	spoken	and	written	
+                                English.	If	they	are	used	in	formal	writing,	it	is	
+                                necessary	to	reference	them	correctly.</p>
+                            <p style="line-height: 0.8cm;">These	study	notes	focus	on	the	more	common	
+                                abbreviations	and	acronyms,	and their	forms.</p>
+                        </div>
+                        <div class="study-tips">
+                            <h3>Study Tips</h3>
+                            <p style="line-height: normal;">In formal academic
+                                writing, acronyms and
+                                abbreviations should only
+                                be used if they are well
+                                known or frequently
+                                referred to in your essay. 
+                                </p>
+                            <p style="line-height: 0.8cm;">Remember to give its full
+                                form first, followed by the
+                                acronym or abbreviation
+                                in parentheses.</p>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <p>An	abbreviation is	a	short	form	of	a	phrase	or	name	that	is	made	by	using	the	initial	
+                            letters	of	each	word.	</p>
+                    </div>
+
+                    <div class="box">
+                        <p>Abbreviations can	be	names	of:</p>
+                        <table style="border-color: transparent;">
+                            <tr>
+                                <td><b>Countries,	Territories,<br>States,	Provinces:</b></td>
+                                <td>
+                                    ACT	– Australian	Capital	Territory,	UK	– United
+                                    <br>Kingdom,	PNG	– Papua	New	Guinea,	USA	– United
+                                    <br>States	of	America,	BC	- British	Columbia 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Organisations:</b></td>
+                                <td>
+                                    EU	- European	Union,	UN	- United	Nations
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Corporations: </b></td>
+                                <td>
+                                    IBM	– International	Business	Machines,
+                                    <br>GM	– General	Motors
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Medical	Terms:</b></td>
+                                <td>
+                                    DNA	– DeoxyriboNucleic	Acid,
+                                    <br>ECG	– Electrocardiogram,
+                                    <br>MRI	– magnetic	resonance	imaging
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Government	Agencies:</b></td>
+                                <td>
+                                    ATO	– Australian	Taxation	Office,
+                                    <br>FBI	– Federal	Bureau	of	Investigation
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Television	Stations:</b></td>
+                                <td>
+                                    ABC	– Australian	Broadcasting	Corporation,
+                                    <br>BBC	– British	Broadcasting	Corporation,
+                                    <br>CBC	– Canadian	Broadcasting	Corporation
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Universities:</b></td>
+                                <td>
+                                    UTS	- University	of	Technology,	Sydney,
+                                    <br>RMIT – Royal	Melbourne	Institute	of	Technology,
+                                    <br>UNSW – University	of	New	South	Wales,
+                                    <br>UCLA - University of	California,	Los	Angeles
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Products:</b></td>
+                                <td>
+                                    TV	– television,	ATM	– automatic	teller	machine
+                                    <br>CD	– compact	disc,	DVD	-		digital	versatile	disc,
+                                    <br>PC	– personal	computer
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Degrees:</b></td>
+                                <td>
+                                    LLB	– Bachelor	of	Laws,	BA	– Bachelor	of	Arts,
+                                    <br>MA	–		Master	of	Arts,		PhD	– Doctor	of	Philosophy
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Professions,	Positions:</b></td>
+                                <td>
+                                    CA	– chartered	accountant,	QC	– Queen’s	Counsel,
+                                    <br>CEO	– chief	executive	officer,
+                                    <br>DA	– District	Attorney
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+                    <div class="box">
+                        <p>In	spoken	English,	abbreviations	are	read	letter-by-letter.	When	pronouncing	each	
+                            letter,	the	last	sound	(letter)	normally	carries	the	primary	stress	/	'/	and	is,	therefore,	
+                            pronounced	more	strongly.	The	other	sounds	(letters) carry	the	secondary	stress	/,	/	
+                            and	are,	thus,	pronounced	more	weakly.	</p>
+                        <p>For	example:</p>
+                        <p>ACT /¸eɪ¸si 'ti/</p>
+                        <p>EU /¸i 'ju/</p>
+                        <p>DNA /¸di¸ɛn 'eɪ/</p>
+                        <p>ABC /¸eɪ¸bi 'si/</p>
+                        <p>UTS /¸ju¸ti 'ɛs/</p>
+                        <p>When	an	abbreviation	is	pronounced	as	a	word,	for	example	IELTS	/aɪ'jɛlts/,	this	
+                            form	of	abbreviation	is	called	an	<b>acronym.</b></p>
+                        <p>IELTS	/aɪ'jɛlts/	means		International	English	Language	Testing	System.</p>
+                        <p>Other	examples	of	acronyms	include:	</p>
+                        <p>VTOL			/'vitɒl/vertical	take	off	and	landing</p>
+                        <p>ASEAN			/'æziæn/	or	 /'æsiæn/	Association of	South-East	Asian	Nations</p>
+                        <p>*radar 			/'reɪda/ radio	detecting	and	ranging</p>
+                        <p>RAM						/ræm/ Random	Access	Memory</p>
+                        <p>*scuba			/'skubə/		 self	contained	underwater	breathing	apparatus</p>
+                        <p>*QANTAS		/'kwɒtəs/		Queensland	and	Northern	Territory	Aerial	Services</p>
+                        <p>*These	were	originally	acronyms,	but	because	their	abbreviated	form	has	become	
+                            well	known,	one	no	longer	needs	to	include	its	full	form.</p>
+                        <p>In	formal	academic	writing,	you	should	give	the	full	form	of	the	abbreviation	or	
+                            acronym	the	first	time	it	appears,	followed	by	its	abbreviation	in	parentheses.</p>
+                        <p>For	example:</p>
+                        <p>Recent	developments	in	the	region	required	that	members	of	the	Association	of	
+                            South-East	Asian	Nations	(ASEAN)	meet	for	top-level	discussions.	The	ASEAN	
+                            presence	was	vital	to	progress	the	situation.	</p>
+                    </div>
+
+                    <div class="box">
+                        <h2>Abbreviations	of	Latin	words</h2>
+                        <p>Latin	words	commonly	appear	as	abbreviations.		They	are	often	used in	formal	
+                            writing	and	academic	texts.		The	most	common	Latin	abbreviations	are:		eg,	ie,	NB,	
+                            etc.</p>
+                        <table>
+                            <tr>
+                                <td><b>Abbreviation</b></td>
+                                <td><b>Latin word</b></td>
+                                <td><b>Meaning</b></td>
+                            </tr>
+                            <tr>
+                                <td>eg</td>
+                                <td>exempli	gratia</td>
+                                <td>for	example</td>
+                            </tr>
+                            <tr>
+                                <td>etc</td>
+                                <td>et cetera</td>
+                                <td>and	so	on,	and	all	others</td>
+                            </tr>
+                            <tr>
+                                <td>ie</td>
+                                <td>id	est</td>
+                                <td>that	is,	in	other	words,	this	means</td>
+                            </tr>
+                            <tr>
+                                <td>NB</td>
+                                <td>Nota	bene</td>
+                                <td>note	well,	make	note</td>
+                            </tr>
+                        </table>
+                        <p>While	it	is	important	to	understand	the	meaning	of	abbreviations,	especially	when	
+                            reading	academic	texts,	the	less	common	ones	would	not	generally	be	used	in	your	
+                            formal	writing.</p>
+                    </div>
+
+                    <div class="box">
+                        <h2>Other	Latin	abbreviations</h2>
+                        <table>
+                            <tr>
+                                <td><b>Abbreviation</b></td>
+                                <td><b>Latin	word</b></td>
+                                <td><b>Meaning</b></td>
+                            </tr>
+                            <tr>
+                                <td>AD (A.D.)<br><br>BC (B.C.)<br><br></td>
+                                <td>anno Domini<br><br>before Christ<br><br></td>
+                                <td>in	the	year	of	our	Lord	– used	after	the<br>beginning	of	the	Western	calendar<br>used	before	the	beginning	of	the	Western<br>calendar</td>
+                            </tr>
+                            <tr>
+                                <td>am	(AM)</td>
+                                <td>ante	meridiem</td>
+                                <td>before	midday</td>
+                            </tr>
+                            <tr>
+                                <td>c.	or ca.</td>
+                                <td>circa</td>
+                                <td>approximately,	about</td>
+                            </tr>
+                            <tr>
+                                <td>cf.</td>
+                                <td>confer</td>
+                                <td>compare</td>
+                            </tr>
+                            <tr>
+                                <td>et	al</td>
+                                <td>et	alii</td>
+                                <td>and	others</td>
+                            </tr>
+                            <tr>
+                                <td>ibid.</td>
+                                <td>ibidem</td>
+                                <td>in	the	same	place</td>
+                            </tr>
+                            <tr>
+                                <td>loc.	cit.</td>
+                                <td>loco	citato</td>
+                                <td>in	the	places	already	mentioned</td>
+                            </tr>
+                            <tr>
+                                <td>op.	cit.</td>
+                                <td>opera	citato</td>
+                                <td>in	the	work	already	mentioned</td>
+                            </tr>
+                            <tr>
+                                <td>pm	(PM)</td>
+                                <td>post	meridiem</td>
+                                <td>after	midday</td>
+                            </tr>
+                            <tr>
+                                <td>q.v.</td>
+                                <td>quod	vide</td>
+                                <td>refer to,	see</td>
+                            </tr>
+                            <tr>
+                                <td>viz.</td>
+                                <td>videlicet</td>
+                                <td>namely,	that	is	to	say</td>
+                            </tr>
+                            <tr>
+                                <td>vs.</td>
+                                <td>versus</td>
+                                <td>against,	opposing</td>
+                            </tr>
+                            
+                        </table>
+                    </div>
+
+                </div>    
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdownthree End --------------------------------------------->
+
+        <div class="dropdownfour">
+            <div class="dropdownfour-header" onclick="toggleDropdown('dropdownContent4', 'icon4')">
+                <h2>03. Activity Sheet</h2>
+                <span class="dropdown-icon" id="icon4">▼</span>
+            </div>
+            <div class="dropdownfour-content" id="dropdownContent4">
+                <div class="dropdownfour-container">
+                    <h3>ADHD - Activity</h3>
+                    <h4>Choosing the correct Latin abbreviation to complete the sentences in the quiz.</h4>
+                    <p>NB. In formal academic writing it is best to avoid using abbreviations, or at
+                        least minimise using them. The following Latin abbreviations are acceptable in
+                        formal academic writing.</p>
+
+                    <div class="dropdownfour-question">
+                        <p class="question">(1) This film is for adults only, <input type="text" id="answer1" class="answer-input" readonly disabled> 
+                            those who are over 18 years of age.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(1, 'etc')">a. etc</button>
+                            <button onclick="selectAnswer(1, 'ie')">b. ie</button>
+                            <button onclick="selectAnswer(1, 'ca')">c. ca</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(2) Universities, institutes and technical colleges of further education, <input type="text" id="answer2" class="answer-input" readonly disabled> 
+                            places of higher education, are mostly funded by the government, but students must also pay heavy fees.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(2, 'ie')">a. ie</button>
+                            <button onclick="selectAnswer(2, 'viz')">b. viz</button>
+                            <button onclick="selectAnswer(2, 'etc')">c. etc</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(3) Sydney as a tourist destination depends on two key attractions, <input type="text" id="answer3" class="answer-input" readonly disabled> 
+                            the Opera House and the city’s beaches.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(3, 'eg')">a. eg</button>
+                            <button onclick="selectAnswer(3, 'viz')">b. viz</button>
+                            <button onclick="selectAnswer(3, 'NB')">c. NB</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(4) The tour of Sydney will include several places of interest and great scenic beauty, <input type="text" id="answer4" class="answer-input" readonly disabled> 
+                            The Rocks, the Opera House, and Bondi Beach.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(4, 'eg')">a. eg</button>
+                            <button onclick="selectAnswer(4, 'ie')">b. ie</button>
+                            <button onclick="selectAnswer(4, 'etc')">c. etc</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(5) Besides Russia and the United States of America, only one other country has managed to put a man into space, <input type="text" id="answer5" class="answer-input" readonly disabled> 
+                            China.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(5, 'viz')">a. viz</button>
+                            <button onclick="selectAnswer(5, 'eg')">b. eg</button>
+                            <button onclick="selectAnswer(5, 'NB')">c. NB</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(6) There are several sports, which you can enjoy at the beach, <input type="text" id="answer6" class="answer-input" readonly disabled> 
+                            surfing, wind surfing and beach volleyball.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(6, 'etc')">a. etc</button>
+                            <button onclick="selectAnswer(6, 'ie')">b. ie</button>
+                            <button onclick="selectAnswer(6, 'eg')">c. eg</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(7) Traditional foreign languages, French, German, Japanese <input type="text" id="answer7" class="answer-input" readonly disabled>, are being dropped from the high school curriculum and students these days are learning Chinese (Mandarin) or Thai instead.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(7, 'eg')">a. eg</button>
+                            <button onclick="selectAnswer(7, 'ie')">b. ie</button>
+                            <button onclick="selectAnswer(7, 'etc')">c. etc</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(8) The soccer match in the World Cup, Brazil <input type="text" id="answer8" class="answer-input" readonly disabled> Germany was the most exciting.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(8, 'viz')">a. viz</button>
+                            <button onclick="selectAnswer(8, 'vs')">b. vs</button>
+                            <button onclick="selectAnswer(8, 'cf')">c. cf</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(9) It was a departmental team effort – the textbook was written by several lecturers: Jones, Hunt, Petrie <input type="text" id="answer9" class="answer-input" readonly disabled>.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(9, 'ibid')">a. ibid</button>
+                            <button onclick="selectAnswer(9, 'et al')">b. et al</button>
+                            <button onclick="selectAnswer(9, 'etc')">c. etc</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdownfour-question">
+                        <p class="question">(10) Julius Caesar led the Roman invasion of Britain a generation or so before the birth of Christ, c. 32 <input type="text" id="answer10" class="answer-input" readonly disabled>.</p>
+                        <div class="dropdownfour-options">
+                            <button onclick="selectAnswer(10, 'AD')">a. AD</button>
+                            <button onclick="selectAnswer(10, 'am')">b. am</button>
+                            <button onclick="selectAnswer(10, 'BC')">c. BC</button>
+                        </div>
+                    </div>                    
+                    
+                    <div class="buttons">
+                        <button id="finishButton2" onclick="checkAnswers2()">
+                            <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                        </button>
+                        <button onclick="resetActivity2()">
+                            <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+                        </button>
+                        <button id="showAnswerButton2" style="display: none;" onclick="showAnswers2()">
+                            <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+                        </button>
+                        <button id="showFeedbackButton2" style="display: none;" onclick="showFeedback2()">
+                            <img src="{{ url_for('static', filename='img/review.png') }}" alt="review" class="button-icon">Show Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="scoreModal2" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal2()">&times;</span>
+                    <h3>Feedback!</h3>
+                    <p id="scoreText2"></p>
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdownfour End --------------------------------------------->
+        
+</section>
+
+
+    <div class="nextepisode">
+        <a href="{{ url_for('episode10') }}"><button>Next Episode</button></a>
+    </div>
+
+ <!----Footer -------------------------------------------------------------> 
+
+ <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column1">
+            <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="logo">
+        </div>
+        <div class="footer-column2">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="footer-column3">
+            <p>d.mar.learn.net@gmail.com</p>
+            <p>09 941487000</p>
+            <div class="contact-box">
+                <a href="https://www.facebook.com/dmarlearn/" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/facebook_2.png') }}" alt="Facebook Color" class="social-icon-color">
+                </a>
+                <a href="https://www.t.me/dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/telegram.png') }}" alt="Telegram" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/telegram_2.png') }}" alt="Telegram Color" class="social-icon-color">
+                </a>
+                <a href="https://www.tiktok.com/@dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/tiktok.png') }}" alt="TikTok" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/tiktok_2.png') }}" alt="TikTok Color" class="social-icon-color">
+                </a>
+                <a href="https://www.youtube.com/@DMarLearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/you tube.png') }}" alt="YouTube" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/you tube_2.png') }}" alt="YouTube Color" class="social-icon-color">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright 2024</p>
+    </div>
+</footer>
+
+<!--------------------------------------------------------------------------------------------------------------->
+    
+</body>
+</html>

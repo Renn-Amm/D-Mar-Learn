@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/allpage.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode7.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/episode7_resp.css') }}"/>
+    <script src="{{ url_for('static', filename='js/episode7.js') }}"></script>
+    <link rel="icon" type="image" href="{{ url_for('static', filename='img/web_icon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Crown icon -->
+    <title>Episode Seven</title>
+</head>
+<body>
+    <div class="overlay"></div>
+    <!-- Navigation -->
+    <header>
+        <div class="container-navigation">
+            <div class="logo-container">
+                <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                &#9776; 
+            </button>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                    <li>
+                        <div class="user-info">
+                            {% if session.get('user') %}
+                                <span id="user-name">
+                                    {% if session['user']['userinfo']['premium'] %}
+                                        <i class="fas fa-crown" aria-hidden="true"></i> <!-- Font Awesome crown icon -->
+                                    {% endif %}
+                                    {{ session['user']['userinfo']['name'][:15] }}{% if session['user']['userinfo']['name']|length > 15 %}...{% endif %}
+                                </span>
+                                <img id="profile-pic" src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" />
+                                <div id="user-dropdown" class="dropdown">
+                                    <img src="{{ session['user']['userinfo']['picture'] }}" alt="Profile Picture" class="dropdown-profile-pic">
+                                    <p>{{ session['user']['userinfo']['name'] }}</p>
+                                    <p>{{ session['user']['userinfo']['email'] }}</p>
+                                    <p>Status: {% if session['user']['userinfo']['premium'] %}Premium user{% else %}Regular user{% endif %}</p>
+                                    <a href="{{ url_for('logout') }}" id="logout-btn" class="logout-link">Logout</a>
+                                </div>
+                            {% else %}
+                                <a href="{{ url_for('googleLogin') }}" class="login-button" id="login-btn">Login with Google</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Popup Content -->
+            <section class="popup-content" id="loginPopup">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <p>This is a sample popup content</p>
+            </section>
+
+            <script>
+                // JavaScript for dropdown and popup functionality
+
+                // User dropdown logic
+                const userName = document.getElementById('user-name');
+                const profilePic = document.getElementById('profile-pic');
+                const userDropdown = document.getElementById('user-dropdown');
+                const overlay = document.getElementById('overlay');
+
+                const toggleDropdown = (event) => {
+                    event.stopPropagation();
+                    if (userDropdown.style.display === 'none' || userDropdown.style.display === '') {
+                        userDropdown.style.display = 'block';
+                    } else {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                const closeDropdown = () => {
+                    if (userDropdown.style.display === 'block') {
+                        userDropdown.style.display = 'none';
+                    }
+                };
+
+                userName?.addEventListener('click', toggleDropdown);
+                profilePic?.addEventListener('click', toggleDropdown);
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', closeDropdown);
+                userDropdown.addEventListener('click', (event) => event.stopPropagation());
+
+                // Popup logic
+                const openPopupButton = document.getElementById('login-btn');
+                const closePopupButton = document.getElementById('closePopup');
+                const loginPopup = document.getElementById('loginPopup');
+
+                const openPopup = (e) => {
+                    e.preventDefault();
+                    loginPopup.classList.add('active');
+                    overlay.style.display = 'block';
+                };
+
+                const closePopup = () => {
+                    loginPopup.classList.remove('active');
+                    overlay.style.display = 'none';
+                };
+
+                openPopupButton.addEventListener('click', openPopup);
+                closePopupButton.addEventListener('click', closePopup);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closePopup();
+                    }
+                });
+
+                // Close popup when clicking outside of it
+                overlay.addEventListener('click', closePopup);
+            </script>
+
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var navigation = document.querySelector('.navigation');
+    
+            menuToggle.addEventListener('click', function () {
+                navigation.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!------------------------------------------------------------------------------------------->
+
+    <!---------------------------------- Episode Banner Start -------------------------------------->
+      <section class="episodeone-banner">
+        <div class="episode-banner">
+             <img src="{{ url_for('static', filename='img/episodeseven.png') }}" alt="episodeseven">
+        </div>
+    </section>
+    <!------------------------------------- Episode Banner End ----------------------------------->
+
+    <section class="Episodetwo-Lessons">
+        <div class="dropdownone">
+            <div class="dropdown-header" onclick="toggleDropdown('dropdownContent1', 'icon1')">
+                <h1>01. Drag and Drop Activity</h1>
+                <span class="dropdown-icon" id="icon1">▼</span>
+            </div>
+            <div class="dropdownone-content" id="dropdownContent1">
+                <div class="dropdownone-container">
+                    <div class="wordbox">
+                        <h3>ENVIRO-LOO - Activity</h3>
+                        <h4>The	following is a description of a procedure in conducting a survey. Select a verb 
+                            from the box below and using the past passive form, write the appropriate verb in the 
+                            blank spaces in each sentence.
+                            <br><br>Drag and drop the correct word into the blank
+                        </h4>
+                        <div class="draggable-container">
+                            <span class="draggable" draggable="true">written</span>
+                            <span class="draggable" draggable="true">were given</span>
+                            <span class="draggable" draggable="true">analysed</span>
+                            <span class="draggable" draggable="true">was conducted</span>
+                            <span class="draggable" draggable="true">were published</span>
+                            <span class="draggable" draggable="true">were distributed</span>
+                            <span class="draggable" draggable="true">were selected</span>
+                            <span class="draggable" draggable="true">was collated</span>
+                            <span class="draggable" draggable="true">was transferred</span>
+                            <span class="draggable" draggable="true">were requested</span>
+                        </div>
+                    </div>
+                    <div class="dragbox">
+                        <div class="definitions">
+                            <div class="definition">
+                                <p>In August 2004, a marketing survey (1) <input type="text" class="dropzone" readonly disabled> 
+                                    among 25 overseas postgraduate business students. Firstly, the three-page questionnaires (2) 
+                                    <input type="text" class="dropzone" readonly disabled> to the students in the computer lab. 
+                                    After the instructions (3) <input type="text" class="dropzone" readonly disabled>, the students 
+                                    (4) <input type="text" class="dropzone" readonly disabled> to enter their answers directly onto 
+                                    a spreadsheet. Then the information from the spreadsheets (5) <input type="text" class="dropzone" 
+                                    readonly disabled> to a database. This data (6) <input type="text" class="dropzone" readonly disabled> 
+                                    and (7) <input type="text" class="dropzone" readonly disabled> over a two-day period. The main points 
+                                    (8) <input type="text" class="dropzone" readonly disabled> and two reports (9) 
+                                    <input type="text" class="dropzone" readonly disabled>. Finally, the reports (10) 
+                                    <input type="text" class="dropzone" readonly disabled> on the intranet for the benefit of the students.
+                                </p>
+                            </div>
+                            
+                        </div>
+                        <button onclick="checkAnswers()">
+                            <img src="{{ url_for('static', filename='img/finish.png') }}" alt="finish" class="button-icon">Finish
+                        </button>
+                        <button onclick="resetActivity()">
+                            <img src="{{ url_for('static', filename='img/reload.png') }}" alt="reload" class="button-icon">Try again
+                        </button>
+                        <button id="showAnswerButton" style="display: none;" onclick="showAnswers()">
+                            <img src="{{ url_for('static', filename='img/questions.png') }}" alt="questions" class="button-icon">Show Answer
+                        </button>
+                        <button id="showFeedback" style="display: none;" onclick="showFeedback()">
+                            <img src="{{ url_for('static', filename='img/review.png') }}" alt="review" class="button-icon">Show Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="scoreModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Feedback!</h3>
+                    <p id="scoreText"></p>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+   <!-- --------------------------------------Dropdowntwo Start------------------------------------->
+        <div class="dropdowntwo">
+            <div class="dropdowntwo-header" onclick="toggleDropdown('dropdownContent2', 'icon2')">
+                <h2>02. Watch the video</h2>
+                <span class="dropdown-icon" id="icon2">▼</span>
+            </div>
+            <div class="dropdowntwo-content" id="dropdownContent2">
+                <div class="episodeone-video">
+                    <video width="900" height="400" controls>
+                        <source src="{{ url_for('static', filename='video/S1E07 - Enviro-Loo.mp4') }}" type="video/mp4">
+                    </video>
+                </div>
+                <div class="dropdowntwo-container">
+                    <h3>Transcript</h3>
+                    <h4>Episode 7: ENVIRO-LOO</h4>
+
+                    <p>Hello. I’m Margot Politis. Welcome to Study English, IELTS preparation.</p>
+                    <p>Today we have an environmental theme on Study English, but it’s an environmental
+                        story with a difference. 
+                        </p>
+                    <p>We find out about a new toilet system that has been developed to save the local
+                        environment in a Tasmanian park.</p>
+                    <p>We’re going to be looking at how to talk about ‘processes’, so listen carefully to David
+                        Holman talk about his new environmentally friendly toilet.</p>
+                    <p><em>The liquid waste comes from the toilet behind me. There’s a containment vessel for
+                        the solids. From the bottom of the solids you drain off the liquid and it comes down
+                        here down this pipe.</em></p>
+                    <p><em>OK. The pipe tips into this tipping bucket arrangement, and what this does is it fills
+                        up to a point, and then it suddenly tips and that will measure each time it tips. So we
+                        can calculate the amount of liquid effluent that’s gone in.</em></p>
+                    <p><em>As that fills up, you can see the towelling material here will come in contact with the
+                        effluent, the air is drawn in through these holes and will actually direct the air in onto
+                        the surface of the water, through the wick and out through the top.</em></p>
+                    <p>OK, so David was talking about how his toilet, the Enviro-Loo, works.</p>
+                    <p>He was describing a ‘process’. Today we’re going to look at the type of language
+                        you’ll need to describe processes.</p>
+                    <p>We’ll listen to David again. This time, listen out for the types of verbs he uses.</p>
+                    <p><em>The liquid waste comes from the
+                        toilet behind me. There’s a
+                        containment vessel for the solids.
+                        From the bottom of the solids you
+                        drain off the liquid and it comes
+                        down here down this pipe.</em></p>
+                    <p><em>OK. The pipe tips into this tipping
+                        bucket arrangement, and what this
+                        does is it fills up to a point, and then
+                        it suddenly tips and that will measure
+                        each time it tips. So we can
+                        calculate the amount of liquid
+                        effluent that’s gone in.</em></p>
+                    <p>David uses a variety of verbs and tenses. But mostly he uses the ‘simple present
+                        tense’.</p>
+                    <p>The ‘simple present’ is often used to describe processes and procedures.</p>
+                    <p>Let’s look at some examples.</p>
+                    <p><em>The liquid waste comes from the toilet behind me.</em></p>
+                    <p><em>OK. The pipe tips into this tipping bucket arrangement, and what this does is it fills up
+                        to a point and then it suddenly tips.</em></p>
+                    <p>There’s also another, more formal way of describing processes.</p>
+                    <p>That’s using the ‘passive voice’.</p>
+                    <p>In academic writing, it’s common to use the ‘passive voice’ for actions in a process or
+                        procedure. When you use the passive voice, your writing becomes impersonal and
+                        distant. This is more formal, and is often more suitable in an academic setting.</p>
+                    <p>Listen for a passive verb here.</p>
+                    <p><em>As that fills up, you can see the towelling material here will come in contact with the
+                        effluent, the air is drawn in through these holes.</em></p>
+                    <p>He says ‘is drawn in’: ‘the air is drawn in’.</p>
+                    <p>Notice there is no ‘subject’, no person or thing doing the action, it is just done. This is
+                        called the ‘passive voice’. </p>
+                    <p>This highlights the process or action, rather than the person or thing doing the action. </p>
+                    <p>The passive is used when the important thing is not who did the action, but the action
+                        itself. </p>
+                    <p>This is true when you are describing processes. The process is the same, no matter
+                        who is doing it, so we choose the passive voice. </p>
+                    <p>Let’s look at bit more closely at how the passive is formed … </p>
+                    <p>Passive verbs are formed by using the
+                        verb ‘to be’ plus the ‘past participle’ of
+                        the verb. </p>
+                    <p>Let’s look at the verb to ‘draw in’, to bring
+                        something in. </p>
+                    <p>The past participle is ‘drawn. This is an
+                        irregular past participle.</p>
+                    <p>So the passive form is ‘to be drawn in’. </p>
+                    <p>The different forms of the passive vary according to the action, and when the action
+                        happened. </p>
+                    <p>OK. So in formal writing, we use the passive form for processes. But David doesn’t
+                        always use the passive, because he’s having a conversation with someone. </p>
+                    <p>Let’s look at one of David’s more informal sentences, and see how we could change
+                        it into a more formal description. </p>
+                    <p><em>There’s a containment vessel for the solids and from the bottom of the solids, you
+                        drain off the liquid. </em></p>
+                    <p>He says ‘from the bottom of the solids you drain off the liquid’. Let’s look at the main
+                        part of that sentence. </p>
+                    <p>‘You drain off the liquid’.</p>
+                    <p>The verb is ‘drain off’.</p>
+                    <p>In a passive sentence, we’d say ‘is drained off’, the ‘past participle’ with the present
+                        tense form of ‘to be’. </p>
+                    <p>To form the passive, we also need change the sentence around. </p>
+                    <p>Most English sentences use the active form – that’s ‘subject verb object’. But in the
+                        passive, sentences begin with the object of the verb – ‘object verb subject’. </p>
+                    <p>In this sentence, we know that ‘drain off’ is the verb, ‘you’ is the subject and ‘the
+                        liquid’ is the object. </p>
+                    <p>So to form a passive sentence, we’ll need to turn the sentence around into ‘object
+                        verb subject’. Notice that we add the word ‘by’. </p>
+                    <p>‘The liquid is drained off by you.’</p>
+                    <p>But in a process, we don’t need to include
+                        the agent of the verb, so it usually gets left
+                        out. </p>
+                    <p>Our new, more formal sentence reads:</p>
+                    <p>‘The liquid is drained off.’ </p>
+                    <p>So let’s go back to that full sentence </p>
+                    <p>‘From the bottom of the solids, you drain
+                        off the liquid.’ </p>
+                    <p>‘From the bottom of the solids, the liquid is drained off.’</p>
+                    <p>Here’s another one.</p>
+                    <p><em>We can calculate the amount of liquid that’s gone in. </em></p>
+                    <p>We can calculate the amount of liquid. </p>
+                    <p>The subject is ‘we’. This will be dropped in our passive sentence. </p>
+                    <p>The object is ‘the amount of liquid’. </p>
+                    <p>The verb is ‘can calculate’.</p>
+                    <p>‘Calculate’ has the past participle ‘calculated’. </p>
+                    <p>When there are auxiliary verbs like ‘can’, we use the infinitive form of the verb ‘to be’. </p>
+                    <p>So the full verb phrase ‘can calculate’ becomes ‘can be calculated’. </p>
+                    <p>Remember that a passive sentence starts with the ‘object’, then the ‘verb’, so:</p>
+                    <p>‘We can calculate the amount of liquid.’ </p>
+                    <p>becomes: </p>
+                    <p>The amount of liquid can be calculated.’</p>
+                    <p>OK, let's finish today by testing you on the passive. </p>
+                    <p>Listen to the steps in a simple process. </p>
+                    <p>This is how you make a cup of coffee. It’s in a conversational style. </p>
+                    <p>You fill the kettle with water. 
+                        <br>You turn on the kettle. 
+                        <br>You boil the kettle. 
+                        <br>You pour the hot water into a mug. 
+                        <br>You add some sugar. 
+                        <br>Then you can drink it. 
+                    </p>
+                    <p>OK. Let’s start at the beginning. </p>
+                    <p>You fill the kettle with water. </p>
+                    <p>What’s the verb? ‘Fill’. The subject? ‘You’. The object? ‘’The kettle’. </p>
+                    <p>The passive verb is ‘is filled’. </p>
+                    <p>The new sentence is: </p>
+                    <p>‘The kettle is filled with water.’ </p>
+                    <p>See if you can do the next one …</p>
+                    <p>‘You turn on the kettle.’ </p>
+                    <p>The verb is ‘turn on’.
+                        <br>The subject is ‘you’.
+                        <br>The object is ‘the kettle’. </p>
+                    <p>‘The kettle is turned on.’</p>
+                    <p>‘You boil the water.’
+                        <br>‘The water is boiled.’ </p>
+                    <p>‘You pour the hot water into a mug.’
+                        <br>‘The hot water is poured into a mug.’ </p>
+                    <p>‘You add some sugar.’
+                        <br>‘Some sugar is added.’ </p>
+                    <p>‘Then you can drink it.’
+                        <br>‘Then it can be drunk.’ </p>
+                    <p>But we’d usually say,
+                        <br>‘Then it’s ready to be drunk.’
+                        <br>So let’s go through that again. </p>
+                    <p>‘The kettle is filled with water.’
+                        <br>‘The kettle is turned on.’
+                        <br>‘The water is boiled.’
+                        <br>‘The hot water is poured into a mug.’
+                        <br>‘Some sugar is added.’
+                        <br>‘Then it’s ready to be drunk.’</p>
+                    <p>And I think I’ll go and make a cup of
+                        coffee right now. </p>
+                    <p>Don't forget to practice these active and passive sentences. </p>
+                    <p>And I'll see you next time for Study English. Bye. </p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdowntwo End --------------------------------------------->
+
+        <div class="dropdownthree">
+            <div class="dropdownthree-header" onclick="toggleDropdown('dropdownContent3', 'icon3')">
+                <h2>03. Study Notes</h2>
+                <span class="dropdown-icon" id="icon3">▼</span>
+            </div>
+            <div class="dropdownthree-content" id="dropdownContent3">
+                <h2>Episode 7: ENVIRO-LOO</h2>
+                <div class="dropdownthree-container">
+                    <div class="notes">
+                        <div class="modal-verbs">
+                            <h4>The	Passive	Voice</h4>
+                            <p style="line-height: 0.8cm;">The passive voice is used for
+                                descriptive writing, especially
+                                descriptions of processes or
+                                procedures.</p>
+                            <p style="line-height: 0.8cm;">The process or procedure essay
+                                either tells how something is done
+                                or explains how something
+                                happens.</p>
+                            <p style="line-height: 0.8cm;">For this kind of writing, it is not
+                                necessary to mention the person
+                                or thing doing the action, rather
+                                the emphasis is placed on the
+                                action itself. Thus, passive
+                                constructions are important for
+                                this style of writing.</p>
+                            <p style="line-height: 0.8cm;">In IELTS Writing Task 1, you may be 
+                                asked to describe a process or a 
+                                procedure. The passive voice is 
+                                commonly used for these kinds of 
+                                descriptions.</p>
+                        </div>
+                        <div class="study-tips">
+                            <h3>Study Tips</h3>
+                            <p style="line-height: normal;">When describing a process or procedure  
+                                in IELTS Writing Task 1, it is important to  
+                                use passive constructions. This makes  
+                                your writing impersonal and, thus, more  
+                                formal. </p>
+                            <p style="line-height: 0.8cm;">For general descriptions of a process or  
+                                procedure, the present passive is  
+                                commonly used. </p>
+                            <p style="line-height: 0.8cm;">When reporting a particular procedure,  
+                                such as the procedure in conducting a  
+                                survey, past passive verb forms are  
+                                commonly used. </p>
+                            <p style="line-height: 0.8cm;">Remember to use sequence markers, for  
+                                example first, then, after that, finally.  
+                                These make your writing cohesive and  
+                                your sentences flow smoothly. </p>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <p>In passive constructions, the subject <b>receives</b> the action and the focus is on <b>what  
+                            happens</b> to the subject. The person or thing responsible for the action is either  
+                            unknown or unimportant.  
+                            </p>
+                    </div>
+
+                    <div class="box">
+                        <p>For example:</p>
+                        <p><b>Air pollution was investigated</b> in the study.</p>
+                        <p>Active and Passive Voice</p>
+                        <p>Active voice: subject of the sentence does the action and is called the agent</p>
+                        <p><strong>ABC television creened the English language series.
+                            <br>active form: subject/agent + verb + (+object)
+                        </strong></p>
+                        <p>Passive voice: subject receives the action, shifting the focus from the agent to the object </p>
+                        <p><strong>The English language series was screened by ABC television.
+                            <br>passive form: subject + be + past participle (+ by + agent)
+                        </strong></p>
+                    </div>
+
+                    <div class="box">
+                        <p>Active versus Passive Verb Forms</p>
+                        <table>
+                            <tr>
+                                <th>TENSES</th>
+                                <td><b>Active	Form</b></td>
+                                <td><b>Passive	Form</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Infinitive</b></td>
+                                <td>to	perform</td>
+                                <td><b>to	be</b> performed</td>
+                            </tr>
+                            <tr>
+                                <td><b>Simple	present</b></td>
+                                <td>perform(s)</td>
+                                <td><b>is/are</b> performed</td>
+                            </tr>
+                            <tr>
+                                <td><b>Simple	present	<br>continuous</b></td>
+                                <td>is/are	performing</td>
+                                <td><b>is/are	being</b> performed</td>
+                            </tr>
+                            <tr>
+                                <td><b>Present	perfect</b></td>
+                                <td>has/have	performed</td>
+                                <td><b>has/have	been</b> performed</td>
+                            </tr>
+                            <tr>
+                                <td><b>Simple	past</b></td>
+                                <td>performed</td>
+                                <td><b>was/were</b> performed</td>
+                            </tr>
+                            <tr>
+                                <td><b>Simple	past <br>continuous</b></td>
+                                <td>was/were	performing</td>
+                                <td><b>was/were	being</b> performed</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="box">
+                        <p>Compare the following <b>irregular past participle verb forms:</b></p>
+                        <table>
+                            <tr>
+                                <th>INFINITIVE</th>
+                                <td><b>Present	Participle</b></td>
+                                <td><b>Simple	Past</b></td>
+                                <td><b>Past	Participle</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>be</b></td>
+                                <td>being</td>
+                                <td>was/were</td>
+                                <td>been</td>
+                            </tr>
+                            <tr>
+                                <td><b>bend</b></td>
+                                <td>bending</td>
+                                <td>bent</td>
+                                <td>bent</td>
+                            </tr>
+                            <tr>
+                                <td><b>do</b></td>
+                                <td>doing</td>
+                                <td>did</td>
+                                <td>done</td>
+                            </tr>
+                            <tr>
+                                <td><b>draw</b></td>
+                                <td>drawing</td>
+                                <td>drew</td>
+                                <td>drawn</td>
+                            </tr>
+                            <tr>
+                                <td><b>give</b></td>
+                                <td>giving</td>
+                                <td>gave</td>
+                                <td>given</td>
+                            </tr>
+                            <tr>
+                                <td><b>grow</b></td>
+                                <td>growing</td>
+                                <td>grew</td>
+                                <td>grown</td>
+                            </tr>
+                            <tr>
+                                <td><b>have</b></td>
+                                <td>having</td>
+                                <td>had</td>
+                                <td>had</td>
+                            </tr>
+                            <tr>
+                                <td><b>hold</b></td>
+                                <td>holding</td>
+                                <td>held</td>
+                                <td>held</td>
+                            </tr>
+                            <tr>
+                                <td><b>make</b></td>
+                                <td>making</td>
+                                <td>made</td>
+                                <td>made</td>
+                            </tr>
+                            <tr>
+                                <td><b>prove</b></td>
+                                <td>proving</td>
+                                <td>proved</td>
+                                <td>proved/proven</td>
+                            </tr>
+                            <tr>
+                                <td><b>read</b></td>
+                                <td>reading</td>
+                                <td>read</td>
+                                <td>read</td>
+                            </tr>
+                            <tr>
+                                <td><b>shake</b></td>
+                                <td>shaking</td>
+                                <td>shook</td>
+                                <td>shaken</td>
+                            </tr>
+                            <tr>
+                                <td><b>teach</b></td>
+                                <td>teaching</td>
+                                <td>taught</td>
+                                <td>taught</td>
+                            </tr>
+                            <tr>
+                                <td><b>understand</b></td>
+                                <td>understanding</td>
+                                <td>understood</td>
+                                <td>understood</td>
+                            </tr>
+                            <tr>
+                                <td><b>write</b></td>
+                                <td>writing</td>
+                                <td>wrote</td>
+                                <td>written</td>
+                            </tr>
+                            
+                        </table>
+                    </div>
+
+                    <div class="box">
+                        <p>Passive	constructions	can	only	be	made	from	transitive verbs because	these	verbs	
+                            can	have	objects.		Examples	of	verbs	that	cannot	occur	with	passive	constructions	
+                            include:	happen,	occur,	seem,	die,	live.</p>
+                    </div>
+
+                </div>    
+            </div>
+        </div>
+
+        <!------------------------------------- Dropdownthree End --------------------------------------------->
+        
+</section>
+
+
+    <div class="nextepisode">
+        <a href="{{ url_for('episode8') }}"><button>Next Episode</button></a>
+    </div>
+
+ <!----Footer -------------------------------------------------------------> 
+
+ <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column1">
+            <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="logo">
+        </div>
+        <div class="footer-column2">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About us</a></li>
+                    <li><a href="{{ url_for('contact_us') }}">Contact us</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="footer-column3">
+            <p>d.mar.learn.net@gmail.com</p>
+            <p>09 941487000</p>
+            <div class="contact-box">
+                <a href="https://www.facebook.com/dmarlearn/" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/facebook_2.png') }}" alt="Facebook Color" class="social-icon-color">
+                </a>
+                <a href="https://www.t.me/dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/telegram.png') }}" alt="Telegram" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/telegram_2.png') }}" alt="Telegram Color" class="social-icon-color">
+                </a>
+                <a href="https://www.tiktok.com/@dmarlearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/tiktok.png') }}" alt="TikTok" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/tiktok_2.png') }}" alt="TikTok Color" class="social-icon-color">
+                </a>
+                <a href="https://www.youtube.com/@DMarLearn" class="social-link" target="_blank">
+                    <img src="{{ url_for('static', filename='img/you tube.png') }}" alt="YouTube" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/you tube_2.png') }}" alt="YouTube Color" class="social-icon-color">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright 2024</p>
+    </div>
+</footer>
+
+<!--------------------------------------------------------------------------------------------------------------->
+    
+</body>
+</html>

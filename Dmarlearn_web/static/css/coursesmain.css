@@ -1,0 +1,314 @@
+
+/* Episode One Bar Start */
+.episodeone-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    max-width: 1440px;
+    background-color: #ffffff;
+    padding: 20px; 
+    margin: 10px auto;
+}
+
+.episode-banner img {
+    width: 100%;
+    height: auto;
+    max-width: 100%; 
+}
+
+/* Episode One Bar End  */
+
+/* Starter Lessons Section start*/
+.starter-lessons {
+    padding: 40px;
+    max-width: 1320px;
+    margin: auto;
+    text-align: center;
+}
+
+.starter-title {
+    font-size: 40px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 32px;
+    text-align: left;
+}
+
+.starter-description {
+    font-size: 24px;
+    color: #5D5D5D;
+    margin-bottom: 68px;
+    text-align: left;
+    line-height: 150%;
+}
+
+.lessons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex-wrap: wrap; /* Wrap items if necessary */
+    gap: 40px;
+}
+
+.lesson-card {
+    background-color: #D6E9FF;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-direction: column; /* Stack children vertically */
+    align-items: flex-start; /* Align items to the start (left) */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+    text-decoration: none; /* Ensure links don't have underlines */
+    color: inherit; /* Ensure text color inherits */
+    border: 2px solid transparent;
+    transition: transform 0.3s ease;
+}
+
+.lesson-card:hover {
+    border: 2px solid #F3D24F;
+    transform: scale(1.02);
+}
+
+.lesson-image {
+    width: 250px;
+    height: auto;
+    float: left;
+    padding: 16px;
+}
+
+.lesson-badge{
+    position: absolute;
+    margin-left: 38%;
+    margin-bottom: 20%;
+}
+
+/* 1 */
+.lesson-badge1 {
+    position: absolute;
+    z-index: 10; 
+    margin: -25px 550px;
+    width: 70px;
+}
+
+/* 2 */
+.lesson-badge2 {
+    position: absolute;
+    z-index: 10; 
+    margin: -25px 1190px;
+    width: 70px;
+}
+
+.lesson-content {
+    padding: 24px;
+    text-align: left;
+}
+
+.lesson-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #343434;
+}
+
+.lesson-episode {
+    font-size: 24px;
+    color: #777777;
+    margin-bottom: 16px;
+}
+
+.lesson-category {
+    font-size: 20px;
+    color: #7CB7FF;
+    font-weight: bold;
+}
+
+/* Starter lesson end */
+
+
+/* lesson 3-16 */
+
+.included-payment-container{
+    padding: 40px;
+    max-width: 1320px;
+    margin: auto;
+    text-align: center;
+}
+
+.subtitle-included-payment{
+    font-size: 24px;
+    padding: 50px 0px 18px 0px;
+    color: 343434;
+}
+
+.maintitle-included-payment{
+    font-size: 48px;
+    padding: 0px 0px 40px 0px;
+    font-weight: bold;
+    color: 343434;
+}
+
+/* 3 */
+.lesson-badge3 {
+    position: absolute;
+    z-index: 10; 
+    margin: -20px 550px;
+    width: 70px;
+}
+
+/* 4 */
+.lesson-badge4 {
+    position: absolute;
+    z-index: 10;
+    margin: -20px 1190px;
+    width: 70px;
+}
+
+.lesson-badge4 img {
+    width: 70px;
+}
+
+/* 5 */
+.lesson-badge5 {
+    position: absolute;
+    z-index: 10; 
+    margin: 170px 550px;
+    width: 70px;
+}
+
+/* 6 */
+.lesson-badge6 {
+    position: absolute;
+    z-index: 10; 
+    margin: 170px 1190px;
+    width: 70px;
+}
+
+/* 11 */
+.lesson-badge11 {
+    position: absolute;
+    z-index: 10; 
+    margin: 370px 550px;
+    width: 70px;
+}
+
+/* 12 */
+.lesson-badge12 {
+    position: absolute;
+    z-index: 10; 
+    margin: 370px 1190px;
+    width: 70px;
+}
+
+/* 13 */
+.lesson-badge13 {
+    position: absolute;
+    z-index: 10; 
+    margin: 570px 550px;
+    width: 70px;
+}
+
+/* 14 */
+.lesson-badge14 {
+    position: absolute;
+    z-index: 10; 
+    margin: 570px 1190px;
+    width: 70px;
+}
+
+/* 15 */
+.lesson-badge15 {
+    position: absolute;
+    z-index: 10; 
+    margin: 770px 550px;
+    width: 70px;
+}
+
+/* 16 */
+.lesson-badge16 {
+    position: absolute;
+    z-index: 10; 
+    margin: 770px 1190px;
+    width: 70px;
+}
+
+/* lesson 3 - 16 end */
+
+/* play & learn start */
+
+.play-learn {
+    padding: 40px;
+    max-width: 1320px;
+    margin: auto;
+    text-align: left;
+    
+}
+
+.play-learn-title {
+    font-size: 40px;
+    text-align: left;
+    color: #333;
+    margin-bottom: 40px;
+    margin-top: 82px;
+}
+
+.game-card {
+    display: flex;
+    align-items: left;
+}
+
+.image-container img {
+    max-width: 419px;
+    border-radius: 10px;
+}
+
+.content1 {
+    padding-left: 40px;
+    padding-top: 40px;
+    margin-left: 20px;
+    flex-grow: 1;
+}
+
+.content1 h2 {
+    color: #333;
+    font-size: 48px;
+    margin-bottom: 28px;
+}
+
+.content1 p {
+    color: #666;
+    font-size: 24px;
+    margin-bottom: 40px;
+}
+
+.content2 {
+    padding-top: 80px;
+    margin-left: 20px;
+    flex-grow: 1;
+}
+
+.content2 h2 {
+    color: #333;
+    font-size: 48px;
+    margin-bottom: 28px;
+}
+
+.content2 p {
+    color: #666;
+    font-size: 24px;
+    margin-bottom: 40px;
+}
+
+.btn {
+    font-size: 30px;
+    display: inline-block;
+    background-color: #7CB7FF;
+    color: #fff;
+    padding: 16px 30px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #F3D24F;
+}
