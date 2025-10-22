@@ -1,8 +1,6 @@
-pip install python
-
-pip install Flask
-pip install authlib
-pip install Flask-SQLAlchemy
-pip install Flask-Migrate
-
-pip install gunicorn
+python
+Flask
+authlib
+Flask-SQLAlchemy
+Flask-Migrate
+gunicorn
