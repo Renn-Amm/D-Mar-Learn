@@ -1,4 +1,3 @@
-python
 Flask
 authlib
 Flask-SQLAlchemy
