@@ -3,3 +3,4 @@ authlib
 Flask-SQLAlchemy
 Flask-Migrate
 gunicorn
+requests
